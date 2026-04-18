@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content">
-<title>TN 2026 — Voter Intelligence Platform</title>
+<title>TN 2026 â€” Voter Intelligence Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
@@ -14,7 +14,7 @@
     if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u')||(e.ctrlKey&&e.key==='s'))
     {e.preventDefault();return false;}
   });
-  var dc=0;setInterval(function(){var s=performance.now();(function(){}).constructor('debugger')();if(performance.now()-s>100){dc++;if(dc>2){document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#C8922A;font-size:24px;background:#080810;text-align:center;padding:40px"><div><p style="font-size:48px;margin-bottom:20px">🔒</p><p>Developer tools detected.</p><p style="font-size:16px;color:#505070;margin-top:12px">This content is protected. Please close developer tools to continue.</p></div></div>';}}},1500);
+  var dc=0;setInterval(function(){var s=performance.now();(function(){}).constructor('debugger')();if(performance.now()-s>100){dc++;if(dc>2){document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#C8922A;font-size:24px;background:#080810;text-align:center;padding:40px"><div><p style="font-size:48px;margin-bottom:20px">ðŸ”’</p><p>Developer tools detected.</p><p style="font-size:16px;color:#505070;margin-top:12px">This content is protected. Please close developer tools to continue.</p></div></div>';}}},1500);
   document.addEventListener('dragstart',function(e){e.preventDefault();});
   document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA')e.preventDefault();});
 })();
@@ -59,7 +59,7 @@ a:hover{text-decoration:underline}
 img{max-width:100%;display:block}
 ::selection{background:var(--gold);color:#000}
 
-/* ═══ NAVIGATION ═══ */
+/* â•â•â• NAVIGATION â•â•â• */
 .global-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
   background:rgba(8,8,16,.92);backdrop-filter:blur(24px) saturate(200%);
   border-bottom:1px solid var(--bdr);display:flex;align-items:center;
@@ -85,17 +85,17 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
   align-items:center;justify-content:center;transition:all var(--fast)}
 .theme-toggle:hover{background:var(--bg3);color:var(--t1)}
 
-/* ═══ SCROLL REVEAL ═══ */
+/* â•â•â• SCROLL REVEAL â•â•â• */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity var(--slow),transform var(--slow)}
 .reveal.visible{opacity:1;transform:none}
 .reveal-d1{transition-delay:100ms}.reveal-d2{transition-delay:200ms}
 .reveal-d3{transition-delay:300ms}.reveal-d4{transition-delay:400ms}
 
-/* ═══ MODULE CONTAINERS ═══ */
+/* â•â•â• MODULE CONTAINERS â•â•â• */
 .module{display:none;padding-top:var(--nav-h)}
 .module.active{display:block}
 
-/* ═══ SECTION HELPERS ═══ */
+/* â•â•â• SECTION HELPERS â•â•â• */
 .section{padding:5rem 1.5rem;max-width:1200px;margin:0 auto}
 .section-dark{background:var(--bg0)}
 .section-mid{background:var(--bg1)}
@@ -110,14 +110,14 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
 .text-sm{font-size:.82rem;color:var(--t3)}
 .mono{font-family:var(--mono)}
 
-/* ═══ STAT PILLS ═══ */
+/* â•â•â• STAT PILLS â•â•â• */
 .stat-pills{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem}
 .stat-pill{background:var(--bg3);border:1px solid var(--bdr2);border-radius:12px;
   padding:.6rem 1.2rem;display:flex;flex-direction:column;align-items:center;min-width:120px}
 .stat-pill .num{font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--gold)}
 .stat-pill .lbl{font-size:.7rem;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;margin-top:.15rem}
 
-/* ═══ HERO SECTIONS ═══ */
+/* â•â•â• HERO SECTIONS â•â•â• */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
   position:relative;overflow:hidden;text-align:center;padding:6rem 1.5rem}
 .hero-content{max-width:800px;position:relative;z-index:2}
@@ -129,7 +129,7 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
   opacity:.06;animation:slow-rotate 120s linear infinite;pointer-events:none}
 @keyframes slow-rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
-/* ═══ PARTY SCORECARDS ═══ */
+/* â•â•â• PARTY SCORECARDS â•â•â• */
 .scorecard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
 .party-card{background:var(--bg2);border-radius:16px;padding:1.5rem;border:1px solid var(--bdr);
   box-shadow:var(--s1);transition:all var(--base);overflow:hidden;position:relative}
@@ -148,7 +148,7 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
 .verdict-box{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--bdr);font-size:.82rem;color:var(--t2);line-height:1.65}
 .verdict-box strong{color:var(--t1)}
 
-/* ═══ DATA TABLES ═══ */
+/* â•â•â• DATA TABLES â•â•â• */
 .data-table{width:100%;border-collapse:collapse;font-size:.85rem}
 .data-table th{padding:.65rem .75rem;text-align:left;color:var(--t3);font-weight:600;font-size:.75rem;
   text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--bdr2);background:var(--bg2)}
@@ -156,14 +156,14 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
 .data-table tr:hover td{background:var(--bg3)}
 .table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);background:var(--bg2)}
 
-/* ═══ PARTY TAGS ═══ */
+/* â•â•â• PARTY TAGS â•â•â• */
 .ptag{display:inline-block;padding:.1rem .45rem;border-radius:5px;font-size:.72rem;font-weight:600}
 .ptag-dmk{background:var(--dmk-gl);color:var(--dmk-l)}
 .ptag-admk{background:var(--admk-gl);color:var(--admk-l)}
 .ptag-tvk{background:var(--tvk-gl);color:var(--tvk-l)}
 .ptag-ntk{background:var(--ntk-gl);color:var(--ntk-l)}
 
-/* ═══ STRESS CARDS ═══ */
+/* â•â•â• STRESS CARDS â•â•â• */
 .stress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
 .stress-card{background:var(--bg2);border-radius:14px;padding:1.25rem;border:1px solid var(--bdr);
   position:relative;overflow:hidden;transition:all var(--base)}
@@ -172,24 +172,24 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
 .sc-metric{font-size:.85rem;margin:.35rem 0;color:var(--t2)}
 .sc-metric .val{font-weight:600;color:var(--t1)}
 
-/* ═══ IDEAL MANIFESTO TABLE ═══ */
+/* â•â•â• IDEAL MANIFESTO TABLE â•â•â• */
 .ideal-card{background:linear-gradient(135deg,rgba(46,125,50,.08),rgba(200,146,42,.05));
   border:1px solid rgba(46,125,50,.2);border-radius:14px;padding:1.5rem;margin-top:1.5rem}
 
-/* ═══ MISSING POLICIES ═══ */
+/* â•â•â• MISSING POLICIES â•â•â• */
 .missing-item{padding:1.25rem 0;border-bottom:1px solid var(--bdr)}
 .missing-item:last-child{border-bottom:none}
 .missing-item h4{font-size:.95rem;font-weight:600;margin-bottom:.35rem}
 .missing-item p{font-size:.85rem;color:var(--t2);line-height:1.65}
 .cost-tag{color:var(--gold);font-weight:600}
 
-/* ═══ CHART CONTAINERS ═══ */
+/* â•â•â• CHART CONTAINERS â•â•â• */
 .chart-box{background:var(--bg2);border-radius:14px;border:1px solid var(--bdr);padding:1.5rem;margin-bottom:1rem}
 .chart-box h4{font-size:.95rem;font-weight:600;margin-bottom:1rem}
 .chart-wrap{position:relative;height:300px}
 .charts-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
 
-/* ═══ MODULE 2 — SEARCH BAR ═══ */
+/* â•â•â• MODULE 2 â€” SEARCH BAR â•â•â• */
 .hero-search-wrap{position:relative;max-width:600px;margin:2.5rem auto 0}
 .hero-search{width:100%;height:56px;border-radius:28px;border:2px solid var(--bdr2);
   background:var(--bg2);color:var(--t1);padding:0 1.5rem 0 3rem;font-size:1.05rem;
@@ -208,12 +208,12 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
 .dd-item .dd-name{font-weight:500}.dd-item .dd-count{font-size:.75rem;color:var(--t3);font-family:var(--mono)}
 .dd-item mark{background:var(--gold-dim);color:var(--gold);border-radius:2px;padding:0 1px}
 
-/* ═══ DATA FRESHNESS BANNER ═══ */
+/* â•â•â• DATA FRESHNESS BANNER â•â•â• */
 .freshness-banner{background:var(--bg3);border-bottom:1px solid var(--bdr);padding:.6rem 1.5rem;
   font-size:.78rem;color:var(--t2);display:flex;align-items:center;justify-content:center;gap:.5rem}
 .freshness-banner a{color:var(--gold)}.freshness-banner .dismiss{cursor:pointer;margin-left:1rem;color:var(--t3);font-size:1.1rem}
 
-/* ═══ CONSTITUENCY BROWSER ═══ */
+/* â•â•â• CONSTITUENCY BROWSER â•â•â• */
 .district-pills{display:flex;gap:.5rem;overflow-x:auto;padding:.5rem 0;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .district-pills::-webkit-scrollbar{display:none}
 .dist-pill{padding:.4rem .85rem;border-radius:20px;border:1px solid var(--bdr2);font-size:.78rem;
@@ -231,7 +231,7 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
 .party-dots{display:flex;gap:3px;margin-top:.4rem}
 .party-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-/* ═══ CONSTITUENCY DETAIL ═══ */
+/* â•â•â• CONSTITUENCY DETAIL â•â•â• */
 #constituency-detail{display:none}
 .cd-header{border-radius:16px;padding:2rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
 .cd-back{display:inline-flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--t2);
@@ -242,7 +242,7 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
 .cd-stats{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
 .cd-stat{background:rgba(255,255,255,.12);border-radius:8px;padding:.4rem .8rem;font-size:.78rem;color:#fff;font-weight:500}
 
-/* ═══ CANDIDATE CARDS ═══ */
+/* â•â•â• CANDIDATE CARDS â•â•â• */
 .cand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem}
 .cand-card{background:var(--bg2);border-radius:14px;border:1px solid var(--bdr);
   overflow:hidden;transition:all var(--base)}
@@ -262,14 +262,14 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
   color:var(--t3);text-align:center;transition:all var(--fast)}
 .cand-link:hover{background:var(--bg3);color:var(--gold);text-decoration:none}
 
-/* ═══ STATEWIDE STATS ═══ */
+/* â•â•â• STATEWIDE STATS â•â•â• */
 .stat-cards-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem}
 .stat-card-big{background:var(--bg2);border-radius:14px;padding:1.25rem;border:1px solid var(--bdr);text-align:center}
 .stat-card-big .big-num{font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--gold)}
 .stat-card-big .big-label{font-size:.78rem;color:var(--t2);margin-top:.25rem}
 .stat-card-big .big-note{font-size:.68rem;color:var(--t3);margin-top:.15rem}
 
-/* ═══ FILTER SECTION ═══ */
+/* â•â•â• FILTER SECTION â•â•â• */
 .filter-panel{background:var(--bg2);border-radius:16px;padding:1.5rem;border:1px solid var(--bdr)}
 .filter-row{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin-bottom:1rem}
 .filter-row label{font-size:.85rem;color:var(--t2);min-width:120px}
@@ -283,7 +283,7 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
 .q-chip:hover{border-color:var(--gold);color:var(--gold)}
 .filter-results-count{font-size:.85rem;color:var(--t2);margin:1rem 0}
 
-/* ═══ FULL TABLE ═══ */
+/* â•â•â• FULL TABLE â•â•â• */
 .full-table-wrap{overflow-x:auto}
 .full-table{width:100%;border-collapse:collapse;font-size:.8rem}
 .full-table th{padding:.55rem .6rem;text-align:left;font-size:.7rem;font-weight:600;
@@ -304,12 +304,12 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
   background:none;color:var(--t2);font-size:.82rem;cursor:pointer;transition:all var(--fast);font-family:var(--sans)}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
 
-/* ═══ DISCLAIMER ═══ */
+/* â•â•â• DISCLAIMER â•â•â• */
 .disclaimer{background:rgba(200,146,42,.08);border:1px solid rgba(200,146,42,.2);border-radius:12px;
   padding:1rem 1.25rem;font-size:.82rem;color:var(--t2);line-height:1.6}
 .disclaimer strong{color:var(--gold)}
 
-/* ═══ FOOTER ═══ */
+/* â•â•â• FOOTER â•â•â• */
 .site-footer{background:#030308;padding:4rem 1.5rem 2rem;border-top:1px solid var(--bdr)}
 body.light .site-footer{background:#e8e8f0}
 .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem}
@@ -321,16 +321,60 @@ body.light .site-footer{background:#e8e8f0}
 .footer-disclaimer{max-width:1200px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--bdr);
   font-size:.72rem;color:var(--t3);line-height:1.7;text-align:center}
 
-/* ═══ LOADING SPINNER ═══ */
+/* â•â•â• LOADING SPINNER â•â•â• */
 .spinner{display:inline-flex;gap:4px;align-items:center;height:20px}
 .spinner i{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:bounce .6s infinite alternate}
 .spinner i:nth-child(2){animation-delay:.15s}.spinner i:nth-child(3){animation-delay:.3s}
 @keyframes bounce{to{transform:translateY(-8px);opacity:.3}}
 
-/* ═══ LOAD MORE ═══ */
+/* â•â•â• LOAD MORE â•â•â• */
 .load-more{display:block;margin:1.5rem auto;padding:.65rem 2rem}
 
-/* ═══ RESPONSIVE ═══ */
+/* â•â•â• SOCIAL PULSE & FORECAST â•â•â• */
+.pulse-hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.9rem;margin-bottom:1.75rem}
+.pulse-tile{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:1.1rem 1.1rem 1.05rem;position:relative;overflow:hidden}
+.pulse-tile .p-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);margin-bottom:.35rem}
+.pulse-tile .p-num{font-family:var(--mono);font-size:1.55rem;font-weight:700;color:var(--gold);line-height:1.1}
+.pulse-tile .p-sub{font-size:.72rem;color:var(--t2);margin-top:.3rem;line-height:1.45}
+
+.forecast-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem}
+.fc-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:1.2rem;position:relative}
+.fc-card.fav{border-color:rgba(200,146,42,.45);box-shadow:0 0 0 1px rgba(200,146,42,.12) inset}
+.fc-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.8rem}
+.fc-name{font-size:.92rem;font-weight:600;color:var(--t1)}
+.fc-prob{font-family:var(--mono);font-size:.82rem;color:var(--gold);background:rgba(200,146,42,.12);padding:2px 9px;border-radius:20px;border:1px solid rgba(200,146,42,.3)}
+.fc-bar{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--bg3);margin-bottom:.9rem}
+.fc-bar span{display:block;height:100%}
+.fc-row{display:grid;grid-template-columns:1fr auto;gap:.35rem;font-size:.78rem;padding:.3rem 0;border-bottom:1px solid var(--bdr)}
+.fc-row:last-child{border-bottom:none}
+.fc-row .ptag{font-size:.68rem;padding:1px 7px}
+.fc-row .share{font-family:var(--mono);color:var(--t1);font-weight:600}
+.fc-row .seat{font-family:var(--mono);color:var(--t2);font-size:.72rem}
+.fc-note{font-size:.72rem;color:var(--t3);margin-top:.75rem;line-height:1.55;padding-top:.7rem;border-top:1px solid var(--bdr)}
+
+.winner-card{background:linear-gradient(135deg,rgba(200,146,42,.08),rgba(200,146,42,.02));
+  border:1px solid rgba(200,146,42,.3);border-radius:16px;padding:1.4rem 1.5rem;margin-bottom:1.5rem}
+.winner-card h3{font-size:1.15rem;font-weight:700;color:var(--t1);margin-bottom:.5rem}
+.winner-card .win-bar-wrap{margin-top:.9rem}
+.win-bar{display:flex;height:34px;border-radius:10px;overflow:hidden;background:var(--bg3);border:1px solid var(--bdr)}
+.win-bar span{display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:600;color:#fff;padding:0 .4rem;text-align:center;line-height:1.1}
+.win-legend{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:.7rem;font-size:.73rem;color:var(--t2)}
+.win-legend b{font-family:var(--mono);color:var(--t1);margin-right:.25rem}
+
+.pulse-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:.5rem}
+.pulse-table th,.pulse-table td{padding:.55rem .7rem;border-bottom:1px solid var(--bdr);text-align:left;white-space:nowrap}
+.pulse-table th{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);background:var(--bg1);font-weight:600}
+.pulse-table td.num{font-family:var(--mono);text-align:right;color:var(--t1)}
+.pulse-table tbody tr:hover td{background:var(--bg3)}
+
+@media(max-width:600px){
+  .pulse-hero{grid-template-columns:repeat(2,1fr)}
+  .pulse-table{font-size:.72rem}
+  .pulse-table th,.pulse-table td{padding:.45rem .5rem}
+  .win-bar span{font-size:.62rem}
+}
+
+/* â•â•â• RESPONSIVE â•â•â• */
 @media(max-width:768px){
   .global-nav{padding:0 .75rem}
   .nav-center{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,16,.95);
@@ -349,7 +393,7 @@ body.light .site-footer{background:#e8e8f0}
   .filter-row label{min-width:auto}
   .charts-2col{grid-template-columns:1fr}
 }
-/* ═══ TOOLTIPS ═══ */
+/* â•â•â• TOOLTIPS â•â•â• */
 .tip{position:relative;border-bottom:1px dashed var(--gold);cursor:help;color:var(--gold)}
 .tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--bg3);color:var(--t1);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:6px;border:1px solid var(--bdr2);white-space:normal;width:max-content;max-width:300px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:200;font-family:var(--sans);font-weight:400;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 .tip:hover::after{opacity:1}
@@ -358,7 +402,7 @@ body.light .site-footer{background:#e8e8f0}
 </head>
 <body>
 
-<!-- ═══════════════════════ NAVIGATION ═══════════════════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• NAVIGATION â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <nav class="global-nav" id="global-nav">
   <div class="nav-left">
     <svg class="lamp-icon" viewBox="0 0 28 36" fill="none">
@@ -374,23 +418,23 @@ body.light .site-footer{background:#e8e8f0}
   </div>
   <div class="nav-center">
     <div class="tab-switcher">
-      <button class="tab-btn active" data-module="manifesto">📊 Manifesto Analysis</button>
-      <button class="tab-btn" data-module="candidates">🗳️ Know Your Candidate</button>
-      <button class="tab-btn" data-module="deepdive">📖 Deep Dive</button>
+      <button class="tab-btn active" data-module="manifesto">ðŸ“Š Manifesto Analysis</button>
+      <button class="tab-btn" data-module="candidates">ðŸ—³ï¸ Know Your Candidate</button>
+      <button class="tab-btn" data-module="deepdive">ðŸ“– Deep Dive</button>
     </div>
   </div>
   <div class="nav-right">
     <span class="date-chip">23 Apr 2026</span>
-    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">ðŸŒ™</button>
   </div>
 </nav>
 
-<!-- ╔═══════════════════════════════════════════════════════════╗
-     ║  MODULE 1 — MANIFESTO ANALYSIS                          ║
-     ╚═══════════════════════════════════════════════════════════╝ -->
+<!-- â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
+     â•‘  MODULE 1 â€” MANIFESTO ANALYSIS                          â•‘
+     â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="module active" id="module-manifesto">
 
-<!-- § HERO -->
+<!-- Â§ HERO -->
 <section class="hero section-dark">
   <div class="hero-content reveal">
     <span class="label">Manifesto Analysis</span>
@@ -400,12 +444,198 @@ body.light .site-footer{background:#e8e8f0}
       <div class="stat-pill"><span class="num">4</span><span class="lbl">Parties</span></div>
       <div class="stat-pill"><span class="num">174</span><span class="lbl">Schemes</span></div>
       <div class="stat-pill"><span class="num">7</span><span class="lbl">Batches</span></div>
-      <div class="stat-pill"><span class="num">₹10.71L Cr</span><span class="lbl">TN Debt</span></div>
+      <div class="stat-pill"><span class="num">â‚¹10.71L Cr</span><span class="lbl">TN Debt</span></div>
     </div>
   </div>
 </section>
 
-<!-- § FISCAL ANCHOR -->
+<!-- Â§ SOCIAL PULSE & 2026 FORECAST -->
+<section class="section section-mid" id="m1-forecast">
+  <div class="reveal">
+    <span class="label">Social Pulse Â· 2026 Forecast</span>
+    <h2 class="display-lg" style="margin-bottom:.5rem">Who is likely to win Tamil Nadu 2026?</h2>
+    <p class="text-muted" style="margin-bottom:1.5rem">A scenario-weighted forecast built from the <strong>2021 ECI baseline</strong>, projected electorate growth, published turnout history, and the two big new variables this cycle â€” <strong>TVK's entry</strong> and the <strong>ADMKâ€“BJP alliance status</strong>. These are <em>probability ranges, not a prediction</em>. Read each scenario, then look at the weighted headline below.</p>
+
+    <!-- Top anchor tiles -->
+    <div class="pulse-hero">
+      <div class="pulse-tile">
+        <div class="p-lbl">Projected Electorate</div>
+        <div class="p-num">6.42 Cr</div>
+        <div class="p-sub">Total registered voters (ECI rolls, 2026). 2021 baseline: 6.27 Cr.</div>
+      </div>
+      <div class="pulse-tile">
+        <div class="p-lbl">Expected Turnout</div>
+        <div class="p-num">73â€“75%</div>
+        <div class="p-sub">Band of last 3 TN Assembly polls (2011: 77.8% Â· 2016: 74.3% Â· 2021: 72.8%). â‰ˆ <strong>4.69â€“4.82 Cr votes cast.</strong></div>
+      </div>
+      <div class="pulse-tile">
+        <div class="p-lbl">Seats in Play</div>
+        <div class="p-num">234</div>
+        <div class="p-sub">Majority mark: <strong>118 seats</strong>. No single party has crossed it alone since 2011.</div>
+      </div>
+      <div class="pulse-tile">
+        <div class="p-lbl">Incumbent (2021)</div>
+        <div class="p-num">DMK +</div>
+        <div class="p-sub">159/234 seats Â· 45.38% vote share Â· â‚¹2.08 Cr votes. Facing first-term anti-incumbency.</div>
+      </div>
+    </div>
+
+    <!-- Weighted headline: who wins -->
+    <div class="winner-card reveal">
+      <h3>ðŸ† Probability-weighted outcome</h3>
+      <p class="text-muted" style="font-size:.88rem;line-height:1.7">Combining all three scenarios below, weighted by their likelihood, the most probable outcome is a <strong style="color:var(--t1)">DMK-led alliance win with a reduced but clear majority (~128 seats, ~41.5% vote share, â‰ˆ1.96 Cr votes)</strong>. But the range is wide enough that a hung house or an ADMK-front upset is not ruled out.</p>
+      <div class="win-bar-wrap">
+        <div class="win-bar">
+          <span style="background:#E53935;width:62%" title="DMK alliance wins majority">DMK+ wins Â· 62%</span>
+          <span style="background:#43A047;width:22%" title="ADMK-led alliance wins">ADMK+ wins Â· 22%</span>
+          <span style="background:#8E24AA;width:13%" title="Hung assembly â€” post-poll coalition">Hung Â· 13%</span>
+          <span style="background:#FB8C00;width:3%" title="TVK surprise">TVK surge Â· 3%</span>
+        </div>
+        <div class="win-legend">
+          <span><b style="color:#E53935">â– </b>DMK-led SPA retains power (most likely)</span>
+          <span><b style="color:#43A047">â– </b>ADMK-led front stages a comeback</span>
+          <span><b style="color:#8E24AA">â– </b>No single bloc reaches 118 â€” coalition talks</span>
+          <span><b style="color:#FB8C00">â– </b>TVK breaks 50-seat barrier</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three scenario cards -->
+    <div class="forecast-grid reveal">
+
+      <!-- Scenario 1: Base case -->
+      <div class="fc-card fav">
+        <div class="fc-head">
+          <div class="fc-name">Scenario A Â· Welfare holds, TVK splits opposition</div>
+          <div class="fc-prob">50%</div>
+        </div>
+        <div class="fc-bar">
+          <span style="background:#E53935;width:42%"></span>
+          <span style="background:#43A047;width:32%"></span>
+          <span style="background:#FB8C00;width:9%"></span>
+          <span style="background:#8E24AA;width:7%"></span>
+          <span style="background:#546E7A;width:10%"></span>
+        </div>
+        <div class="fc-row"><span><span class="ptag ptag-dmk">DMK+</span> retains</span><span class="share">40â€“44%<br><span class="seat">130â€“150 seats Â· 1.88â€“2.06 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-admk">ADMK+</span> recovers partly</span><span class="share">30â€“34%<br><span class="seat">55â€“75 seats Â· 1.41â€“1.60 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-tvk">TVK</span> debut</span><span class="share">7â€“10%<br><span class="seat">2â€“8 seats Â· 33â€“47 L votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-ntk">NTK</span> + others</span><span class="share">15â€“19%<br><span class="seat">0â€“4 seats Â· 70â€“90 L votes</span></span></div>
+        <div class="fc-note">Welfare schemes (Magalir Urimai, breakfast, dialysis) blunt anti-incumbency. Vijay's TVK eats into ADMK's urban youth base more than DMK's SHG-women base. BJP stays separate â†’ ADMK cap ~34%.</div>
+      </div>
+
+      <!-- Scenario 2: ADMK+BJP tight race -->
+      <div class="fc-card">
+        <div class="fc-head">
+          <div class="fc-name">Scenario B Â· ADMK+BJP re-unite, tight race</div>
+          <div class="fc-prob">30%</div>
+        </div>
+        <div class="fc-bar">
+          <span style="background:#E53935;width:39%"></span>
+          <span style="background:#43A047;width:38%"></span>
+          <span style="background:#FB8C00;width:10%"></span>
+          <span style="background:#546E7A;width:13%"></span>
+        </div>
+        <div class="fc-row"><span><span class="ptag ptag-dmk">DMK+</span></span><span class="share">37â€“41%<br><span class="seat">100â€“125 seats Â· 1.74â€“1.92 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-admk">ADMK+BJP</span> consolidated</span><span class="share">36â€“40%<br><span class="seat">90â€“115 seats Â· 1.69â€“1.88 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-tvk">TVK</span></span><span class="share">8â€“12%<br><span class="seat">4â€“12 seats Â· 38â€“56 L votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-ntk">NTK</span> + others</span><span class="share">12â€“16%<br><span class="seat">0â€“2 seats Â· 56â€“75 L votes</span></span></div>
+        <div class="fc-note">Double anti-incumbency (DMK at Centre-state optics + local fatigue) plus a unified ADMK-BJP-PMK front. TN last saw a decisive re-election in 1984 (MGR). A gap under 5 points usually means <strong>hung assembly</strong>.</div>
+      </div>
+
+      <!-- Scenario 3: TVK surge -->
+      <div class="fc-card">
+        <div class="fc-head">
+          <div class="fc-name">Scenario C Â· TVK breakout, opposition fragments</div>
+          <div class="fc-prob">20%</div>
+        </div>
+        <div class="fc-bar">
+          <span style="background:#E53935;width:40%"></span>
+          <span style="background:#43A047;width:27%"></span>
+          <span style="background:#FB8C00;width:18%"></span>
+          <span style="background:#546E7A;width:15%"></span>
+        </div>
+        <div class="fc-row"><span><span class="ptag ptag-dmk">DMK+</span></span><span class="share">38â€“42%<br><span class="seat">105â€“130 seats Â· 1.78â€“1.97 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-admk">ADMK+</span> erodes</span><span class="share">25â€“30%<br><span class="seat">40â€“60 seats Â· 1.17â€“1.41 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-tvk">TVK</span> surges</span><span class="share">15â€“22%<br><span class="seat">25â€“50 seats Â· 70 Lâ€“1.03 Cr votes</span></span></div>
+        <div class="fc-row"><span><span class="ptag ptag-ntk">NTK</span> + others</span><span class="share">12â€“16%<br><span class="seat">0â€“2 seats Â· 56â€“75 L votes</span></span></div>
+        <div class="fc-note">Mirrors MNM 2021 hype Ã— 3. Vijay's fan base converts to votes in urban + western TN. ADMK's non-core vote collapses; DMK still largest block thanks to alliance arithmetic (Congress, VCK, Left, MDMK).</div>
+      </div>
+
+    </div>
+
+    <!-- Detailed vote-share & seat-share table -->
+    <div class="chart-box reveal" style="padding:1.25rem 1.25rem 1rem">
+      <h4 style="margin-bottom:.75rem">Weighted central estimate (single-row verdict)</h4>
+      <div style="overflow-x:auto">
+      <table class="pulse-table">
+        <thead>
+          <tr>
+            <th>Alliance / Party</th>
+            <th>Vote share</th>
+            <th>Est. votes</th>
+            <th>Seats</th>
+            <th>vs 2021</th>
+            <th>Win prob.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="ptag ptag-dmk">DMK</span> + Congress + VCK + Left + MDMK</td>
+            <td class="num">41.5%</td>
+            <td class="num">~1.96 Cr</td>
+            <td class="num">120â€“140</td>
+            <td class="num" style="color:var(--exclude)">âˆ’3.9 pp</td>
+            <td class="num" style="color:var(--gold)"><strong>62%</strong></td>
+          </tr>
+          <tr>
+            <td><span class="ptag ptag-admk">ADMK</span> + (BJP?) + PMK + DMDK</td>
+            <td class="num">33.0%</td>
+            <td class="num">~1.56 Cr</td>
+            <td class="num">65â€“95</td>
+            <td class="num" style="color:var(--include)">âˆ’6.7 pp</td>
+            <td class="num">22%</td>
+          </tr>
+          <tr>
+            <td><span class="ptag ptag-tvk">TVK</span> (Vijay, solo debut)</td>
+            <td class="num">10.5%</td>
+            <td class="num">~49 L</td>
+            <td class="num">5â€“20</td>
+            <td class="num" style="color:var(--include)">new</td>
+            <td class="num">3%</td>
+          </tr>
+          <tr>
+            <td><span class="ptag ptag-ntk">NTK</span> (Seeman, solo)</td>
+            <td class="num">7.0%</td>
+            <td class="num">~33 L</td>
+            <td class="num">0â€“1</td>
+            <td class="num" style="color:var(--exclude)">+0.5 pp</td>
+            <td class="num">&lt;1%</td>
+          </tr>
+          <tr>
+            <td>Others / Ind.</td>
+            <td class="num">8.0%</td>
+            <td class="num">~38 L</td>
+            <td class="num">0â€“2</td>
+            <td class="num">â€”</td>
+            <td class="num">â€”</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="text-sm" style="margin-top:.9rem;color:var(--t3);line-height:1.6">
+        pp = percentage points. Vote counts are calculated on an <strong>expected 4.72 Cr valid votes</strong> (74% turnout of 6.42 Cr electorate). Seat ranges are derived by applying the vote-share bands to 2021 constituency-level margins â€” not a uniform-swing projection alone.
+      </p>
+    </div>
+
+    <!-- Methodology note -->
+    <div class="disclaimer reveal" style="margin-top:1.5rem">
+      <strong>How this forecast is built</strong> â€” This is a <em>scenario model</em>, not a survey or an exit poll. Inputs: (1) 2021 ECI official results â€” alliance, vote share and seat counts by constituency; (2) ECI 2024-25 voter-roll updates for electorate projection; (3) TN turnout history (1991â€“2021) for the turnout band; (4) published news coverage and neutral political commentary on the DMKâ€“Congress alliance, ADMKâ€“BJP status and TVK's maiden contest; (5) historical TN anti-incumbency pattern (first-term incumbents have been re-elected only twice since 1967 â€” MGR 1980, JJ 2016). Probabilities are assigned by weighting how closely each scenario's preconditions match verifiable facts available on the build date. Re-run the mammoth any time these change. <strong>This is not an endorsement.</strong> Use it to pressure-test your own reading of the ground.
+    </div>
+
+  </div>
+</section>
+
+<!-- Â§ FISCAL ANCHOR -->
 <section class="section section-mid">
   <div class="reveal">
     <span class="label">Fiscal Anchor Data</span>
@@ -414,32 +644,32 @@ body.light .site-footer{background:#e8e8f0}
     <div class="table-wrap">
       <table class="data-table">
         <tr><th>Parameter</th><th>Value</th><th>Source</th></tr>
-        <tr><td>TN Projected Debt (2027)</td><td><strong>₹10.71 lakh crore</strong></td><td>TN MTFP, RBI</td></tr>
-        <tr><td>Own Tax Revenue (FY25)</td><td><strong>~₹2.05 lakh crore/yr</strong></td><td>TN Budget 2025-26</td></tr>
-        <tr><td>Total Budget (FY25-26)</td><td><strong>~₹3.72 lakh crore</strong></td><td>TN Finance Dept</td></tr>
-        <tr><td>Capital Expenditure Budget</td><td><strong>~₹62,000 Cr</strong></td><td>TN Budget, RBI</td></tr>
-        <tr><td>TASMAC Revenue</td><td><strong>~₹40,000 Cr/yr</strong></td><td>TASMAC Annual Report</td></tr>
-        <tr><td>TANGEDCO Debt</td><td><strong>~₹1.25 lakh crore</strong></td><td>TANGEDCO, CAG</td></tr>
-        <tr><td>FRBM Headroom</td><td><strong>~₹25,000 Cr</strong></td><td>FRBM Act, RBI</td></tr>
+        <tr><td>TN Projected Debt (2027)</td><td><strong>â‚¹10.71 lakh crore</strong></td><td>TN MTFP, RBI</td></tr>
+        <tr><td>Own Tax Revenue (FY25)</td><td><strong>~â‚¹2.05 lakh crore/yr</strong></td><td>TN Budget 2025-26</td></tr>
+        <tr><td>Total Budget (FY25-26)</td><td><strong>~â‚¹3.72 lakh crore</strong></td><td>TN Finance Dept</td></tr>
+        <tr><td>Capital Expenditure Budget</td><td><strong>~â‚¹62,000 Cr</strong></td><td>TN Budget, RBI</td></tr>
+        <tr><td>TASMAC Revenue</td><td><strong>~â‚¹40,000 Cr/yr</strong></td><td>TASMAC Annual Report</td></tr>
+        <tr><td>TANGEDCO Debt</td><td><strong>~â‚¹1.25 lakh crore</strong></td><td>TANGEDCO, CAG</td></tr>
+        <tr><td>FRBM Headroom</td><td><strong>~â‚¹25,000 Cr</strong></td><td>FRBM Act, RBI</td></tr>
         <tr><td>Fertility Rate</td><td><strong>1.7</strong> (below 2.1 replacement)</td><td>NFHS-5</td></tr>
         <tr><td>Groundwater Over-exploited</td><td><strong>24 of 38 districts</strong></td><td>CGWB 2023</td></tr>
-        <tr><td>GIM 2024 MoUs</td><td><strong>₹6.6 lakh crore</strong></td><td>DPIIT, TN Industries</td></tr>
+        <tr><td>GIM 2024 MoUs</td><td><strong>â‚¹6.6 lakh crore</strong></td><td>DPIIT, TN Industries</td></tr>
       </table>
     </div>
   </div>
 </section>
 
-<!-- § PARTY SCORECARDS -->
+<!-- Â§ PARTY SCORECARDS -->
 <section class="section section-dark" id="m1-scorecards">
   <div class="reveal">
     <span class="label">Master Scorecard</span>
     <h2 class="display-lg" style="margin-bottom:.5rem">Four manifestos. One fiscal reality.</h2>
-    <p class="text-muted" style="margin-bottom:2rem">Scored across scheme quality, fiscal sustainability, and implementation feasibility. Fiscal sustainability is weighted as the primary metric — a bankrupt state cannot deliver on any promise.</p>
+    <p class="text-muted" style="margin-bottom:2rem">Scored across scheme quality, fiscal sustainability, and implementation feasibility. Fiscal sustainability is weighted as the primary metric â€” a bankrupt state cannot deliver on any promise.</p>
   </div>
   <div class="scorecard-grid" id="scorecard-grid"></div>
 </section>
 
-<!-- § FISCAL STRESS TEST -->
+<!-- Â§ FISCAL STRESS TEST -->
 <section class="section section-mid" id="m1-stress">
   <div class="reveal">
     <span class="label">Fiscal Stress Test</span>
@@ -448,31 +678,31 @@ body.light .site-footer{background:#e8e8f0}
   </div>
   <div class="stress-grid reveal" id="stress-grid"></div>
   <div class="charts-2col" style="margin-top:2rem">
-    <div class="chart-box reveal"><h4>Recurring Annual Burden (₹ Cr/yr)</h4><div class="chart-wrap"><canvas id="chart-burden"></canvas></div></div>
-    <div class="chart-box reveal"><h4>5-Year Debt Trajectory (₹ Lakh Cr)</h4><div class="chart-wrap"><canvas id="chart-debt"></canvas></div></div>
+    <div class="chart-box reveal"><h4>Recurring Annual Burden (â‚¹ Cr/yr)</h4><div class="chart-wrap"><canvas id="chart-burden"></canvas></div></div>
+    <div class="chart-box reveal"><h4>5-Year Debt Trajectory (â‚¹ Lakh Cr)</h4><div class="chart-wrap"><canvas id="chart-debt"></canvas></div></div>
   </div>
   <div class="chart-box reveal" style="margin-top:1rem">
     <h4>What Negative Capex Means for Citizens</h4>
     <div class="table-wrap">
       <table class="data-table">
         <tr><th>Party</th><th>Capex Remaining</th><th>Impact on Citizens</th></tr>
-        <tr><td><span class="ptag ptag-dmk">DMK</span></td><td style="color:var(--exclude)">−₹22,120 Cr</td><td>~35% of planned roads cut, 2-3yr Chennai Metro Phase 2 delay</td></tr>
-        <tr><td><span class="ptag ptag-admk">ADMK</span></td><td style="color:var(--exclude)">−₹46,240 Cr</td><td>Total capex shutdown — no new roads, schools, hospitals for 2+ yrs</td></tr>
-        <tr><td><span class="ptag ptag-tvk">TVK</span></td><td style="color:var(--exclude)">−₹49,260 Cr</td><td>Same as ADMK + credit downgrade, TANGEDCO defaults</td></tr>
-        <tr><td><span class="ptag ptag-ntk">NTK</span></td><td style="color:var(--risk-l)"><strong>+₹26,400 Cr</strong></td><td>42% of capex intact — metro, highways, industrial zones proceed</td></tr>
+        <tr><td><span class="ptag ptag-dmk">DMK</span></td><td style="color:var(--exclude)">âˆ’â‚¹22,120 Cr</td><td>~35% of planned roads cut, 2-3yr Chennai Metro Phase 2 delay</td></tr>
+        <tr><td><span class="ptag ptag-admk">ADMK</span></td><td style="color:var(--exclude)">âˆ’â‚¹46,240 Cr</td><td>Total capex shutdown â€” no new roads, schools, hospitals for 2+ yrs</td></tr>
+        <tr><td><span class="ptag ptag-tvk">TVK</span></td><td style="color:var(--exclude)">âˆ’â‚¹49,260 Cr</td><td>Same as ADMK + credit downgrade, TANGEDCO defaults</td></tr>
+        <tr><td><span class="ptag ptag-ntk">NTK</span></td><td style="color:var(--risk-l)"><strong>+â‚¹26,400 Cr</strong></td><td>42% of capex intact â€” metro, highways, industrial zones proceed</td></tr>
       </table>
     </div>
   </div>
 </section>
 
-<!-- § IDEAL MANIFESTO -->
+<!-- Â§ IDEAL MANIFESTO -->
 <section class="section section-dark" id="m1-ideal">
   <div class="reveal">
     <span class="label">The Ideal Manifesto</span>
     <h2 class="display-lg" style="margin-bottom:.5rem">Cherry-picking the best of all parties</h2>
-    <p class="text-muted" style="margin-bottom:1.5rem">If a rational Chief Financial Advisor could select one promise per category — ignoring party loyalty, focusing on ROI and fiscal sustainability.</p>
+    <p class="text-muted" style="margin-bottom:1.5rem">If a rational Chief Financial Advisor could select one promise per category â€” ignoring party loyalty, focusing on ROI and fiscal sustainability.</p>
     <div class="stat-pills" style="margin-bottom:2rem">
-      <div class="stat-pill"><span class="num">₹13,200</span><span class="lbl">Cr/yr New Cost</span></div>
+      <div class="stat-pill"><span class="num">â‚¹13,200</span><span class="lbl">Cr/yr New Cost</span></div>
       <div class="stat-pill"><span class="num">6.4%</span><span class="lbl">of Tax Revenue</span></div>
       <div class="stat-pill"><span class="num">17</span><span class="lbl">Schemes</span></div>
       <div class="stat-pill"><span class="num">100%</span><span class="lbl">Capex Intact</span></div>
@@ -481,26 +711,26 @@ body.light .site-footer{background:#e8e8f0}
   <div class="table-wrap reveal" id="ideal-table-wrap"></div>
   <div class="ideal-card reveal" style="margin-top:1.5rem">
     <h3 class="display-md" style="margin-bottom:.75rem">The Bottom Line</h3>
-    <p class="text-muted">The ideal manifesto costs <strong style="color:var(--t1)">₹13,200 Cr/yr</strong> — 6.4% of own tax revenue, well within FRBM limits, with zero capex displacement. If 50% divisible pool advocacy succeeds (net gain ₹18,000–20,000 Cr/yr), it <strong style="color:var(--include)">generates fiscal surplus</strong>.</p>
-    <p class="text-sm" style="margin-top:.75rem">Source breakdown: DMK 9 of 17 schemes (52%) · NTK 6 (35%) · TVK 1 (6%) · ADMK 1 (6%)</p>
+    <p class="text-muted">The ideal manifesto costs <strong style="color:var(--t1)">â‚¹13,200 Cr/yr</strong> â€” 6.4% of own tax revenue, well within FRBM limits, with zero capex displacement. If 50% divisible pool advocacy succeeds (net gain â‚¹18,000â€“20,000 Cr/yr), it <strong style="color:var(--include)">generates fiscal surplus</strong>.</p>
+    <p class="text-sm" style="margin-top:.75rem">Source breakdown: DMK 9 of 17 schemes (52%) Â· NTK 6 (35%) Â· TVK 1 (6%) Â· ADMK 1 (6%)</p>
   </div>
   <div class="charts-2col" style="margin-top:1.5rem">
-    <div class="chart-box reveal"><h4>Ideal Manifesto — Source by Party</h4><div class="chart-wrap"><canvas id="chart-ideal-pie"></canvas></div></div>
+    <div class="chart-box reveal"><h4>Ideal Manifesto â€” Source by Party</h4><div class="chart-wrap"><canvas id="chart-ideal-pie"></canvas></div></div>
     <div class="chart-box reveal"><h4>Fiscal Honesty Index (out of 10)</h4><div class="chart-wrap"><canvas id="chart-honesty"></canvas></div></div>
   </div>
 </section>
 
-<!-- § MISSING POLICIES -->
+<!-- Â§ MISSING POLICIES -->
 <section class="section section-mid" id="m1-missing">
   <div class="reveal">
     <span class="label">What No Party Promised</span>
     <h2 class="display-lg" style="margin-bottom:.5rem">5 policies TN urgently needs</h2>
-    <p class="text-muted" style="margin-bottom:1.5rem">Combined cost: ₹14,000 Cr/yr (6.8% of own tax revenue) — less than ADMK's free refrigerator scheme alone.</p>
+    <p class="text-muted" style="margin-bottom:1.5rem">Combined cost: â‚¹14,000 Cr/yr (6.8% of own tax revenue) â€” less than ADMK's free refrigerator scheme alone.</p>
   </div>
   <div class="reveal" style="background:var(--bg2);border-radius:14px;border:1px solid var(--bdr);padding:1.5rem" id="missing-policies"></div>
 </section>
 
-<!-- § VOTER RECOMMENDATION -->
+<!-- Â§ VOTER RECOMMENDATION -->
 <section class="section section-dark" id="m1-recommendation">
   <div class="reveal" style="max-width:800px;margin:0 auto">
     <span class="label">Final Assessment</span>
@@ -513,19 +743,19 @@ body.light .site-footer{background:#e8e8f0}
 </section>
 </div>
 
-<!-- ╔═══════════════════════════════════════════════════════════╗
-     ║  MODULE 2 — KNOW YOUR CANDIDATE                         ║
-     ╚═══════════════════════════════════════════════════════════╝ -->
+<!-- â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
+     â•‘  MODULE 2 â€” KNOW YOUR CANDIDATE                         â•‘
+     â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <div class="module" id="module-candidates">
 
-<!-- § DATA FRESHNESS BANNER -->
+<!-- Â§ DATA FRESHNESS BANNER -->
 <div class="freshness-banner" id="freshness-banner">
-  📅 Data sourced from ECI affidavits accepted as of April 2026. May not reflect late withdrawals.
-  <a href="https://affidavit.eci.gov.in" target="_blank" rel="noopener">Verify on affidavit.eci.gov.in →</a>
-  <span class="dismiss" onclick="this.parentElement.style.display='none'">✕</span>
+  ðŸ“… Data sourced from ECI affidavits accepted as of April 2026. May not reflect late withdrawals.
+  <a href="https://affidavit.eci.gov.in" target="_blank" rel="noopener">Verify on affidavit.eci.gov.in â†’</a>
+  <span class="dismiss" onclick="this.parentElement.style.display='none'">âœ•</span>
 </div>
 
-<!-- § HERO -->
+<!-- Â§ HERO -->
 <section class="hero section-dark" style="min-height:90vh">
   <div class="tn-map-bg">
     <svg viewBox="0 0 200 320" style="width:min(70vw,500px);height:auto" stroke="var(--gold)" fill="none" stroke-width=".7">
@@ -538,20 +768,20 @@ body.light .site-footer{background:#e8e8f0}
     <p class="text-muted" style="max-width:600px;margin:0 auto">Every candidate has filed a sworn affidavit with the Election Commission. This is that data, made readable.</p>
     <div class="stat-pills" style="justify-content:center">
       <div class="stat-pill"><span class="num" id="m2-stat-const">234</span><span class="lbl">Constituencies</span></div>
-      <div class="stat-pill"><span class="num" id="m2-stat-cand">—</span><span class="lbl">Candidates</span></div>
-      <div class="stat-pill"><span class="num" id="m2-stat-parties">—</span><span class="lbl">Parties</span></div>
+      <div class="stat-pill"><span class="num" id="m2-stat-cand">â€”</span><span class="lbl">Candidates</span></div>
+      <div class="stat-pill"><span class="num" id="m2-stat-parties">â€”</span><span class="lbl">Parties</span></div>
       <div class="stat-pill"><span class="num">ECI</span><span class="lbl">Source</span></div>
     </div>
     <div class="hero-search-wrap">
-      <span class="search-icon">🔍</span>
+      <span class="search-icon">ðŸ”</span>
       <input type="search" class="hero-search" id="hero-search" placeholder='Type constituency name... e.g. "Madurai Central"' autocomplete="off">
       <div class="search-dropdown" id="hero-dropdown"></div>
     </div>
-    <p style="margin-top:1rem"><a href="#constituency-browser" style="font-size:.85rem">Or browse all constituencies →</a></p>
+    <p style="margin-top:1rem"><a href="#constituency-browser" style="font-size:.85rem">Or browse all constituencies â†’</a></p>
   </div>
 </section>
 
-<!-- § CONSTITUENCY BROWSER -->
+<!-- Â§ CONSTITUENCY BROWSER -->
 <section class="section section-mid" id="constituency-browser">
   <div class="reveal">
     <span class="label">Browse</span>
@@ -562,9 +792,9 @@ body.light .site-footer{background:#e8e8f0}
   <div class="const-grid" id="const-grid"></div>
 </section>
 
-<!-- § CONSTITUENCY DETAIL -->
+<!-- Â§ CONSTITUENCY DETAIL -->
 <section class="section section-dark" id="constituency-detail">
-  <div class="cd-back" id="cd-back" onclick="showBrowser()">← Back to all constituencies</div>
+  <div class="cd-back" id="cd-back" onclick="showBrowser()">â† Back to all constituencies</div>
   <div class="cd-header" id="cd-header"></div>
   <div style="margin-bottom:1rem;display:flex;gap:.5rem;flex-wrap:wrap" id="cd-party-filter"></div>
   <div class="cand-grid" id="cd-cand-grid"></div>
@@ -574,20 +804,20 @@ body.light .site-footer{background:#e8e8f0}
   </div>
 </section>
 
-<!-- § STATEWIDE STATS -->
+<!-- Â§ STATEWIDE STATS -->
 <section class="section section-dark" id="statewide-stats">
   <div class="reveal">
     <span class="label">The Big Picture</span>
-    <h2 class="display-lg" style="margin-bottom:1.5rem">Tamil Nadu's 2026 Candidates — By the Numbers</h2>
+    <h2 class="display-lg" style="margin-bottom:1.5rem">Tamil Nadu's 2026 Candidates â€” By the Numbers</h2>
   </div>
   <div class="stat-cards-row reveal" id="statewide-stat-cards"></div>
   <div class="charts-2col" style="margin-top:2rem">
     <div class="chart-box reveal"><h4>Top 15 Parties by Candidates</h4><div class="chart-wrap"><canvas id="chart-sw-parties"></canvas></div></div>
-    <div class="chart-box reveal"><h4>Accepted vs Rejected — Top Parties</h4><div class="chart-wrap"><canvas id="chart-sw-status"></canvas></div></div>
+    <div class="chart-box reveal"><h4>Accepted vs Rejected â€” Top Parties</h4><div class="chart-wrap"><canvas id="chart-sw-status"></canvas></div></div>
   </div>
 </section>
 
-<!-- § SEARCH / FILTER -->
+<!-- Â§ SEARCH / FILTER -->
 <section class="section section-mid" id="candidate-search">
   <div class="reveal">
     <span class="label">Search</span>
@@ -604,9 +834,9 @@ body.light .site-footer{background:#e8e8f0}
     </div>
     <div class="filter-row">
       <label>Sort by</label>
-      <select class="f-select" id="f-sort"><option value="name">Name A→Z</option><option value="party">Party</option><option value="constituency">Constituency</option></select>
+      <select class="f-select" id="f-sort"><option value="name">Name Aâ†’Z</option><option value="party">Party</option><option value="constituency">Constituency</option></select>
     </div>
-    <button class="btn-gold" onclick="applyGlobalFilter()">🔍 Show Results</button>
+    <button class="btn-gold" onclick="applyGlobalFilter()">ðŸ” Show Results</button>
     <div class="quick-chips">
       <span class="q-chip" onclick="quickFilter('DMK')">DMK Candidates</span>
       <span class="q-chip" onclick="quickFilter('ADMK')">ADMK Candidates</span>
@@ -620,7 +850,7 @@ body.light .site-footer{background:#e8e8f0}
   <button class="btn-outline load-more" id="filter-load-more" style="display:none" onclick="loadMoreFilterResults()">Load More</button>
 </section>
 
-<!-- § FULL TABLE -->
+<!-- Â§ FULL TABLE -->
 <section class="section section-dark" id="full-table">
   <div class="reveal" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem">
     <div>
@@ -629,16 +859,16 @@ body.light .site-footer{background:#e8e8f0}
     </div>
     <div style="display:flex;gap:.5rem">
       <input type="search" class="f-input" id="table-search" placeholder="Search table..." style="min-width:200px">
-      <button class="btn-gold" onclick="downloadCSV()">📥 CSV</button>
+      <button class="btn-gold" onclick="downloadCSV()">ðŸ“¥ CSV</button>
     </div>
   </div>
   <div class="full-table-wrap reveal">
     <table class="full-table" id="full-table-el">
       <thead>
         <tr>
-          <th data-sort="name">Name ↕</th>
-          <th data-sort="party">Party ↕</th>
-          <th data-sort="constituency">Constituency ↕</th>
+          <th data-sort="name">Name â†•</th>
+          <th data-sort="party">Party â†•</th>
+          <th data-sort="constituency">Constituency â†•</th>
           <th>Affidavit</th>
         </tr>
       </thead>
@@ -650,11 +880,11 @@ body.light .site-footer{background:#e8e8f0}
 
 </div>
 
-<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <footer class="site-footer">
   <div class="footer-grid">
     <div class="footer-col">
-      <h4 style="color:var(--gold)">🪔 TN 2026</h4>
+      <h4 style="color:var(--gold)">ðŸª” TN 2026</h4>
       <p>An independent, non-partisan voter intelligence platform built for Tamil Nadu citizens.</p>
     </div>
     <div class="footer-col">
@@ -671,125 +901,125 @@ body.light .site-footer{background:#e8e8f0}
       <ul>
         <li>Module 1: Party manifestos, RBI, TN Finance Budget, CAG</li>
         <li>Module 2: <a href="https://affidavit.eci.gov.in" target="_blank" rel="noopener">ECI Affidavit Portal</a></li>
-        <li>CGWB · TANGEDCO · DPIIT · IPCC AR6 · NFHS-5</li>
+        <li>CGWB Â· TANGEDCO Â· DPIIT Â· IPCC AR6 Â· NFHS-5</li>
       </ul>
     </div>
   </div>
   <div class="footer-disclaimer">
-    This platform is a non-partisan citizen research tool. All data is from public domain sources. For Module 2, all candidate information is sourced from self-declared affidavits filed with the ECI — we neither add nor subtract any information. For authoritative data, always refer to <a href="https://affidavit.eci.gov.in" target="_blank" rel="noopener">affidavit.eci.gov.in</a>. This page has no affiliation with any political party or the ECI.
-    <br>Sharing encouraged · Open Source · MIT License
-    <p style="margin-top:12px;color:var(--t3);font-size:13px">Made with <span style="color:#E74C3C">❤</span> by Karthi — <a href="mailto:karthik.kumar.m@outlook.com" style="color:var(--gold);text-decoration:none">karthik.kumar.m@outlook.com</a> | Robosynaptix - 9884668780</p>
+    This platform is a non-partisan citizen research tool. All data is from public domain sources. For Module 2, all candidate information is sourced from self-declared affidavits filed with the ECI â€” we neither add nor subtract any information. For authoritative data, always refer to <a href="https://affidavit.eci.gov.in" target="_blank" rel="noopener">affidavit.eci.gov.in</a>. This page has no affiliation with any political party or the ECI.
+    <br>Sharing encouraged Â· Open Source Â· MIT License
+    <p style="margin-top:12px;color:var(--t3);font-size:13px">Made with <span style="color:#E74C3C">â¤</span> by Karthi â€” <a href="mailto:karthik.kumar.m@outlook.com" style="color:var(--gold);text-decoration:none">karthik.kumar.m@outlook.com</a> | Robosynaptix - 9884668780</p>
   </div>
 </footer>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   DATA — MANIFESTO ANALYSIS
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   DATA â€” MANIFESTO ANALYSIS
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 const PARTIES_DATA = {
   DMK: {
     key:'DMK', name:'DMK', fullName:'Dravida Munnetra Kazhagam', color:'var(--dmk)', colorL:'var(--dmk-l)',
-    emoji:'🟠', avgRating:3.60, schemesRated:48, include:23, conditional:19, exclude:3, review:3,
-    fiveStar:8, oneStar:0, annualBurden:'~₹84,120', burdenNum:84120,
-    pctRevenue:'~41%', fiscalRisk:'severe', fiscalLabel:'⚠️ SEVERE',
+    emoji:'ðŸŸ ', avgRating:3.60, schemesRated:48, include:23, conditional:19, exclude:3, review:3,
+    fiveStar:8, oneStar:0, annualBurden:'~â‚¹84,120', burdenNum:84120,
+    pctRevenue:'~41%', fiscalRisk:'severe', fiscalLabel:'âš ï¸ SEVERE',
     govScore:'High Scheme Quality', fiscalScore:'Unsustainable',
     schemeQuality:'8/10', fiscalDiscipline:'4/10',
-    oneTime:'~₹50,000 Cr', pctBudget:'22.6%',
+    oneTime:'~â‚¹50,000 Cr', pctBudget:'22.6%',
     debtStart:10.71, debtEnd:14.5, debtPct:'+35%',
     capex:'-22,120', capexColor:'var(--exclude)',
-    frbm:'Year 2–3', frbmColor:'var(--risk-h)',
+    frbm:'Year 2â€“3', frbmColor:'var(--risk-h)',
     stressRating:'5/10', stressNote:'Viable if 30% dropped',
     honestyScore:6,
     tagline:'"Best Schemes, Dangerous Price Tag"',
-    verdict:'Highest individual scheme quality — 8 five-star schemes, zero one-star, 3.60★ average. Strongest in human capital and federal reform (₹0 cost structural changes that could unlock ₹18,000–20,000 Cr/yr). <strong>However, ~₹84,000 Cr/yr recurring spending consumes 41% of own tax revenue, crowds out capex, and breaches FRBM by Year 2–3.</strong> A state cannot deliver on welfare promises if it has no money to build the hospitals and roads those promises depend on.'
+    verdict:'Highest individual scheme quality â€” 8 five-star schemes, zero one-star, 3.60â˜… average. Strongest in human capital and federal reform (â‚¹0 cost structural changes that could unlock â‚¹18,000â€“20,000 Cr/yr). <strong>However, ~â‚¹84,000 Cr/yr recurring spending consumes 41% of own tax revenue, crowds out capex, and breaches FRBM by Year 2â€“3.</strong> A state cannot deliver on welfare promises if it has no money to build the hospitals and roads those promises depend on.'
   },
   ADMK: {
     key:'ADMK', name:'ADMK', fullName:'All India Anna Dravida Munnetra Kazhagam', color:'var(--admk)', colorL:'var(--admk-l)',
-    emoji:'🔵', avgRating:2.46, schemesRated:39, include:4, conditional:13, exclude:17, review:5,
-    fiveStar:0, oneStar:4, annualBurden:'~₹1,08,240', burdenNum:108240,
-    pctRevenue:'~53–72%', fiscalRisk:'critical', fiscalLabel:'🔴 CRITICAL',
+    emoji:'ðŸ”µ', avgRating:2.46, schemesRated:39, include:4, conditional:13, exclude:17, review:5,
+    fiveStar:0, oneStar:4, annualBurden:'~â‚¹1,08,240', burdenNum:108240,
+    pctRevenue:'~53â€“72%', fiscalRisk:'critical', fiscalLabel:'ðŸ”´ CRITICAL',
     govScore:'Low', fiscalScore:'Mathematically Insolvent',
     schemeQuality:'3/10', fiscalDiscipline:'1/10',
-    oneTime:'~₹70,200 Cr', pctBudget:'29.1%',
+    oneTime:'~â‚¹70,200 Cr', pctBudget:'29.1%',
     debtStart:10.71, debtEnd:17.2, debtPct:'+61%',
     capex:'-46,240', capexColor:'var(--exclude)',
     frbm:'Day 1', frbmColor:'var(--risk-c)',
     stressRating:'2/10', stressNote:'Mathematically insolvent',
     honestyScore:1,
     tagline:'"Maximum Promises, Minimum Math"',
-    verdict:'Most fiscally reckless manifesto — ₹35,000 Cr free refrigerators (56% of capex budget), ₹40,000 Cr prohibition revenue hole, uninterrupted 3-phase farm power doubling TANGEDCO\'s ₹1.25L Cr debt. <strong>Zero five-star schemes, highest EXCLUDE rate (44%), FRBM breach on Day 1.</strong> NDA membership contradicts every federal demand — delimitation credibility: 1/10.'
+    verdict:'Most fiscally reckless manifesto â€” â‚¹35,000 Cr free refrigerators (56% of capex budget), â‚¹40,000 Cr prohibition revenue hole, uninterrupted 3-phase farm power doubling TANGEDCO\'s â‚¹1.25L Cr debt. <strong>Zero five-star schemes, highest EXCLUDE rate (44%), FRBM breach on Day 1.</strong> NDA membership contradicts every federal demand â€” delimitation credibility: 1/10.'
   },
   TVK: {
     key:'TVK', name:'TVK', fullName:'Tamilaga Vettri Kazhagam', color:'var(--tvk)', colorL:'var(--tvk-l)',
-    emoji:'🟢', avgRating:2.79, schemesRated:38, include:5, conditional:18, exclude:13, review:2,
-    fiveStar:0, oneStar:5, annualBurden:'~₹1,11,260', burdenNum:111260,
-    pctRevenue:'~54%', fiscalRisk:'critical', fiscalLabel:'🔴 CRITICAL',
+    emoji:'ðŸŸ¢', avgRating:2.79, schemesRated:38, include:5, conditional:18, exclude:13, review:2,
+    fiveStar:0, oneStar:5, annualBurden:'~â‚¹1,11,260', burdenNum:111260,
+    pctRevenue:'~54%', fiscalRisk:'critical', fiscalLabel:'ðŸ”´ CRITICAL',
     govScore:'Mixed', fiscalScore:'Loan Waiver = Extinction',
     schemeQuality:'5/10', fiscalDiscipline:'2/10',
-    oneTime:'~₹1.68–2.31L Cr', pctBudget:'29.9%',
+    oneTime:'~â‚¹1.68â€“2.31L Cr', pctBudget:'29.9%',
     debtStart:10.71, debtEnd:18.5, debtPct:'+73%',
     capex:'-49,260', capexColor:'var(--exclude)',
     frbm:'Day 1', frbmColor:'var(--risk-c)',
     stressRating:'2/10', stressNote:'Loan waiver = fiscal extinction',
     honestyScore:2,
     tagline:'"Innovation Buried Under Impossible Numbers"',
-    verdict:'Genuine policy creativity — girl-education cash transfer, 21-day business approval, anti-corruption commission — <strong>fatally undermined by $1.5T economy target (38% CAGR, impossible), ₹1.5–2L Cr full crop loan waiver (exceeds TN\'s entire annual tax revenue), and 5 one-star schemes.</strong> The "first-time party" problem: mixing innovation with populist impossibilities.'
+    verdict:'Genuine policy creativity â€” girl-education cash transfer, 21-day business approval, anti-corruption commission â€” <strong>fatally undermined by $1.5T economy target (38% CAGR, impossible), â‚¹1.5â€“2L Cr full crop loan waiver (exceeds TN\'s entire annual tax revenue), and 5 one-star schemes.</strong> The "first-time party" problem: mixing innovation with populist impossibilities.'
   },
   NTK: {
     key:'NTK', name:'NTK', fullName:'Naam Tamilar Katchi', color:'var(--ntk)', colorL:'var(--ntk-l)',
-    emoji:'🟡', avgRating:3.53, schemesRated:47, include:20, conditional:17, exclude:5, review:5,
-    fiveStar:5, oneStar:1, annualBurden:'~₹31,450–39,800', burdenNum:35600,
-    pctRevenue:'~15–19%', fiscalRisk:'sustainable', fiscalLabel:'✅ SUSTAINABLE',
+    emoji:'ðŸŸ¡', avgRating:3.53, schemesRated:47, include:20, conditional:17, exclude:5, review:5,
+    fiveStar:5, oneStar:1, annualBurden:'~â‚¹31,450â€“39,800', burdenNum:35600,
+    pctRevenue:'~15â€“19%', fiscalRisk:'sustainable', fiscalLabel:'âœ… SUSTAINABLE',
     govScore:'Strong Structural', fiscalScore:'Only FRBM-Compliant',
     schemeQuality:'7/10', fiscalDiscipline:'9/10',
-    oneTime:'~₹40,000 Cr', pctBudget:'9.6%',
+    oneTime:'~â‚¹40,000 Cr', pctBudget:'9.6%',
     debtStart:10.71, debtEnd:12.0, debtPct:'+12%',
     capex:'+26,400', capexColor:'var(--risk-l)',
     frbm:'No breach', frbmColor:'var(--risk-l)',
     stressRating:'8/10', stressNote:'Full implementation arithmetically possible',
     honestyScore:6,
     tagline:'"The Only Fiscally Responsible Manifesto"',
-    verdict:'<strong>The ONLY party whose entire manifesto fits within FRBM limits</strong> — 15–19% of own tax revenue, ₹26,400 Cr capex remaining, no FRBM breach across full 5-year term. 5 five-star schemes concentrated in ecology, water security, and institutional reform. Palmyra planting (₹150 Cr/yr) = cheapest, highest multi-dimensional ROI scheme across all 174 rows. <strong>Critical weakness: zero governance track record</strong> — the best manifesto means nothing without administrative machinery to execute it.'
+    verdict:'<strong>The ONLY party whose entire manifesto fits within FRBM limits</strong> â€” 15â€“19% of own tax revenue, â‚¹26,400 Cr capex remaining, no FRBM breach across full 5-year term. 5 five-star schemes concentrated in ecology, water security, and institutional reform. Palmyra planting (â‚¹150 Cr/yr) = cheapest, highest multi-dimensional ROI scheme across all 174 rows. <strong>Critical weakness: zero governance track record</strong> â€” the best manifesto means nothing without administrative machinery to execute it.'
   }
 };
 const PARTY_ORDER = ['NTK','DMK','TVK','ADMK'];
 
 const IDEAL_MANIFESTO = [
-  {n:1,cat:'Women & Family',scheme:'1,000 childcare centres in industrial areas',party:'DMK',cost:'₹800 Cr'},
-  {n:2,cat:'Cash Transfer',scheme:'Magalir Urimai Thogai (retain ₹1,000/month)',party:'DMK',cost:'₹16,440 Cr (existing)'},
-  {n:3,cat:'School Nutrition',scheme:'Free breakfast extension to Class 8',party:'DMK',cost:'₹1,500 Cr'},
-  {n:4,cat:'Youth Employment',scheme:'Naan Mudhalvan — scale to 5L trainees/yr',party:'DMK',cost:'₹900 Cr'},
-  {n:5,cat:'Agriculture — Structural',scheme:'Water body restoration (41,000 tanks)',party:'NTK',cost:'₹2,500 Cr'},
-  {n:6,cat:'Agriculture — Market',scheme:'Cold storage in all 38 districts',party:'NTK',cost:'₹100 Cr'},
-  {n:7,cat:'Fishermen Welfare',scheme:'National Fishermen\'s Welfare Board',party:'NTK',cost:'₹500 Cr'},
-  {n:8,cat:'Healthcare',scheme:'Double dialysis centres + expand free medicines',party:'DMK',cost:'₹900 Cr'},
-  {n:9,cat:'Housing',scheme:'Revive stalled PMAY + TNHB projects',party:'ADMK',cost:'₹1,000 Cr'},
-  {n:10,cat:'Urban Infrastructure',scheme:'10,000 new electric public buses (TNSTC)',party:'DMK',cost:'₹1,200 Cr'},
-  {n:11,cat:'Climate & Ecology',scheme:'Comprehensive climate adaptation mission',party:'NTK',cost:'₹2,500 Cr'},
-  {n:12,cat:'Ecology — Cultural',scheme:'Palmyra tree planting (1 Cr trees/yr)',party:'NTK',cost:'₹150 Cr'},
-  {n:13,cat:'Federal — Revenue',scheme:'50% divisible tax pool for states',party:'DMK',cost:'₹0 (gain: ₹18-20K Cr)'},
-  {n:14,cat:'Federal — Structural',scheme:'Move Education & Healthcare to State List',party:'DMK',cost:'₹0'},
-  {n:15,cat:'Governance Reform',scheme:'Anti-corruption commission + 21-day approval',party:'TVK',cost:'₹550 Cr'},
-  {n:16,cat:'Tamil Language',scheme:'Tamil in courts + government',party:'DMK + NTK',cost:'₹100 Cr'},
-  {n:17,cat:'Heritage Tourism',scheme:'Keeladi + Adichanallur as world-class hubs',party:'NTK',cost:'₹500 Cr'}
+  {n:1,cat:'Women & Family',scheme:'1,000 childcare centres in industrial areas',party:'DMK',cost:'â‚¹800 Cr'},
+  {n:2,cat:'Cash Transfer',scheme:'Magalir Urimai Thogai (retain â‚¹1,000/month)',party:'DMK',cost:'â‚¹16,440 Cr (existing)'},
+  {n:3,cat:'School Nutrition',scheme:'Free breakfast extension to Class 8',party:'DMK',cost:'â‚¹1,500 Cr'},
+  {n:4,cat:'Youth Employment',scheme:'Naan Mudhalvan â€” scale to 5L trainees/yr',party:'DMK',cost:'â‚¹900 Cr'},
+  {n:5,cat:'Agriculture â€” Structural',scheme:'Water body restoration (41,000 tanks)',party:'NTK',cost:'â‚¹2,500 Cr'},
+  {n:6,cat:'Agriculture â€” Market',scheme:'Cold storage in all 38 districts',party:'NTK',cost:'â‚¹100 Cr'},
+  {n:7,cat:'Fishermen Welfare',scheme:'National Fishermen\'s Welfare Board',party:'NTK',cost:'â‚¹500 Cr'},
+  {n:8,cat:'Healthcare',scheme:'Double dialysis centres + expand free medicines',party:'DMK',cost:'â‚¹900 Cr'},
+  {n:9,cat:'Housing',scheme:'Revive stalled PMAY + TNHB projects',party:'ADMK',cost:'â‚¹1,000 Cr'},
+  {n:10,cat:'Urban Infrastructure',scheme:'10,000 new electric public buses (TNSTC)',party:'DMK',cost:'â‚¹1,200 Cr'},
+  {n:11,cat:'Climate & Ecology',scheme:'Comprehensive climate adaptation mission',party:'NTK',cost:'â‚¹2,500 Cr'},
+  {n:12,cat:'Ecology â€” Cultural',scheme:'Palmyra tree planting (1 Cr trees/yr)',party:'NTK',cost:'â‚¹150 Cr'},
+  {n:13,cat:'Federal â€” Revenue',scheme:'50% divisible tax pool for states',party:'DMK',cost:'â‚¹0 (gain: â‚¹18-20K Cr)'},
+  {n:14,cat:'Federal â€” Structural',scheme:'Move Education & Healthcare to State List',party:'DMK',cost:'â‚¹0'},
+  {n:15,cat:'Governance Reform',scheme:'Anti-corruption commission + 21-day approval',party:'TVK',cost:'â‚¹550 Cr'},
+  {n:16,cat:'Tamil Language',scheme:'Tamil in courts + government',party:'DMK + NTK',cost:'â‚¹100 Cr'},
+  {n:17,cat:'Heritage Tourism',scheme:'Keeladi + Adichanallur as world-class hubs',party:'NTK',cost:'â‚¹500 Cr'}
 ];
 
 const MISSING_POLICIES = [
-  {title:'TANGEDCO Debt Restructuring & Tariff Rationalisation',cost:'₹5,000 Cr/yr',roi:'₹2–3L Cr over 10yr',closest:'None',
-   desc:'TANGEDCO\'s ₹1.25L Cr debt is TN\'s single largest fiscal time-bomb. Annual losses: ~₹15,000–₹20,000 Cr. No party touches this because tariff hikes = electoral suicide. But without restructuring, TN faces power cuts by 2028–30 and GIM investment flight.'},
-  {title:'Statutory Climate Adaptation Authority',cost:'₹3,000 Cr/yr',roi:'₹50,000–1L Cr over 10yr',closest:'NTK',
-   desc:'Chennai floods (2015, 2021, 2023) = ₹50,000+ Cr cumulative damage. 85% of Chennai\'s wetlands destroyed. Without a statutory authority with legal enforcement powers, TN faces ₹1–2L Cr in climate damage.'},
-  {title:'Population Ageing Preparedness Mission',cost:'₹2,000 Cr/yr',roi:'₹30,000–50,000 Cr over 10yr',closest:'None',
+  {title:'TANGEDCO Debt Restructuring & Tariff Rationalisation',cost:'â‚¹5,000 Cr/yr',roi:'â‚¹2â€“3L Cr over 10yr',closest:'None',
+   desc:'TANGEDCO\'s â‚¹1.25L Cr debt is TN\'s single largest fiscal time-bomb. Annual losses: ~â‚¹15,000â€“â‚¹20,000 Cr. No party touches this because tariff hikes = electoral suicide. But without restructuring, TN faces power cuts by 2028â€“30 and GIM investment flight.'},
+  {title:'Statutory Climate Adaptation Authority',cost:'â‚¹3,000 Cr/yr',roi:'â‚¹50,000â€“1L Cr over 10yr',closest:'NTK',
+   desc:'Chennai floods (2015, 2021, 2023) = â‚¹50,000+ Cr cumulative damage. 85% of Chennai\'s wetlands destroyed. Without a statutory authority with legal enforcement powers, TN faces â‚¹1â€“2L Cr in climate damage.'},
+  {title:'Population Ageing Preparedness Mission',cost:'â‚¹2,000 Cr/yr',roi:'â‚¹30,000â€“50,000 Cr over 10yr',closest:'None',
    desc:'TN fertility rate: 1.7 (below replacement). By 2036, 20% will be 60+. Creates shrinking workforce, exploding geriatric demand, pension burden. DMK\'s OPS reversion actually worsens the trajectory.'},
-  {title:'Groundwater Regulation & Aquifer Mapping',cost:'₹1,500 Cr/yr',roi:'₹20,000–40,000 Cr over 10yr',closest:'NTK',
-   desc:'24/38 districts over-exploited. Net groundwater deficit: 4 BCM/yr. 12 districts face zero groundwater by 2035. Every party promises recharge (supply) but none addresses extraction (demand) — filling a bathtub with the drain open.'},
-  {title:'GIM Investment Conversion Mission',cost:'₹2,500 Cr/yr',roi:'₹3–5L Cr over 10yr',closest:'TVK + DMK',
-   desc:'GIM 2024 signed ₹6.6L Cr in MoUs. Historical conversion: 15–25%. Without dedicated land acquisition, skill pipeline, and single-window clearance, investments flee to AP/Gujarat/Karnataka. Each ₹1L Cr = 7L jobs.'}
+  {title:'Groundwater Regulation & Aquifer Mapping',cost:'â‚¹1,500 Cr/yr',roi:'â‚¹20,000â€“40,000 Cr over 10yr',closest:'NTK',
+   desc:'24/38 districts over-exploited. Net groundwater deficit: 4 BCM/yr. 12 districts face zero groundwater by 2035. Every party promises recharge (supply) but none addresses extraction (demand) â€” filling a bathtub with the drain open.'},
+  {title:'GIM Investment Conversion Mission',cost:'â‚¹2,500 Cr/yr',roi:'â‚¹3â€“5L Cr over 10yr',closest:'TVK + DMK',
+   desc:'GIM 2024 signed â‚¹6.6L Cr in MoUs. Historical conversion: 15â€“25%. Without dedicated land acquisition, skill pipeline, and single-window clearance, investments flee to AP/Gujarat/Karnataka. Each â‚¹1L Cr = 7L jobs.'}
 ];
 
-/* ═══════════════════════════════════════════════════════════
-   DATA — CONSTITUENCY-DISTRICT MAPPING
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   DATA â€” CONSTITUENCY-DISTRICT MAPPING
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 const DISTRICT_MAP = {
   'Chennai':['ANNA NAGAR','CHEPAUK-THIRUVALLIKENI','KOLATHUR','DR.RADHAKRISHNAN NAGAR','EGMORE','HARBOUR','MYLAPORE','PERAMBUR','ROYAPURAM','SAIDAPET','THIRU-VI-KA-NAGAR','THIYAGARAYANAGAR','THOUSAND LIGHTS','VELACHERY','VILLIVAKKAM','VIRUGAMPAKKAM'],
   'Tiruvallur':['AMBATTUR','AVADI','GUMMIDIPOONDI','MADAVARAM','MADURAVOYAL','PONNERI','POONAMALLEE','THIRUVALLUR','THIRUVOTTIYUR','TIRUTTANI'],
@@ -837,9 +1067,9 @@ for (const [dist, consts] of Object.entries(DISTRICT_MAP)) {
   for (const c of consts) CONST_TO_DISTRICT[c] = dist;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CANDIDATE DATA — loaded from JSON
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CANDIDATE DATA â€” loaded from JSON
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 let ALL_CANDIDATES = [];
 let CONST_STATS = {};
 let PARTY_STATS = {};
@@ -866,7 +1096,7 @@ const SHORT_PARTY = {
   'All India Puratchi Thalaivar Makkal Munnettra Kazhagam':'AIPTMK'
 };
 
-function getShort(p) { return SHORT_PARTY[p] || (p.length > 15 ? p.substring(0,12)+'…' : p); }
+function getShort(p) { return SHORT_PARTY[p] || (p.length > 15 ? p.substring(0,12)+'â€¦' : p); }
 
 function partyColor(p) {
   const s = getShort(p);
@@ -892,20 +1122,20 @@ function getInitials(name) {
   return parts.length > 1 ? (parts[0][0] + parts[parts.length-1][0]).toUpperCase() : name.substring(0,2).toUpperCase();
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    THEME TOGGLE
-   ═══════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function toggleTheme() {
   document.body.classList.toggle('light');
   const btn = document.querySelector('.theme-toggle');
-  btn.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
+  btn.textContent = document.body.classList.contains('light') ? 'ðŸŒ™' : 'â˜€ï¸';
   // Re-render charts with new colors
   if (typeof updateChartColors === 'function') updateChartColors();
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MODULE SWITCHING
-   ═══════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function switchModule(mod) {
   if (mod === 'deepdive') { window.location.href = 'TN_2026_DeepDive.html'; return; }
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.module === mod));
@@ -916,17 +1146,17 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => switchModule(btn.dataset.module));
 });
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SCROLL REVEAL
-   ═══════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }});
 }, { threshold: 0.1 });
 function initReveal() { document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el)); }
 
-/* ═══════════════════════════════════════════════════════════
-   MODULE 1 — RENDER FUNCTIONS
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MODULE 1 â€” RENDER FUNCTIONS
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function renderScorecards() {
   const grid = document.getElementById('scorecard-grid');
   grid.innerHTML = PARTY_ORDER.map(k => {
@@ -934,12 +1164,12 @@ function renderScorecards() {
     const riskClass = p.fiscalRisk === 'sustainable' ? 'risk-sustainable' : p.fiscalRisk === 'severe' ? 'risk-severe' : 'risk-critical';
     return `<div class="party-card ${k.toLowerCase()} reveal">
       <h3>${p.emoji} ${p.name}</h3>
-      <div class="pc-row"><span class="pc-label">Avg Rating</span><span class="pc-val">${p.avgRating} ★</span></div>
+      <div class="pc-row"><span class="pc-label">Avg Rating</span><span class="pc-val">${p.avgRating} â˜…</span></div>
       <div class="pc-row"><span class="pc-label">Scheme Quality</span><span class="pc-val">${p.schemeQuality}</span></div>
       <div class="pc-row"><span class="pc-label">Fiscal Discipline</span><span class="pc-val">${p.fiscalDiscipline}</span></div>
       <div class="pc-row"><span class="pc-label">INCLUDE</span><span class="pc-val">${p.include} (${Math.round(p.include/p.schemesRated*100)}%)</span></div>
       <div class="pc-row"><span class="pc-label">EXCLUDE</span><span class="pc-val">${p.exclude} (${Math.round(p.exclude/p.schemesRated*100)}%)</span></div>
-      <div class="pc-row"><span class="pc-label">★★★★★ / ★☆☆☆☆</span><span class="pc-val">${p.fiveStar} / ${p.oneStar}</span></div>
+      <div class="pc-row"><span class="pc-label">â˜…â˜…â˜…â˜…â˜… / â˜…â˜†â˜†â˜†â˜†</span><span class="pc-val">${p.fiveStar} / ${p.oneStar}</span></div>
       <div class="pc-row"><span class="pc-label">Annual Burden</span><span class="pc-val">${p.annualBurden} Cr</span></div>
       <div class="pc-row"><span class="pc-label">% Tax Revenue</span><span class="pc-val">${p.pctRevenue}</span></div>
       <div class="pc-row"><span class="pc-label">FRBM Breach</span><span class="pc-val" style="color:${p.frbmColor}">${p.frbm}</span></div>
@@ -958,10 +1188,10 @@ function renderStressCards() {
       <div class="sc-metric">Recurring: <span class="val">${p.annualBurden} Cr/yr</span></div>
       <div class="sc-metric">One-time: <span class="val">${p.oneTime}</span></div>
       <div class="sc-metric">% of Budget: <span class="val">${p.pctBudget}</span></div>
-      <div class="sc-metric">Debt: <span class="val">₹${p.debtStart}L → ₹${p.debtEnd}L Cr (${p.debtPct})</span></div>
-      <div class="sc-metric">Capex: <span class="val" style="color:${p.capexColor}">₹${p.capex} Cr</span></div>
+      <div class="sc-metric">Debt: <span class="val">â‚¹${p.debtStart}L â†’ â‚¹${p.debtEnd}L Cr (${p.debtPct})</span></div>
+      <div class="sc-metric">Capex: <span class="val" style="color:${p.capexColor}">â‚¹${p.capex} Cr</span></div>
       <div class="sc-metric">FRBM: <span class="val" style="color:${p.frbmColor}">${p.frbm}</span></div>
-      <div class="sc-metric" style="margin-top:.5rem">Rating: <span class="val">${p.stressRating}</span> — ${p.stressNote}</div>
+      <div class="sc-metric" style="margin-top:.5rem">Rating: <span class="val">${p.stressRating}</span> â€” ${p.stressNote}</div>
     </div>`;
   }).join('');
 }
@@ -980,21 +1210,21 @@ function renderMissing() {
   el.innerHTML = MISSING_POLICIES.map(m => `<div class="missing-item">
     <h4>${m.title}</h4>
     <p>${m.desc}</p>
-    <p style="margin-top:.35rem"><span class="cost-tag">Cost: ${m.cost}</span> · 10yr ROI: ${m.roi} · Closest party: ${m.closest}</p>
+    <p style="margin-top:.35rem"><span class="cost-tag">Cost: ${m.cost}</span> Â· 10yr ROI: ${m.roi} Â· Closest party: ${m.closest}</p>
   </div>`).join('');
 }
 
 function renderRecommendation() {
   document.getElementById('voter-recommendation').innerHTML = `
-    <p><strong>The central finding of this analysis is stark:</strong> only one of four parties — NTK — has produced a manifesto that fits within Tamil Nadu's fiscal reality. At 15–19% of own tax revenue with ₹26,400 Cr capex remaining, NTK is the only party whose full manifesto implementation doesn't breach FRBM limits or crowd out infrastructure investment.</p>
-    <p style="margin-top:1rem">DMK fields the highest-quality individual schemes (3.60★ average, 8 five-star) and the deepest institutional understanding — but promising ~₹84,000 Cr/yr (41% of own tax revenue) is the fiscal equivalent of a household earning ₹2L/month committing to ₹82,000/month in new EMIs. ADMK and TVK are worse: ₹1.08L and ₹1.11L Cr/yr respectively — mathematically insolvent on Day 1.</p>
-    <p style="margin-top:1rem"><strong>The ideal government</strong> would implement ~52% DMK policy (human capital + federal reform) + ~35% NTK policy (ecology + fiscal discipline) + selected TVK governance reforms. Total cost: ₹27,200 Cr/yr (13.3% of tax revenue) — well within FRBM, capex 100% intact.</p>
-    <p style="margin-top:1rem">Vote for the party closest to your top 3 priorities — but demand fiscal accountability, sunset clauses, and capex protection from Day 1. Tamil Nadu's greatest asset is a citizenry educated enough to demand governance measured in outcomes, not announcements.</p>`;
+    <p><strong>The central finding of this analysis is stark:</strong> only one of four parties â€” NTK â€” has produced a manifesto that fits within Tamil Nadu's fiscal reality. At 15â€“19% of own tax revenue with â‚¹26,400 Cr capex remaining, NTK is the only party whose full manifesto implementation doesn't breach FRBM limits or crowd out infrastructure investment.</p>
+    <p style="margin-top:1rem">DMK fields the highest-quality individual schemes (3.60â˜… average, 8 five-star) and the deepest institutional understanding â€” but promising ~â‚¹84,000 Cr/yr (41% of own tax revenue) is the fiscal equivalent of a household earning â‚¹2L/month committing to â‚¹82,000/month in new EMIs. ADMK and TVK are worse: â‚¹1.08L and â‚¹1.11L Cr/yr respectively â€” mathematically insolvent on Day 1.</p>
+    <p style="margin-top:1rem"><strong>The ideal government</strong> would implement ~52% DMK policy (human capital + federal reform) + ~35% NTK policy (ecology + fiscal discipline) + selected TVK governance reforms. Total cost: â‚¹27,200 Cr/yr (13.3% of tax revenue) â€” well within FRBM, capex 100% intact.</p>
+    <p style="margin-top:1rem">Vote for the party closest to your top 3 priorities â€” but demand fiscal accountability, sunset clauses, and capex protection from Day 1. Tamil Nadu's greatest asset is a citizenry educated enough to demand governance measured in outcomes, not announcements.</p>`;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MODULE 1 — CHARTS
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MODULE 1 â€” CHARTS
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 let m1Charts = {};
 const chartColors = { NTK:'#EF5350', DMK:'#5C6BC0', TVK:'#AB47BC', ADMK:'#66BB6A' };
 
@@ -1015,8 +1245,8 @@ function renderM1Charts() {
     },
     options: {
       responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'₹'+ctx.raw.toLocaleString()+' Cr/yr'}}},
-      scales:{y:{grid:{color:gridColor},ticks:{color:tickColor,callback:v=>'₹'+v/1000+'K Cr'}},x:{grid:{display:false},ticks:{color:tickColor}}}
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>'â‚¹'+ctx.raw.toLocaleString()+' Cr/yr'}}},
+      scales:{y:{grid:{color:gridColor},ticks:{color:tickColor,callback:v=>'â‚¹'+v/1000+'K Cr'}},x:{grid:{display:false},ticks:{color:tickColor}}}
     }
   });
 
@@ -1033,7 +1263,7 @@ function renderM1Charts() {
     options: {
       responsive:true, maintainAspectRatio:false,
       plugins:{legend:{labels:{color:tickColor}}},
-      scales:{y:{grid:{color:gridColor},ticks:{color:tickColor,callback:v=>'₹'+v+'L Cr'}},x:{grid:{display:false},ticks:{color:tickColor}}}
+      scales:{y:{grid:{color:gridColor},ticks:{color:tickColor,callback:v=>'â‚¹'+v+'L Cr'}},x:{grid:{display:false},ticks:{color:tickColor}}}
     }
   });
 
@@ -1062,9 +1292,9 @@ function renderM1Charts() {
   });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MODULE 2 — LOAD & PROCESS DATA
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MODULE 2 â€” LOAD & PROCESS DATA
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function loadCandidateData() {
   fetch('tn_candidates_2026.json')
     .then(r => r.json())
@@ -1108,9 +1338,9 @@ function processData() {
   UNIQUE_CONSTS = Object.values(CONST_STATS).sort((a,b) => a.name.localeCompare(b.name));
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MODULE 2 — RENDER
-   ═══════════════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   MODULE 2 â€” RENDER
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function renderModule2() {
   // Header stats
   document.getElementById('m2-stat-cand').textContent = ALL_CANDIDATES.length.toLocaleString();
@@ -1134,7 +1364,7 @@ function renderModule2() {
   if (params.get('module') === 'candidates') switchModule('candidates');
 }
 
-// ── District pills ──
+// â”€â”€ District pills â”€â”€
 function renderDistrictPills() {
   const el = document.getElementById('district-pills');
   const districts = Object.keys(DISTRICT_MAP).sort();
@@ -1149,7 +1379,7 @@ function renderDistrictPills() {
   });
 }
 
-// ── Constituency grid ──
+// â”€â”€ Constituency grid â”€â”€
 function renderConstGrid(filter='', district='') {
   const grid = document.getElementById('const-grid');
   let items = UNIQUE_CONSTS;
@@ -1164,7 +1394,7 @@ function renderConstGrid(filter='', district='') {
     return `<div class="const-card" onclick="loadConstituency('${c.name}')">
       <div class="cc-name">${c.name}</div>
       ${c.district ? `<span class="cc-district">${c.district}</span>` : ''}
-      <div class="cc-count">${c.total} candidates · ${c.accepted} accepted</div>
+      <div class="cc-count">${c.total} candidates Â· ${c.accepted} accepted</div>
       <div class="party-dots">${dots}</div>
     </div>`;
   }).join('');
@@ -1181,7 +1411,7 @@ document.getElementById('const-filter-input')?.addEventListener('input', e => {
   renderConstGrid(e.target.value, activeDist);
 });
 
-// ── Hero search autocomplete ──
+// â”€â”€ Hero search autocomplete â”€â”€
 function setupHeroSearch() {
   const input = document.getElementById('hero-search');
   const dropdown = document.getElementById('hero-dropdown');
@@ -1199,7 +1429,7 @@ function setupHeroSearch() {
   input.addEventListener('blur', () => setTimeout(() => dropdown.classList.remove('open'), 200));
 }
 
-// ── Constituency detail ──
+// â”€â”€ Constituency detail â”€â”€
 let cdCharts = {};
 function loadConstituency(name) {
   const cs = CONST_STATS[name];
@@ -1286,7 +1516,7 @@ function createCandCard(c) {
         <div class="cand-const">${c.constituency}</div>
       </div>
     </div>
-    ${c.profile_url ? `<a class="cand-link" href="${c.profile_url}" target="_blank" rel="noopener">📄 View ECI Affidavit →</a>` : ''}
+    ${c.profile_url ? `<a class="cand-link" href="${c.profile_url}" target="_blank" rel="noopener">ðŸ“„ View ECI Affidavit â†’</a>` : ''}
   </div>`;
 }
 
@@ -1303,7 +1533,7 @@ window.addEventListener('popstate', (e) => {
   else showBrowser();
 });
 
-// ── Statewide stats ──
+// â”€â”€ Statewide stats â”€â”€
 function renderStatewideStats() {
   const total = ALL_CANDIDATES.length;
   const accepted = ALL_CANDIDATES.filter(c=>c.status==='Accepted').length;
@@ -1351,7 +1581,7 @@ function renderStatewideCharts() {
   });
 }
 
-// ── Filter dropdowns ──
+// â”€â”€ Filter dropdowns â”€â”€
 function populateFilterDropdowns() {
   const constSel = document.getElementById('f-const');
   UNIQUE_CONSTS.forEach(c => { const o = document.createElement('option'); o.value=c.name; o.textContent=c.name; constSel.appendChild(o); });
@@ -1404,7 +1634,7 @@ function quickFilter(shortName) {
   applyGlobalFilter();
 }
 
-// ── Full table ──
+// â”€â”€ Full table â”€â”€
 let tablePage = 0;
 const TABLE_SIZE = 50;
 let tableData = [];
@@ -1441,7 +1671,7 @@ function renderFullTable(search='') {
   body.innerHTML = page.map(c => {
     return `<tr>
       <td>${c.name}</td><td>${getShort(c.party)}</td><td>${c.constituency}</td>
-      <td>${c.profile_url ? `<a href="${c.profile_url}" target="_blank" rel="noopener">📄</a>` : '—'}</td>
+      <td>${c.profile_url ? `<a href="${c.profile_url}" target="_blank" rel="noopener">ðŸ“„</a>` : 'â€”'}</td>
     </tr>`;
   }).join('');
 
@@ -1450,17 +1680,17 @@ function renderFullTable(search='') {
   const pagesEl = document.getElementById('table-pages');
   if (totalPages <= 1) { pagesEl.innerHTML = ''; return; }
   let btns = '';
-  if (tablePage > 0) btns += `<button class="page-btn" onclick="tablePage--;renderFullTable()">← Prev</button>`;
+  if (tablePage > 0) btns += `<button class="page-btn" onclick="tablePage--;renderFullTable()">â† Prev</button>`;
   const startP = Math.max(0, tablePage - 3);
   const endP = Math.min(totalPages, tablePage + 4);
   for (let i = startP; i < endP; i++) {
     btns += `<button class="page-btn ${i===tablePage?'active':''}" onclick="tablePage=${i};renderFullTable()">${i+1}</button>`;
   }
-  if (tablePage < totalPages-1) btns += `<button class="page-btn" onclick="tablePage++;renderFullTable()">Next →</button>`;
+  if (tablePage < totalPages-1) btns += `<button class="page-btn" onclick="tablePage++;renderFullTable()">Next â†’</button>`;
   pagesEl.innerHTML = btns;
 }
 
-// ── CSV export ──
+// â”€â”€ CSV export â”€â”€
 function downloadCSV() {
   const headers = ['Name','Party','Constituency','District','Status','Profile URL'];
   const rows = ALL_CANDIDATES.map(c => [
@@ -1474,9 +1704,9 @@ function downloadCSV() {
   URL.revokeObjectURL(url);
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    INITIALIZATION
-   ═══════════════════════════════════════════════════════════ */
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function init() {
   renderScorecards();
   renderStressCards();
@@ -1490,15 +1720,15 @@ function init() {
 }
 
 const GLOSSARY_TIPS={
-  'FRBM':'Fiscal Responsibility & Budget Management Act — limits state fiscal deficit to 3% of GSDP (~\u20B925,000 Cr headroom for TN)',
+  'FRBM':'Fiscal Responsibility & Budget Management Act â€” limits state fiscal deficit to 3% of GSDP (~\u20B925,000 Cr headroom for TN)',
   'TANGEDCO':'TN electricity utility. Debt: \u20B91.25L Cr. Losses: \u20B915-20K Cr/yr. TN\u2019s largest fiscal liability.',
   'TASMAC':'State liquor monopoly. Revenue: ~\u20B940,000 Cr/yr (20% of own tax revenue).',
-  'Capex':'Capital Expenditure — roads, bridges, hospitals, schools. TN: ~\u20B962,000 Cr/yr. Every \u20B91 capex = \u20B93-5 long-term GDP.',
+  'Capex':'Capital Expenditure â€” roads, bridges, hospitals, schools. TN: ~\u20B962,000 Cr/yr. Every \u20B91 capex = \u20B93-5 long-term GDP.',
   'GSDP':'Gross State Domestic Product. TN GSDP: ~\u20B925L Cr. 2nd largest state economy.',
   'CMCHIS':'Chief Minister\u2019s Comprehensive Health Insurance. Current: \u20B95L/family.',
-  'TNCSC':'TN Civil Supplies Corporation — state procurement & PDS distribution.',
-  'TNSTC':'TN State Transport Corp — ~23,000 buses. Accumulated loss: ~\u20B925,000 Cr.',
-  'MSP':'Minimum Support Price — govt-guaranteed price for agricultural produce.',
+  'TNCSC':'TN Civil Supplies Corporation â€” state procurement & PDS distribution.',
+  'TNSTC':'TN State Transport Corp â€” ~23,000 buses. Accumulated loss: ~\u20B925,000 Cr.',
+  'MSP':'Minimum Support Price â€” govt-guaranteed price for agricultural produce.',
   'NPS':'National Pension System (defined contribution). OPS = Old Pension Scheme (guaranteed 50% of last salary).',
   'GIM':'Global Investors Meet. GIM 2024: \u20B96.6L Cr MoUs. Conversion rate: 15-25%.'
 };
