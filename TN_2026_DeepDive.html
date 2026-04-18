@@ -2278,74 +2278,74 @@ function setCatFilter(catId){
 }
 
 function filterSchemes(){
-  const qEl=document.getElementById('schemeSearch');
-  const q=qEl?qEl.value.toLowerCase():'';
-  let count=0;
+  var qEl=document.getElementById('schemeSearch');
+  var q=qEl?qEl.value.toLowerCase():'';
+  var count=0;
   document.querySelectorAll('#batchContainer .scheme-card').forEach(card=>{
-    const txt=card.textContent.toLowerCase();
-    const party=card.dataset.party;
-    const stars=parseInt(card.dataset.stars,10);
-    const cat=parseInt(card.dataset.cat,10);
-    const matchQ=!q||txt.includes(q);
-    const matchP=activeParty==='ALL'||activeParty===party||(activeParty==='5STAR'&&stars===5);
-    const matchC=activeCat===0||activeCat===cat;
-    const show=matchQ&&matchP&&matchC;
+    var txt=card.textContent.toLowerCase();
+    var party=card.dataset.party;
+    var stars=parseInt(card.dataset.stars,10);
+    var cat=parseInt(card.dataset.cat,10);
+    var matchQ=!q||txt.includes(q);
+    var matchP=activeParty==='ALL'||activeParty===party||(activeParty==='5STAR'&&stars===5);
+    var matchC=activeCat===0||activeCat===cat;
+    var show=matchQ&&matchP&&matchC;
     card.style.display=show?'':'none';
     if(show)count++;
   });
-  const badge=document.getElementById('schemeCount');
+  var badge=document.getElementById('schemeCount');
   if(badge)badge.textContent=count+' schemes shown';
 }
 
 function toggleExpandAll(){
-  const btn=document.querySelector('.expand-all-btn');
-  const cards=document.querySelectorAll('#batchContainer .scheme-card');
-  const visible=[...cards].filter(c=>c.style.display!=='none');
+  var btn=document.querySelector('.expand-all-btn');
+  var cards=document.querySelectorAll('#batchContainer .scheme-card');
+  var visible=[...cards].filter(c=>c.style.display!=='none');
   if(!visible.length)return;
-  const allOpen=visible.every(c=>c.classList.contains('open'));
+  var allOpen=visible.every(c=>c.classList.contains('open'));
   visible.forEach(c=>c.classList.toggle('open',!allOpen));
   btn.textContent=allOpen?'Expand All':'Collapse All';
 }
 
 function renderBatches(){
-  const container=document.getElementById('batchContainer');
+  var container=document.getElementById('batchContainer');
   if(!container) return;
   // Render category strip (clickable filter pills)
   renderCategoryStrip();
   // Build a quick lookup id→title for category badges on cards
-  const catTitle={};
+  var catTitle={};
   if(typeof BATCHES!=='undefined'){ BATCHES.forEach(b=>{catTitle[b.id]=b.title;}); }
   // Fiscal anchors (₹ crore)
-  const FY26_BUDGET=372000;
-  const TN_DEBT_2027=1071000;
+  var FY26_BUDGET=372000;
+  var TN_DEBT_2027=1071000;
   function parseCostCr(raw){
     if(!raw) return null;
-    const s=String(raw).replace(/,/g,'').replace(/\s+/g,' ').trim();
+    var s=String(raw).replace(/,/g,'').replace(/\s+/g,' ').trim();
     if(/^₹?\s*0\b/.test(s)) return {cr:0,kind:'flat',raw};
     // capture one or two numbers (range), optional L (lakh), then Cr
-    const m=s.match(/₹?\s*([0-9]*\.?[0-9]+)\s*(?:[–\-to]+\s*([0-9]*\.?[0-9]+))?\s*(L)?\s*Cr/i);
+    var m=s.match(/₹?\s*([0-9]*\.?[0-9]+)\s*(?:[–\-to]+\s*([0-9]*\.?[0-9]+))?\s*(L)?\s*Cr/i);
     if(!m) return null;
-    let lo=parseFloat(m[1]), hi=m[2]?parseFloat(m[2]):lo;
+    var lo=parseFloat(m[1]), hi=m[2]?parseFloat(m[2]):lo;
     if(m[3]) { lo*=100000; hi*=100000; }
-    const cr=(lo+hi)/2;
-    const kind=/\/\s*yr|per\s*yr|annual/i.test(s)?'yr':(/one[\s-]?time|once/i.test(s)?'one':'flat');
+    var cr=(lo+hi)/2;
+    var kind=/\/\s*yr|per\s*yr|annual/i.test(s)?'yr':(/one[\s-]?time|once/i.test(s)?'one':'flat');
     return {cr,kind,raw};
   }
   function fmtPct(p){ if(p<0.01) return '<0.01%'; if(p<1) return p.toFixed(2)+'%'; if(p<10) return p.toFixed(1)+'%'; return Math.round(p)+'%'; }
   function shareTier(p){ if(p===0) return 'zero'; if(p<1) return 'lo'; if(p<5) return 'md'; return 'hi'; }
   function shareHtml(costRaw){
-    const p=parseCostCr(costRaw);
+    var p=parseCostCr(costRaw);
     if(!p) return '';
     if(p.cr===0) return `<span class="sc-share zero" title="No direct spending — structural / policy reform">Budget <b>0%</b></span><span class="sc-share zero" title="Adds nothing to debt stock">Debt <b>0%</b></span>`;
-    const bPct=(p.cr/FY26_BUDGET)*100;
-    const dPct=(p.cr/TN_DEBT_2027)*100;
-    const kindTxt=p.kind==='yr'?'annual':(p.kind==='one'?'one-time':'estimate');
-    const bTitle=`${p.raw} ÷ ₹3.72 L Cr FY26 budget (${kindTxt}). Shows how much of one full year's state budget this single scheme would consume.`;
-    const dTitle=`${p.raw} ÷ ₹10.71 L Cr projected 2027 debt stock. Shows the scheme's size relative to TN's total accumulated debt.`;
+    var bPct=(p.cr/FY26_BUDGET)*100;
+    var dPct=(p.cr/TN_DEBT_2027)*100;
+    var kindTxt=p.kind==='yr'?'annual':(p.kind==='one'?'one-time':'estimate');
+    var bTitle=`${p.raw} ÷ ₹3.72 L Cr FY26 budget (${kindTxt}). Shows how much of one full year's state budget this single scheme would consume.`;
+    var dTitle=`${p.raw} ÷ ₹10.71 L Cr projected 2027 debt stock. Shows the scheme's size relative to TN's total accumulated debt.`;
     return `<span class="sc-share ${shareTier(bPct)}" title="${bTitle}">Budget <b>${fmtPct(bPct)}</b></span><span class="sc-share ${shareTier(dPct/2)}" title="${dTitle}">Debt <b>${fmtPct(dPct)}</b></span>`;
   }
   // Flat list — no accordion wrappers. Each card carries data-cat for filtering.
-  const html = D.map(s=>schemeCardHtml(s,{cat:catTitle[s[0]]||''})).join('');
+  var html = D.map(s=>schemeCardHtml(s,{cat:catTitle[s[0]]||''})).join('');
   container.innerHTML = html;
   renderSpotlight();
   renderDeepStats();
@@ -2520,17 +2520,17 @@ function renderSpotlight(){ renderSpotlightOverride(); }
 
 // Top stats banner — drives home the depth of analysis
 function renderDeepStats(){
-  const el = document.getElementById('deepStats');
+  var el = document.getElementById('deepStats');
   if(!el) return;
-  const total = D.length;
-  const prosTotal = D.reduce((a,s)=>a+(Array.isArray(s[7])?s[7].length:0),0);
-  const consTotal = D.reduce((a,s)=>a+(Array.isArray(s[8])?s[8].length:0),0);
-  const worlds = D.filter(s=>s[9]&&s[9].length>10).length;
-  const relev  = D.filter(s=>s[10]&&s[10].length>10).length;
-  const fives  = D.filter(s=>s[3]===5).length;
-  const incl   = D.filter(s=>s[5]==='I').length;
-  const excl   = D.filter(s=>s[5]==='E').length;
-  const cells = [
+  var total = D.length;
+  var prosTotal = D.reduce((a,s)=>a+(Array.isArray(s[7])?s[7].length:0),0);
+  var consTotal = D.reduce((a,s)=>a+(Array.isArray(s[8])?s[8].length:0),0);
+  var worlds = D.filter(s=>s[9]&&s[9].length>10).length;
+  var relev  = D.filter(s=>s[10]&&s[10].length>10).length;
+  var fives  = D.filter(s=>s[3]===5).length;
+  var incl   = D.filter(s=>s[5]==='I').length;
+  var excl   = D.filter(s=>s[5]==='E').length;
+  var cells = [
     [total,'schemes analysed'],
     [prosTotal,'strengths documented'],
     [consTotal,'risks flagged'],
@@ -2545,12 +2545,12 @@ function renderDeepStats(){
 
 // Render the clickable category strip (replaces batch accordions)
 function renderCategoryStrip(){
-  const el = document.getElementById('catStrip');
+  var el = document.getElementById('catStrip');
   if(!el || typeof BATCHES==='undefined') return;
   el.innerHTML = BATCHES.map(b=>{
-    const schemes = D.filter(s=>s[0]===b.id);
-    const fives = schemes.filter(s=>s[3]===5).length;
-    const incl  = schemes.filter(s=>s[5]==='I').length;
+    var schemes = D.filter(s=>s[0]===b.id);
+    var fives = schemes.filter(s=>s[3]===5).length;
+    var incl  = schemes.filter(s=>s[5]==='I').length;
     return '<button class="cat-pill" data-cat="'+b.id+'" onclick="setCatFilter('+b.id+')">'
       + '<span class="ct">'+b.title+'</span>'
       + '<span class="cm"><b>'+schemes.length+'</b> schemes &middot; '+fives+'★ &middot; '+incl+' Include</span>'
@@ -2560,23 +2560,23 @@ function renderCategoryStrip(){
 
 // Spotlight: render every 5★ scheme pre-expanded (with category badge)
 function renderSpotlightOverride(){
-  const grid = document.getElementById('spotlightGrid');
+  var grid = document.getElementById('spotlightGrid');
   if(!grid || typeof BATCHES==='undefined') return;
-  const catTitle={}; BATCHES.forEach(b=>catTitle[b.id]=b.title);
-  const fives = D.filter(s=>s[3]===5);
+  var catTitle={}; BATCHES.forEach(b=>catTitle[b.id]=b.title);
+  var fives = D.filter(s=>s[3]===5);
   grid.innerHTML = fives.map(s=>schemeCardHtml(s,{preOpen:true,cat:catTitle[s[0]]||''})).join('');
 }
 
 // Theme (theme-btn may not exist in mammoth build — guard)
 try{ if(localStorage.getItem('tn-theme')==='light')document.body.classList.add('light'); }catch(_){}
-const _themeBtn=document.querySelector('.theme-btn');
+var _themeBtn=document.querySelector('.theme-btn');
 if(_themeBtn){_themeBtn.addEventListener('click',()=>{
   try{localStorage.setItem('tn-theme',document.body.classList.contains('light')?'light':'dark');}catch(_){}
 });}
 
 // Scroll to top (scrollTop may not exist in mammoth build — guard)
 window.addEventListener('scroll',()=>{
-  const el=document.getElementById('scrollTop');
+  var el=document.getElementById('scrollTop');
   if(el)el.classList.toggle('show',window.scrollY>500);
 });
 
