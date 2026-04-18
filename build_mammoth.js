@@ -480,8 +480,10 @@ ${ddBody}
   _start();
 })();`);
 
-  // Add DD app JS at the end (renderBatches, BATCHES, D[] array, etc.)
-  mergedAppJs += '\n;\n' + ddAppJs;
+  // DD app JS is kept SEPARATE from VI for split obfuscation.
+  // DD code breaks under controlFlowFlattening + deadCodeInjection,
+  // so it gets its own obfuscation pass with safer settings.
+  let ddMergedJs = ddAppJs;
 
   // ──────────────────────────────────────────────
   // 7b. Extract DD's large data arrays (D + BATCHES) OUT of the obfuscation pipeline.
@@ -521,29 +523,38 @@ ${ddBody}
     return { matchStart: m.index + (m[0].startsWith('\n') ? 1 : 0), matchEnd: end, full: src.slice(m.index, end), arrayLiteral: src.slice(arrStart, i + 1) };
   }
 
-  const dExtract = extractTopLevelArray(mergedAppJs, 'D');
-  const bExtract = extractTopLevelArray(mergedAppJs, 'BATCHES');
-  let dataPreamble = '';
+  // Extract D + BATCHES from ddMergedJs into a separate preamble
+  const dExtract = extractTopLevelArray(ddMergedJs, 'D');
+  const bExtract = extractTopLevelArray(ddMergedJs, 'BATCHES');
+  let dataPreamblePlain = '';
   if (dExtract && bExtract) {
-    // Emit a non-obfuscated preamble that sets window.D / window.BATCHES.
-    // In the obfuscated bundle, replace the original declarations with bindings that
-    // simply alias the globals — preserving the bare-name `D` / `BATCHES` references
-    // used throughout renderBatches / schemeCardHtml / etc.
-    dataPreamble = 'window.D=' + dExtract.arrayLiteral + ';window.BATCHES=' + bExtract.arrayLiteral + ';';
-    // Replace BOTH originals; do the later one first to keep indices valid.
+    dataPreamblePlain = 'window.D=' + dExtract.arrayLiteral + ';window.BATCHES=' + bExtract.arrayLiteral + ';';
     const [first, second] = dExtract.matchStart < bExtract.matchStart ? [dExtract, bExtract] : [bExtract, dExtract];
     const firstName = dExtract.matchStart < bExtract.matchStart ? 'D' : 'BATCHES';
     const secondName = firstName === 'D' ? 'BATCHES' : 'D';
-    mergedAppJs = mergedAppJs.slice(0, second.matchStart)
+    ddMergedJs = ddMergedJs.slice(0, second.matchStart)
       + 'var ' + secondName + '=window.' + secondName + ';\n'
-      + mergedAppJs.slice(second.matchEnd);
-    mergedAppJs = mergedAppJs.slice(0, first.matchStart)
+      + ddMergedJs.slice(second.matchEnd);
+    ddMergedJs = ddMergedJs.slice(0, first.matchStart)
       + 'var ' + firstName + '=window.' + firstName + ';\n'
-      + mergedAppJs.slice(first.matchEnd);
+      + ddMergedJs.slice(first.matchEnd);
     console.log(`  Extracted D (${(dExtract.arrayLiteral.length/1024).toFixed(1)} KB) + BATCHES (${(bExtract.arrayLiteral.length/1024).toFixed(1)} KB) out of obfuscation`);
   } else {
     console.log('  ⚠ Could not extract D/BATCHES — leaving inside obfuscated bundle');
   }
+
+  // XOR + base64 encoding utility (raises cost vs plain base64)
+  function xorEncode(plainStr, key) {
+    const buf = Buffer.from(plainStr, 'utf8');
+    const keyBuf = Buffer.from(key, 'utf8');
+    for (let i = 0; i < buf.length; i++) buf[i] ^= keyBuf[i % keyBuf.length];
+    return buf.toString('base64');
+  }
+
+  // Encode dataPreamble: XOR + base64 (decoded at runtime)
+  const DATA_XOR_KEY = crypto.randomBytes(16).toString('hex');
+  const dataPreambleEncoded = xorEncode(dataPreamblePlain, DATA_XOR_KEY);
+  const dataPreamble = `(function(){var _k="${DATA_XOR_KEY}",_d="${dataPreambleEncoded}";try{var r=atob(_d),o=[];for(var i=0;i<r.length;i++)o.push(r.charCodeAt(i)^_k.charCodeAt(i%_k.length));var s=new TextDecoder('utf-8').decode(new Uint8Array(o));new Function(s)();}catch(e){}})();`;
 
   // Add interaction enhancers
   mergedAppJs += `
@@ -628,10 +639,11 @@ ${ddBody}
   const tooltipSystemJs = fs.readFileSync(path.join('src', 'tooltip-system.js'), 'utf8');
   const chunkLoaderJs   = fs.readFileSync(path.join('src', 'chunk-loader.js'), 'utf8');
   const srcModulesPlain = audienceTiersJs + '\n' + tooltipSystemJs + '\n' + chunkLoaderJs;
-  // Encode as base64 to hide from view-source; decoded + eval'd at runtime
-  const srcModulesB64 = Buffer.from(srcModulesPlain, 'utf8').toString('base64');
-  const srcModulesJs = `(function(){var _b="${srcModulesB64}";try{var b=atob(_b);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);var c=new TextDecoder('utf-8').decode(u);new Function(c)();}catch(e){}})();`;
-  console.log(`  src bundle: ${(srcModulesPlain.length/1024).toFixed(0)} KB plain → ${(srcModulesJs.length/1024).toFixed(0)} KB base64-wrapped`);
+  // Multi-layer encoding: XOR + base64 (harder than single atob)
+  const SRC_XOR_KEY = crypto.randomBytes(16).toString('hex');
+  const srcModulesXored = xorEncode(srcModulesPlain, SRC_XOR_KEY);
+  const srcModulesJs = `(function(){var _k="${SRC_XOR_KEY}",_d="${srcModulesXored}";try{var r=atob(_d),o=[];for(var i=0;i<r.length;i++)o.push(r.charCodeAt(i)^_k.charCodeAt(i%_k.length));var c=new TextDecoder('utf-8').decode(new Uint8Array(o));new Function(c)();}catch(e){}})();`;
+  console.log(`  src bundle: ${(srcModulesPlain.length/1024).toFixed(0)} KB plain → ${(srcModulesJs.length/1024).toFixed(0)} KB XOR+b64`);
 
   // ──────────────────────────────────────────────
   // 8. Build encrypted chunks (candidates + later: schemes / Chart.js)
@@ -682,18 +694,15 @@ ${ddBody}
   // ──────────────────────────────────────────────
   // 9. Obfuscate the application JavaScript
   // ──────────────────────────────────────────────
-  console.log('\n▸ Obfuscating JavaScript...');
+  console.log('\n▸ Obfuscating JavaScript (split: VI + DD)...');
   console.log('  (this may take 30-90 seconds for large code...)');
 
-  const obfConfig = {
+  // Base config shared by both passes
+  const obfBase = {
     compact: true,
-    controlFlowFlattening: true,
-    controlFlowFlatteningThreshold: 0.75,
-    deadCodeInjection: true,
-    deadCodeInjectionThreshold: 0.4,
     debugProtection: true,
     debugProtectionInterval: 2000,
-    disableConsoleOutput: true,
+    disableConsoleOutput: false, // was true — silently swallowed errors; now we log
     identifierNamesGenerator: 'hexadecimal',
     identifiersPrefix: '_0x',
     log: false,
@@ -721,15 +730,47 @@ ${ddBody}
     reservedNames: ['Chart', 'TN26Chunks', 'AudienceTiers', 'TN26Tooltip']
   };
 
+  // VI pass: medium controlFlowFlattening, NO deadCodeInjection
+  // (VI code is simpler — chart rendering, tabs — survives flattening better)
+  const viObfConfig = {
+    ...obfBase,
+    controlFlowFlattening: true,
+    controlFlowFlatteningThreshold: 0.3,
+    deadCodeInjection: false,
+  };
+
+  // DD pass: NO controlFlowFlattening, NO deadCodeInjection
+  // (DD has complex nested functions: renderBatches→schemeCardHtml→buildTierBody
+  //  + event listeners + refreshAllTierContent — these break under flattening)
+  const ddObfConfig = {
+    ...obfBase,
+    controlFlowFlattening: false,
+    deadCodeInjection: false,
+    // DD functions are wrapped in IIFE to avoid selfDefending conflicts between passes
+    selfDefending: false,
+  };
+
   const t0 = Date.now();
-  let obfuscatedJs;
+  let viObfuscatedJs, ddObfuscatedJs;
   try {
-    obfuscatedJs = JavaScriptObfuscator.obfuscate(mergedAppJs, obfConfig).getObfuscatedCode();
-    console.log(`  Obfuscation complete: ${(obfuscatedJs.length/1024).toFixed(0)} KB (${((Date.now()-t0)/1000).toFixed(1)}s)`);
+    viObfuscatedJs = JavaScriptObfuscator.obfuscate(mergedAppJs, viObfConfig).getObfuscatedCode();
+    console.log(`  VI obfuscation: ${(viObfuscatedJs.length/1024).toFixed(0)} KB (${((Date.now()-t0)/1000).toFixed(1)}s)`);
   } catch (e) {
-    console.log(`  ⚠ Obfuscation failed, using unobfuscated JS: ${e.message}`);
-    obfuscatedJs = mergedAppJs;
+    console.log(`  ⚠ VI obfuscation failed: ${e.message}`);
+    viObfuscatedJs = mergedAppJs;
   }
+
+  const t1 = Date.now();
+  try {
+    ddObfuscatedJs = JavaScriptObfuscator.obfuscate(ddMergedJs, ddObfConfig).getObfuscatedCode();
+    console.log(`  DD obfuscation: ${(ddObfuscatedJs.length/1024).toFixed(0)} KB (${((Date.now()-t1)/1000).toFixed(1)}s)`);
+  } catch (e) {
+    console.log(`  ⚠ DD obfuscation failed: ${e.message}`);
+    ddObfuscatedJs = ddMergedJs;
+  }
+
+  // Combine: VI runs first, DD second (DD needs D/BATCHES from dataPreamble)
+  const obfuscatedJs = viObfuscatedJs + '\n;\n' + ddObfuscatedJs;
 
   // ──────────────────────────────────────────────
   // 10. Base64-encode body content (hides HTML from Notepad view)
@@ -743,7 +784,7 @@ ${ddBody}
   // ──────────────────────────────────────────────
   console.log('\n▸ Assembling mammoth file...');
 
-  const protectionJs = `
+  const protectionJsRaw = `
 (function(){
 'use strict';
 var _bl=false,_dc=0,_dt=0;
@@ -899,6 +940,31 @@ if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded'
 else{_setupTrap();_chkRegex();}
 })();`;
 
+  // Obfuscate protectionJs with light settings (must not break, but should be hard to read)
+  let protectionJs;
+  try {
+    protectionJs = JavaScriptObfuscator.obfuscate(protectionJsRaw, {
+      compact: true,
+      controlFlowFlattening: false,
+      deadCodeInjection: false,
+      debugProtection: false,
+      selfDefending: false,
+      identifierNamesGenerator: 'hexadecimal',
+      numbersToExpressions: true,
+      stringArray: true,
+      stringArrayEncoding: ['base64'],
+      stringArrayThreshold: 0.8,
+      splitStrings: true,
+      splitStringsChunkLength: 8,
+      unicodeEscapeSequence: true,
+      target: 'browser',
+    }).getObfuscatedCode();
+    console.log(`  protectionJs obfuscated: ${(protectionJs.length/1024).toFixed(0)} KB`);
+  } catch (e) {
+    console.log(`  ⚠ protectionJs obfuscation failed: ${e.message}`);
+    protectionJs = protectionJsRaw;
+  }
+
   // Loader that decodes base64 body with proper UTF-8 handling
   const bodyLoader = `
 (function(){
@@ -911,6 +977,12 @@ try{
   document.body.innerHTML=html;
 }catch(e){document.body.innerHTML='<p style="padding:40px;color:#E74C3C;font-family:sans-serif">Loading error: '+e.message+'</p>';}
 })();`;
+
+  // Split passphrase into 2 halves, XOR+base64 each with a random key
+  const PASS_XOR_KEY = crypto.randomBytes(8).toString('hex');
+  const half = Math.ceil(BUILD_PASSPHRASE.length / 2);
+  const PASS_PART1_B64 = xorEncode(BUILD_PASSPHRASE.slice(0, half), PASS_XOR_KEY);
+  const PASS_PART2_B64 = xorEncode(BUILD_PASSPHRASE.slice(half), PASS_XOR_KEY);
 
   const mammothHtml = `<!DOCTYPE html>
 <html lang="en">
@@ -949,24 +1021,21 @@ try{
 <script>${bodyLoader}</script>
 <script>${srcModulesJs}</script>
 <script>
-/* Chunk loader bootstrap — kicks off encrypted asset fetch + caches in IDB.
-   The passphrase is intentionally inlined here; encryption is for asset rotation +
-   raising scraping cost, not cryptographic secrecy of client-bound bytes. */
+/* Chunk loader bootstrap */
 (function(){
+  // Passphrase is split + XOR'd to raise extraction cost
+  var _p1="${PASS_PART1_B64}", _p2="${PASS_PART2_B64}", _xk="${PASS_XOR_KEY}";
+  function _dp(b){var r=atob(b),o=[];for(var i=0;i<r.length;i++)o.push(r.charCodeAt(i)^_xk.charCodeAt(i%_xk.length));return new TextDecoder('utf-8').decode(new Uint8Array(o));}
+  var _pp=_dp(_p1)+_dp(_p2);
   function boot(){
     if(!window.TN26Chunks){ setTimeout(boot, 30); return; }
     window.TN26Chunks.init({
       manifestUrl: 'chunks/manifest.json',
-      passphrase: ${JSON.stringify(BUILD_PASSPHRASE)},
+      passphrase: _pp,
       basePath: ''
-    }).then(function(){
-      /* init complete — manifest loaded, key derived, IDB clean */
-    }).catch(function(e){
-      /* manifest fetch failed — app's _start() will also fail via ready() */
-    });
+    }).then(function(){}).catch(function(e){});
   }
   boot();
-  // Register service worker for cache-first chunk delivery
   if('serviceWorker' in navigator){
     window.addEventListener('load', function(){
       navigator.serviceWorker.register('service-worker.js').catch(function(){});
