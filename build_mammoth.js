@@ -449,6 +449,68 @@ ${ddBody}
   // Add DD app JS at the end (renderBatches, BATCHES, D[] array, etc.)
   mergedAppJs += '\n;\n' + ddAppJs;
 
+  // ──────────────────────────────────────────────
+  // 7b. Extract DD's large data arrays (D + BATCHES) OUT of the obfuscation pipeline.
+  //     Reason: javascript-obfuscator's controlFlowFlattening + deadCodeInjection wraps
+  //     these top-level array literals inside closures that never execute reliably,
+  //     leaving D / BATCHES undefined at runtime (or in TDZ). We move them to a separate
+  //     non-obfuscated <script> so they become true window.D / window.BATCHES globals
+  //     before the obfuscated bundle runs.
+  // ──────────────────────────────────────────────
+  function extractTopLevelArray(src, name) {
+    // matches:  var <name>=[   OR   const <name>=[   OR   window.<name>=[
+    const re = new RegExp('(?:^|\\n)\\s*(?:var|const|let|window\\.)\\s*' + name + '\\s*=\\s*\\[', 'm');
+    const m = re.exec(src);
+    if (!m) return null;
+    const arrStart = m.index + m[0].length - 1; // points at '['
+    let depth = 0, i = arrStart, inStr = false, strCh = '', inLineCmt = false, inBlockCmt = false, prev = '';
+    for (; i < src.length; i++) {
+      const c = src[i], n = src[i+1];
+      if (inLineCmt) { if (c === '\n') inLineCmt = false; prev = c; continue; }
+      if (inBlockCmt) { if (c === '*' && n === '/') { inBlockCmt = false; i++; } prev = c; continue; }
+      if (inStr) {
+        if (c === '\\') { i++; prev = c; continue; }
+        if (c === strCh) { inStr = false; }
+        prev = c; continue;
+      }
+      if (c === '/' && n === '/') { inLineCmt = true; i++; prev = c; continue; }
+      if (c === '/' && n === '*') { inBlockCmt = true; i++; prev = c; continue; }
+      if (c === '"' || c === "'" || c === '`') { inStr = true; strCh = c; prev = c; continue; }
+      if (c === '[') depth++;
+      else if (c === ']') { depth--; if (depth === 0) break; }
+      prev = c;
+    }
+    if (depth !== 0) return null;
+    // include the closing ] and the trailing semicolon if present
+    let end = i + 1;
+    while (end < src.length && /[\s;]/.test(src[end])) { if (src[end] === ';') { end++; break; } end++; }
+    return { matchStart: m.index + (m[0].startsWith('\n') ? 1 : 0), matchEnd: end, full: src.slice(m.index, end), arrayLiteral: src.slice(arrStart, i + 1) };
+  }
+
+  const dExtract = extractTopLevelArray(mergedAppJs, 'D');
+  const bExtract = extractTopLevelArray(mergedAppJs, 'BATCHES');
+  let dataPreamble = '';
+  if (dExtract && bExtract) {
+    // Emit a non-obfuscated preamble that sets window.D / window.BATCHES.
+    // In the obfuscated bundle, replace the original declarations with bindings that
+    // simply alias the globals — preserving the bare-name `D` / `BATCHES` references
+    // used throughout renderBatches / schemeCardHtml / etc.
+    dataPreamble = 'window.D=' + dExtract.arrayLiteral + ';window.BATCHES=' + bExtract.arrayLiteral + ';';
+    // Replace BOTH originals; do the later one first to keep indices valid.
+    const [first, second] = dExtract.matchStart < bExtract.matchStart ? [dExtract, bExtract] : [bExtract, dExtract];
+    const firstName = dExtract.matchStart < bExtract.matchStart ? 'D' : 'BATCHES';
+    const secondName = firstName === 'D' ? 'BATCHES' : 'D';
+    mergedAppJs = mergedAppJs.slice(0, second.matchStart)
+      + 'var ' + secondName + '=window.' + secondName + ';\n'
+      + mergedAppJs.slice(second.matchEnd);
+    mergedAppJs = mergedAppJs.slice(0, first.matchStart)
+      + 'var ' + firstName + '=window.' + firstName + ';\n'
+      + mergedAppJs.slice(first.matchEnd);
+    console.log(`  Extracted D (${(dExtract.arrayLiteral.length/1024).toFixed(1)} KB) + BATCHES (${(bExtract.arrayLiteral.length/1024).toFixed(1)} KB) out of obfuscation`);
+  } else {
+    console.log('  ⚠ Could not extract D/BATCHES — leaving inside obfuscated bundle');
+  }
+
   // Add interaction enhancers
   mergedAppJs += `
 ;
@@ -695,6 +757,7 @@ try{
 <script>window.__CANDIDATE_DATA__="${candidatesB64}";</script>
 <script>${chartJs}</script>
 <script>${bodyLoader}</script>
+<script>${dataPreamble}</script>
 <script>${obfuscatedJs}</script>
 </body>
 </html>`;

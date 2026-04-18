@@ -192,6 +192,21 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1p
 .sc-relevance h4{color:var(--gold);font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
 .sc-relevance p{color:var(--t2);margin:0}
 
+/* Category-at-a-glance strip */
+.cat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin:12px 0 18px}
+.cat-pill{background:var(--bg2);border:1px solid var(--bg3);border-left:3px solid var(--gold-dim);border-radius:var(--r);padding:10px 12px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:2px;text-align:left;font-family:inherit;color:inherit}
+.cat-pill:hover{background:var(--bg1);border-left-color:var(--gold);transform:translateX(2px)}
+.cat-pill.active{background:var(--bg1);border-left-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-dim)}
+.cat-pill .ct{font-size:12px;color:var(--t1);font-weight:600;line-height:1.3}
+.cat-pill .cm{font-size:10px;color:var(--t3);font-family:var(--mono);text-transform:uppercase;letter-spacing:.4px}
+.cat-pill .cm b{color:var(--gold)}
+
+/* Category badge inside scheme card title row */
+.sc-cat{display:inline-block;font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.5px;color:var(--t3);background:var(--bg1);border:1px solid var(--bg3);padding:2px 7px;border-radius:8px;margin-right:8px;white-space:nowrap}
+
+/* Flat container card spacing */
+#batchContainer{display:grid;gap:12px}
+
 /* ═══ DEEP-ANALYSIS DISCOVERABILITY ═══ */
 .deep-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0 24px}
 .deep-stat{background:linear-gradient(135deg,var(--bg2),var(--bg1));border:1px solid var(--bg3);border-radius:var(--r);padding:14px 16px;text-align:center;border-top:2px solid var(--gold-dim)}
@@ -581,13 +596,16 @@ document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT
 
   <div class="spotlight" id="spotlight">
     <h3>★★★★★ Spotlight — the schemes that genuinely matter</h3>
-    <div class="sub">Auto-expanded below: every five-star scheme across all 4 parties and 7 policy batches. Read these first.</div>
+    <div class="sub">Auto-expanded below: every five-star scheme across all 4 parties. Read these first.</div>
     <div class="spotlight-grid" id="spotlightGrid"></div>
   </div>
 
+  <h3 style="font-size:14px;color:var(--t2);margin:24px 0 4px;letter-spacing:.3px">Browse by category</h3>
+  <div class="cat-strip" id="catStrip"></div>
+
   <div class="filter-bar">
-    <input type="text" id="schemeSearch" placeholder="Search schemes by name, party, or keyword..." oninput="filterSchemes()">
-    <button class="filter-btn active" data-party="ALL" onclick="setPartyFilter(this)">All</button>
+    <input type="text" id="schemeSearch" placeholder="Search 174 schemes by name, party, category, or keyword..." oninput="filterSchemes()">
+    <button class="filter-btn active" data-party="ALL" onclick="setPartyFilter(this)">All parties</button>
     <button class="filter-btn" data-party="DMK" onclick="setPartyFilter(this)">DMK</button>
     <button class="filter-btn" data-party="ADMK" onclick="setPartyFilter(this)">ADMK</button>
     <button class="filter-btn" data-party="TVK" onclick="setPartyFilter(this)">TVK</button>
@@ -1168,7 +1186,7 @@ document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT
 // Format: [batch, party, name, stars, cost, verdict, insight]
 // verdict: I=Include, C=Conditional, E=Exclude, R=Review, U=Unratable
 // ═══════════════════════════════════════════
-const D=[
+var D=[
 // ── Women & Family Welfare section: Women & Family Welfare (26) ──
 [1,'DMK','Magalir Urimai Thogai — ₹2,000/month to women',3,'₹16,440 Cr/yr','C','Phase to ₹1,500; restrict to bottom 60% SECC households to cap fiscal load',
 ['Directly reaches 1.37 Cr women; builds on proven ₹1,000/mo infrastructure','Evidence from Brazil Bolsa Família shows women-targeted transfers improve child nutrition 2×','Politically irreversible = guaranteed continuation regardless of government'],
@@ -2219,7 +2237,7 @@ const D=[
 // ═══════════════════════════════════════════
 // BATCH METADATA
 // ═══════════════════════════════════════════
-const BATCHES=[
+var BATCHES=[
 {id:1,title:'Women & Family Welfare',count:26,agg:{DMK:'₹20,340',ADMK:'₹82,780',TVK:'₹74,450',NTK:'₹4,450'},best:'DMK: 1,000 childcare centres (★★★★★) — unlocks ₹4K Cr in women\'s workforce participation at ₹800 Cr/yr',worst:'ADMK: Free refrigerators (★☆☆☆☆) — ₹35,000 Cr one-time exceeds half of annual capex budget'},
 {id:2,title:'Education, Youth, Employment & Tech',count:25,agg:{DMK:'₹16,600',ADMK:'₹10,100',TVK:'₹14,400',NTK:'₹7,050'},best:'DMK: Free breakfast extension (★★★★★) + Naan Mudhalvan (★★★★★) — proven models with high ROI',worst:'ADMK: ₹1,000/mo Class 12 unemployment allowance (★☆☆☆☆) — perverse incentive against higher education'},
 {id:3,title:'Agriculture, Farmers & Fishermen',count:28,agg:{DMK:'₹5,700–6,500',ADMK:'₹7,000–10,600',TVK:'₹12,060–13,960',NTK:'₹5,700–8,100'},best:'NTK: Water body restoration (★★★★★) + Cold storage (★★★★★) — highest long-term ROI across ALL categories',worst:'TVK: Full crop loan waiver (★☆☆☆☆) — ₹1.5–2L Cr = most destructive promise across all categories'},
@@ -2230,55 +2248,69 @@ const BATCHES=[
 ];
 
 // ═══════════════════════════════════════════
-// RENDERING
+// RENDERING (flat list — no batch accordions)
 // ═══════════════════════════════════════════
-const VMAP={I:'Include',C:'Conditional',E:'Exclude',R:'Review',U:'Unratable'};
-const starsStr=n=>n===0?'—':'★'.repeat(n)+'☆'.repeat(5-n);
-let activeParty='ALL';
+var VMAP={I:'Include',C:'Conditional',E:'Exclude',R:'Review',U:'Unratable'};
+var starsStr=n=>n===0?'—':'★'.repeat(n)+'☆'.repeat(5-n);
+var activeParty='ALL';
+var activeCat=0; // 0 = all categories; otherwise BATCHES.id
 
 function setPartyFilter(btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.filter-bar .filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   activeParty=btn.dataset.party;
   filterSchemes();
 }
 
-function filterSchemes(){
-  const q=document.getElementById('schemeSearch').value.toLowerCase();
-  let count=0;
-  document.querySelectorAll('.batch-acc').forEach(acc=>{
-    let batchVisible=0;
-    acc.querySelectorAll('.scheme-card').forEach(card=>{
-      const txt=card.textContent.toLowerCase();
-      const party=card.dataset.party;
-      const stars=parseInt(card.dataset.stars);
-      const matchQ=!q||txt.includes(q);
-      const matchP=activeParty==='ALL'||activeParty===party||(activeParty==='5STAR'&&stars===5);
-      const show=matchQ&&matchP;
-      card.style.display=show?'':'none';
-      if(show){batchVisible++;count++;}
-    });
-    acc.style.display=batchVisible?'':'none';
-    if(batchVisible&&(q||activeParty!=='ALL'))acc.classList.add('open');
+function setCatFilter(catId){
+  activeCat=(activeCat===catId)?0:catId; // toggle
+  document.querySelectorAll('.cat-pill').forEach(p=>{
+    p.classList.toggle('active', parseInt(p.dataset.cat,10)===activeCat && activeCat!==0);
   });
-  document.getElementById('schemeCount').textContent=count+' schemes shown';
+  filterSchemes();
+}
+
+function filterSchemes(){
+  const qEl=document.getElementById('schemeSearch');
+  const q=qEl?qEl.value.toLowerCase():'';
+  let count=0;
+  document.querySelectorAll('#batchContainer .scheme-card').forEach(card=>{
+    const txt=card.textContent.toLowerCase();
+    const party=card.dataset.party;
+    const stars=parseInt(card.dataset.stars,10);
+    const cat=parseInt(card.dataset.cat,10);
+    const matchQ=!q||txt.includes(q);
+    const matchP=activeParty==='ALL'||activeParty===party||(activeParty==='5STAR'&&stars===5);
+    const matchC=activeCat===0||activeCat===cat;
+    const show=matchQ&&matchP&&matchC;
+    card.style.display=show?'':'none';
+    if(show)count++;
+  });
+  const badge=document.getElementById('schemeCount');
+  if(badge)badge.textContent=count+' schemes shown';
 }
 
 function toggleExpandAll(){
   const btn=document.querySelector('.expand-all-btn');
-  const cards=document.querySelectorAll('.scheme-card');
-  const allOpen=[...cards].every(c=>c.classList.contains('open')||c.style.display==='none');
-  cards.forEach(c=>{if(c.style.display!=='none')c.classList.toggle('open',!allOpen)});
+  const cards=document.querySelectorAll('#batchContainer .scheme-card');
+  const visible=[...cards].filter(c=>c.style.display!=='none');
+  if(!visible.length)return;
+  const allOpen=visible.every(c=>c.classList.contains('open'));
+  visible.forEach(c=>c.classList.toggle('open',!allOpen));
   btn.textContent=allOpen?'Expand All':'Collapse All';
 }
 
 function renderBatches(){
   const container=document.getElementById('batchContainer');
-  // Fiscal anchors (₹ crore) — keep in sync with Executive Summary hero tiles
-  const FY26_BUDGET=372000;           // ₹3.72 L Cr — total FY26 budget
-  const TN_DEBT_2027=1071000;         // ₹10.71 L Cr — projected debt (2027)
-  // Parse a cost cell like "₹16,440 Cr/yr" | "₹35,000 Cr one-time" | "₹5,000–7,500 Cr" | "₹1.25L Cr" | "₹0"
-  // Returns {cr:Number, kind:'yr'|'one'|'flat', raw:string} or null.
+  if(!container) return;
+  // Render category strip (clickable filter pills)
+  renderCategoryStrip();
+  // Build a quick lookup id→title for category badges on cards
+  const catTitle={};
+  if(typeof BATCHES!=='undefined'){ BATCHES.forEach(b=>{catTitle[b.id]=b.title;}); }
+  // Fiscal anchors (₹ crore)
+  const FY26_BUDGET=372000;
+  const TN_DEBT_2027=1071000;
   function parseCostCr(raw){
     if(!raw) return null;
     const s=String(raw).replace(/,/g,'').replace(/\s+/g,' ').trim();
@@ -2305,37 +2337,9 @@ function renderBatches(){
     const dTitle=`${p.raw} ÷ ₹10.71 L Cr projected 2027 debt stock. Shows the scheme's size relative to TN's total accumulated debt.`;
     return `<span class="sc-share ${shareTier(bPct)}" title="${bTitle}">Budget <b>${fmtPct(bPct)}</b></span><span class="sc-share ${shareTier(dPct/2)}" title="${dTitle}">Debt <b>${fmtPct(dPct)}</b></span>`;
   }
-  BATCHES.forEach(b=>{
-    const schemes=D.filter(s=>s[0]===b.id);
-    const acc=document.createElement('div');
-    acc.className='batch-acc';
-    const prosHtml=(arr)=>arr&&arr.length?arr.map(p=>`<li>${p}</li>`).join(''):'<li>—</li>';
-    acc.innerHTML=`
-      <div class="batch-header" onclick="this.parentElement.classList.toggle('open')">
-        <h3>${b.title}</h3>
-        <div class="meta"><span>${schemes.length} schemes</span><span class="arrow">▼</span></div>
-      </div>
-      <div class="batch-body"><div class="batch-inner">
-        <div class="batch-summary">
-          <strong>Aggregate Annual Burden:</strong> DMK ${b.agg.DMK} Cr | ADMK ${b.agg.ADMK} Cr | TVK ${b.agg.TVK} Cr | NTK ${b.agg.NTK} Cr<br>
-          <strong style="color:#2ECC71">Best:</strong> ${b.best}<br>
-          <strong style="color:#E74C3C">Worst:</strong> ${b.worst}
-        </div>
-        <div class="batch-actions">
-          <button class="batch-action-btn" onclick="openAllInBatch(this,true)">⊕ Open all deep analyses</button>
-          <button class="batch-action-btn" onclick="openAllInBatch(this,false)">⊖ Collapse all</button>
-          <span class="batch-tally">
-            <span class="ti">✓ ${schemes.filter(s=>s[5]==='I').length} Include</span>
-            <span class="tc">~ ${schemes.filter(s=>s[5]==='C').length} Conditional</span>
-            <span class="te">✗ ${schemes.filter(s=>s[5]==='E').length} Exclude</span>
-          </span>
-        </div>
-        ${schemes.map(s=>schemeCardHtml(s)).join('')}
-      </div></div>`;
-    container.appendChild(acc);
-  });
-  // Open all batch accordions by default — users immediately see schemes
-  document.querySelectorAll('.batch-acc').forEach(a=>a.classList.add('open'));
+  // Flat list — no accordion wrappers. Each card carries data-cat for filtering.
+  const html = D.map(s=>schemeCardHtml(s,{cat:catTitle[s[0]]||''})).join('');
+  container.innerHTML = html;
   renderSpotlight();
   renderDeepStats();
   filterSchemes();
@@ -2373,10 +2377,11 @@ function schemeCardHtml(s, opts){
   const hasRel   = s[10] && s[10].length>10;
   const prosLi = (arr)=>arr&&arr.length?arr.map(p=>'<li>'+p+'</li>').join(''):'<li>—</li>';
   const openCls = opts.preOpen ? ' open' : '';
-  return '<div class="scheme-card '+vCls+openCls+'" data-party="'+s[1]+'" data-stars="'+s[3]+'">'
+  const catLabel = opts.cat ? '<span class="sc-cat">'+opts.cat+'</span>' : '';
+  return '<div class="scheme-card '+vCls+openCls+'" data-party="'+s[1]+'" data-stars="'+s[3]+'" data-cat="'+s[0]+'">'
     + '<div class="sc-header" onclick="this.parentElement.classList.toggle(\'open\')">'
     +   '<div class="sc-meta">'
-    +     '<div class="sc-title"><span class="party-tag '+s[1]+'">'+s[1]+'</span> '+s[2]+'</div>'
+    +     '<div class="sc-title">'+catLabel+'<span class="party-tag '+s[1]+'">'+s[1]+'</span> '+s[2]+'</div>'
     +     '<div class="sc-subtitle">'
     +       '<span class="stars">'+starsStrL(s[3])+'</span>'
     +       '<span class="vbadge '+v+'">'+(VMAP_[v]||'—')+'</span>'
@@ -2408,13 +2413,8 @@ function schemeCardHtml(s, opts){
     + '</div>';
 }
 
-// Spotlight: render every 5★ scheme pre-expanded
-function renderSpotlight(){
-  const grid = document.getElementById('spotlightGrid');
-  if(!grid) return;
-  const fives = D.filter(s=>s[3]===5);
-  grid.innerHTML = fives.map(s=>schemeCardHtml(s,{preOpen:true})).join('');
-}
+// Spotlight wrapper — delegates to override that adds category badges
+function renderSpotlight(){ renderSpotlightOverride(); }
 
 // Top stats banner — drives home the depth of analysis
 function renderDeepStats(){
@@ -2441,22 +2441,41 @@ function renderDeepStats(){
   el.innerHTML = cells.map(c=>'<div class="deep-stat"><div class="num">'+c[0]+'</div><div class="lbl">'+c[1]+'</div></div>').join('');
 }
 
-// Open / collapse every card inside a single batch accordion
-function openAllInBatch(btn, open){
-  const acc = btn.closest('.batch-acc');
-  if(!acc) return;
-  acc.querySelectorAll('.scheme-card').forEach(c=>c.classList.toggle('open', open));
+// Render the clickable category strip (replaces batch accordions)
+function renderCategoryStrip(){
+  const el = document.getElementById('catStrip');
+  if(!el || typeof BATCHES==='undefined') return;
+  el.innerHTML = BATCHES.map(b=>{
+    const schemes = D.filter(s=>s[0]===b.id);
+    const fives = schemes.filter(s=>s[3]===5).length;
+    const incl  = schemes.filter(s=>s[5]==='I').length;
+    return '<button class="cat-pill" data-cat="'+b.id+'" onclick="setCatFilter('+b.id+')">'
+      + '<span class="ct">'+b.title+'</span>'
+      + '<span class="cm"><b>'+schemes.length+'</b> schemes &middot; '+fives+'★ &middot; '+incl+' Include</span>'
+      + '</button>';
+  }).join('');
 }
 
-// Theme
-if(localStorage.getItem('tn-theme')==='light')document.body.classList.add('light');
-document.querySelector('.theme-btn').addEventListener('click',()=>{
-  localStorage.setItem('tn-theme',document.body.classList.contains('light')?'light':'dark');
-});
+// Spotlight: render every 5★ scheme pre-expanded (with category badge)
+function renderSpotlightOverride(){
+  const grid = document.getElementById('spotlightGrid');
+  if(!grid || typeof BATCHES==='undefined') return;
+  const catTitle={}; BATCHES.forEach(b=>catTitle[b.id]=b.title);
+  const fives = D.filter(s=>s[3]===5);
+  grid.innerHTML = fives.map(s=>schemeCardHtml(s,{preOpen:true,cat:catTitle[s[0]]||''})).join('');
+}
 
-// Scroll to top
+// Theme (theme-btn may not exist in mammoth build — guard)
+try{ if(localStorage.getItem('tn-theme')==='light')document.body.classList.add('light'); }catch(_){}
+const _themeBtn=document.querySelector('.theme-btn');
+if(_themeBtn){_themeBtn.addEventListener('click',()=>{
+  try{localStorage.setItem('tn-theme',document.body.classList.contains('light')?'light':'dark');}catch(_){}
+});}
+
+// Scroll to top (scrollTop may not exist in mammoth build — guard)
 window.addEventListener('scroll',()=>{
-  document.getElementById('scrollTop').classList.toggle('show',window.scrollY>500);
+  const el=document.getElementById('scrollTop');
+  if(el)el.classList.toggle('show',window.scrollY>500);
 });
 
 // Smooth scroll for TOC
@@ -2467,8 +2486,14 @@ document.querySelectorAll('.toc a').forEach(a=>{
   });
 });
 
-// Init
-renderBatches();
+// Init — deferred to next tick to defeat obfuscator controlFlowFlattening TDZ on
+// top-level const declarations (BATCHES / D).
+function _ddInit(){ try{ renderBatches(); }catch(e){} }
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(_ddInit,0); });
+} else {
+  setTimeout(_ddInit,0);
+}
 
 </script>
 </body>
