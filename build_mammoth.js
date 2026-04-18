@@ -19,10 +19,38 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const crypto = require('crypto');
 const JavaScriptObfuscator = require('javascript-obfuscator');
 
 const OUT_DIR = '.';
 const OUT = path.join(OUT_DIR, 'TN_2026_elections.html');
+const DOCS = 'docs';
+const CHUNKS_DIR = path.join(DOCS, 'chunks');
+
+// Per-build encryption passphrase: changes every build, embedded into the bootstrap.
+// This is NOT cryptographic security against a determined client-side attacker (the key
+// must reach the browser); it raises the cost of casual scraping and lets us rotate
+// encrypted asset URLs cleanly.
+const BUILD_PASSPHRASE = crypto.randomBytes(24).toString('base64');
+const BUILD_SALT = crypto.randomBytes(16).toString('hex');
+
+function sha256Hex(buf) {
+  return crypto.createHash('sha256').update(buf).digest('hex');
+}
+
+function deriveAesKey(passphrase, salt) {
+  return crypto.pbkdf2Sync(passphrase, salt, 100000, 32, 'sha256');
+}
+
+/** AES-GCM encrypt a buffer. Returns Buffer of [12-byte IV | ciphertext | 16-byte tag]
+ *  in the layout WebCrypto expects (ciphertext + tag concatenated, IV prepended). */
+function encryptChunk(plain, key) {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
+  const ct = Buffer.concat([cipher.update(plain), cipher.final()]);
+  const tag = cipher.getAuthTag();
+  return Buffer.concat([iv, ct, tag]); // matches WebCrypto AES-GCM ciphertext||tag layout after iv prefix
+}
 
 // ──────────────────────────────────────────────
 // Utilities
@@ -421,15 +449,13 @@ ${ddBody}
   if (!fetchRe.test(mergedAppJs)) {
     throw new Error('Could not locate fetch() chain in VI app JS');
   }
+  // Replace fetch() with a chunk-loader call: candidates are now an encrypted IDB-cached chunk.
   mergedAppJs = mergedAppJs.replace(fetchRe, `(function(){
-  try {
-    var data = JSON.parse(atob(window.__CANDIDATE_DATA__));
-    window.__CANDIDATE_DATA__ = null;
+  function _processData(data){
     var seen = new Set();
     ALL_CANDIDATES = (data.candidates || [])
       .filter(function(c){ return c.status === 'Accepted'; })
       .filter(function(c){
-        // Dedup by profile_url (each affidavit is unique); fall back to name|const|party|profile
         var key = (c.profile_url || (c.name + '|' + c.constituency + '|' + c.party + '|' + Math.random())).toString();
         if (seen.has(key)) return false;
         seen.add(key);
@@ -439,11 +465,17 @@ ${ddBody}
     processData();
     DATA_LOADED = true;
     renderModule2();
-  } catch(err) {
-    console.error('Failed to load candidate data:', err);
+  }
+  function _onErr(err){
     var el = document.getElementById('m2-stat-cand');
     if (el) el.textContent = 'Error';
   }
+  // Wait for chunk loader to be ready, then load candidates chunk
+  function _start(){
+    if(!window.TN26Chunks){ setTimeout(_start, 50); return; }
+    window.TN26Chunks.loadJSON('candidates').then(_processData).catch(_onErr);
+  }
+  _start();
 })();`);
 
   // Add DD app JS at the end (renderBatches, BATCHES, D[] array, etc.)
@@ -583,10 +615,64 @@ ${ddBody}
   console.log(`  Merged app JS: ${(mergedAppJs.length/1024).toFixed(0)} KB`);
 
   // ──────────────────────────────────────────────
-  // 8. Encode candidate data as base64 (kept OUT of obfuscation — too large)
+  // 7d. Bundle src/ modules: audience-tier system + tooltip system + chunk loader
+  //     (kept OUT of the obfuscation pipeline — they use SubtleCrypto + IndexedDB
+  //      APIs that the obfuscator's transformObjectKeys / control-flow flattening
+  //      can mangle, and they need to be loadable BEFORE the obfuscated bundle to
+  //      power data fetches.)
   // ──────────────────────────────────────────────
-  const candidatesB64 = Buffer.from(candidatesMinified, 'utf8').toString('base64');
-  console.log(`  Candidates base64: ${(candidatesB64.length/1024/1024).toFixed(2)} MB`);
+  console.log('\n▸ Bundling src/ modules (audience-tier + tooltip + chunk-loader)...');
+  const audienceTiersJs = fs.readFileSync(path.join('src', 'audience-tiers.js'), 'utf8');
+  const tooltipSystemJs = fs.readFileSync(path.join('src', 'tooltip-system.js'), 'utf8');
+  const chunkLoaderJs   = fs.readFileSync(path.join('src', 'chunk-loader.js'), 'utf8');
+  const srcModulesJs = audienceTiersJs + '\n' + tooltipSystemJs + '\n' + chunkLoaderJs;
+  console.log(`  src bundle: ${(srcModulesJs.length/1024).toFixed(0)} KB`);
+
+  // ──────────────────────────────────────────────
+  // 8. Build encrypted chunks (candidates + later: schemes / Chart.js)
+  // ──────────────────────────────────────────────
+  console.log('\n▸ Building encrypted chunks...');
+  if (!fs.existsSync(CHUNKS_DIR)) fs.mkdirSync(CHUNKS_DIR, { recursive: true });
+  const aesKey = deriveAesKey(BUILD_PASSPHRASE, BUILD_SALT);
+  const manifest = { version: Date.now().toString(36), salt: BUILD_SALT, chunks: {} };
+
+  function emitChunk(id, plainBuf, { encrypt = true } = {}) {
+    const payload = encrypt ? encryptChunk(plainBuf, aesKey) : plainBuf;
+    const sha = sha256Hex(payload);
+    const filename = id + '.' + sha.slice(0, 12) + (encrypt ? '.enc' : '.bin');
+    const fullPath = path.join(CHUNKS_DIR, filename);
+    fs.writeFileSync(fullPath, payload);
+    manifest.chunks[id] = {
+      url: 'chunks/' + filename,
+      sha256: sha,
+      size: payload.length,
+      enc: !!encrypt
+    };
+    console.log(`  ✓ chunk '${id}': ${(payload.length/1024).toFixed(1)} KB ${encrypt ? '(encrypted)' : ''} — ${filename}`);
+  }
+
+  // candidates chunk (largest)
+  emitChunk('candidates', Buffer.from(candidatesMinified, 'utf8'));
+
+  // Garbage-collect stale chunks (different sha) from previous builds
+  try {
+    const valid = new Set(Object.values(manifest.chunks).map(c => path.basename(c.url)));
+    for (const f of fs.readdirSync(CHUNKS_DIR)) {
+      if (f === 'manifest.json') continue;
+      if (!valid.has(f)) {
+        try { fs.unlinkSync(path.join(CHUNKS_DIR, f)); console.log(`  ✗ pruned stale chunk: ${f}`); } catch (_) {}
+      }
+    }
+  } catch (_) {}
+
+  fs.writeFileSync(path.join(CHUNKS_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+  console.log(`  ✓ manifest.json (version ${manifest.version})`);
+
+  // Service worker (copy + version-stamp)
+  const swSrc = fs.readFileSync(path.join('src', 'service-worker.js'), 'utf8')
+    .replace(/const CACHE_NAME\s*=\s*'[^']+'/, `const CACHE_NAME = 'tn26-${manifest.version}'`);
+  fs.writeFileSync(path.join(DOCS, 'service-worker.js'), swSrc, 'utf8');
+  console.log(`  ✓ service-worker.js (cache: tn26-${manifest.version})`);
 
   // ──────────────────────────────────────────────
   // 9. Obfuscate the application JavaScript
@@ -625,7 +711,7 @@ ${ddBody}
     transformObjectKeys: true,
     unicodeEscapeSequence: false,
     target: 'browser',
-    reservedNames: ['__CANDIDATE_DATA__', 'Chart']
+    reservedNames: ['Chart', 'TN26Chunks', 'AudienceTiers', 'TN26Tooltip']
   };
 
   const t0 = Date.now();
@@ -754,9 +840,31 @@ try{
 <script>${protectionJs}</script>
 </head>
 <body>
-<script>window.__CANDIDATE_DATA__="${candidatesB64}";</script>
 <script>${chartJs}</script>
 <script>${bodyLoader}</script>
+<script>${srcModulesJs}</script>
+<script>
+/* Chunk loader bootstrap — kicks off encrypted asset fetch + caches in IDB.
+   The passphrase is intentionally inlined here; encryption is for asset rotation +
+   raising scraping cost, not cryptographic secrecy of client-bound bytes. */
+(function(){
+  function boot(){
+    if(!window.TN26Chunks){ setTimeout(boot, 30); return; }
+    window.TN26Chunks.init({
+      manifestUrl: 'chunks/manifest.json',
+      passphrase: ${JSON.stringify(BUILD_PASSPHRASE)},
+      basePath: ''
+    }).catch(function(e){ /* silent: app code retries via TN26Chunks */ });
+  }
+  boot();
+  // Register service worker for cache-first chunk delivery
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('service-worker.js').catch(function(){});
+    });
+  }
+})();
+</script>
 <script>${dataPreamble}</script>
 <script>${obfuscatedJs}</script>
 </body>
@@ -776,7 +884,6 @@ try{
   // 12. Sync to docs/ for GitHub Pages (index.html + photos/)
   // ──────────────────────────────────────────────
   console.log('▸ Syncing to docs/ for GitHub Pages...');
-  const DOCS = 'docs';
   if (!fs.existsSync(DOCS)) fs.mkdirSync(DOCS, { recursive: true });
   // Copy built file as index.html
   fs.copyFileSync(OUT, path.join(DOCS, 'index.html'));

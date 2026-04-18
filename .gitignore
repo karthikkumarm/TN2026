@@ -27,4 +27,13 @@ eci_*.png
 eci_page_dump.html
 eci_api_responses.json
 
+# Local extraction artifacts
+content/source/
+
+# Local test harnesses
+_test*.js
+_validate*.js
+_e2e*.js
+fix_*.js
+
 # Keep sources, mammoth, docs/
