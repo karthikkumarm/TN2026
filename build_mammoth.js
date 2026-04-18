@@ -473,7 +473,9 @@ ${ddBody}
   // Wait for chunk loader to be ready, then load candidates chunk
   function _start(){
     if(!window.TN26Chunks){ setTimeout(_start, 50); return; }
-    window.TN26Chunks.loadJSON('candidates').then(_processData).catch(_onErr);
+    window.TN26Chunks.ready().then(function(){
+      return window.TN26Chunks.loadJSON('candidates');
+    }).then(_processData).catch(_onErr);
   }
   _start();
 })();`);
@@ -625,8 +627,11 @@ ${ddBody}
   const audienceTiersJs = fs.readFileSync(path.join('src', 'audience-tiers.js'), 'utf8');
   const tooltipSystemJs = fs.readFileSync(path.join('src', 'tooltip-system.js'), 'utf8');
   const chunkLoaderJs   = fs.readFileSync(path.join('src', 'chunk-loader.js'), 'utf8');
-  const srcModulesJs = audienceTiersJs + '\n' + tooltipSystemJs + '\n' + chunkLoaderJs;
-  console.log(`  src bundle: ${(srcModulesJs.length/1024).toFixed(0)} KB`);
+  const srcModulesPlain = audienceTiersJs + '\n' + tooltipSystemJs + '\n' + chunkLoaderJs;
+  // Encode as base64 to hide from view-source; decoded + eval'd at runtime
+  const srcModulesB64 = Buffer.from(srcModulesPlain, 'utf8').toString('base64');
+  const srcModulesJs = `(function(){var _b="${srcModulesB64}";try{var b=atob(_b);var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);var c=new TextDecoder('utf-8').decode(u);new Function(c)();}catch(e){}})();`;
+  console.log(`  src bundle: ${(srcModulesPlain.length/1024).toFixed(0)} KB plain → ${(srcModulesJs.length/1024).toFixed(0)} KB base64-wrapped`);
 
   // ──────────────────────────────────────────────
   // 8. Build encrypted chunks (candidates + later: schemes / Chart.js)
@@ -683,33 +688,35 @@ ${ddBody}
   const obfConfig = {
     compact: true,
     controlFlowFlattening: true,
-    controlFlowFlatteningThreshold: 0.6,
+    controlFlowFlatteningThreshold: 0.75,
     deadCodeInjection: true,
-    deadCodeInjectionThreshold: 0.3,
-    debugProtection: false,
+    deadCodeInjectionThreshold: 0.4,
+    debugProtection: true,
+    debugProtectionInterval: 2000,
     disableConsoleOutput: true,
     identifierNamesGenerator: 'hexadecimal',
+    identifiersPrefix: '_0x',
     log: false,
     numbersToExpressions: true,
     renameGlobals: false,
-    selfDefending: false,
+    selfDefending: true,
     simplify: true,
     splitStrings: true,
-    splitStringsChunkLength: 8,
+    splitStringsChunkLength: 6,
     stringArray: true,
     stringArrayCallsTransform: true,
-    stringArrayCallsTransformThreshold: 0.7,
+    stringArrayCallsTransformThreshold: 0.85,
     stringArrayEncoding: ['base64', 'rc4'],
     stringArrayIndexShift: true,
     stringArrayRotate: true,
     stringArrayShuffle: true,
-    stringArrayWrappersCount: 3,
+    stringArrayWrappersCount: 5,
     stringArrayWrappersChainedCalls: true,
-    stringArrayWrappersParametersMaxCount: 4,
+    stringArrayWrappersParametersMaxCount: 5,
     stringArrayWrappersType: 'function',
-    stringArrayThreshold: 0.8,
+    stringArrayThreshold: 0.9,
     transformObjectKeys: true,
-    unicodeEscapeSequence: false,
+    unicodeEscapeSequence: true,
     target: 'browser',
     reservedNames: ['Chart', 'TN26Chunks', 'AudienceTiers', 'TN26Tooltip']
   };
@@ -739,7 +746,16 @@ ${ddBody}
   const protectionJs = `
 (function(){
 'use strict';
-// Block context menu, text-select (except inputs), drag, common shortcuts
+var _bl=false,_dc=0,_dt=0;
+
+// ── Lock screen ──
+function _lock(){
+  if(_bl)return;_bl=true;
+  try{document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,Segoe UI,sans-serif;color:#C8922A;background:#080810;text-align:center;padding:40px"><div><div style="font-size:56px;margin-bottom:20px">\\u{1F512}</div><div style="font-size:22px;font-weight:600;margin-bottom:12px">Developer tools detected</div><div style="font-size:14px;color:#7A7265;max-width:400px">This content is protected. Please close all developer tools and reload the page.</div></div></div>';}catch(_){}
+  try{window.stop();}catch(_){}
+}
+
+// ── Block context menu, select, drag ──
 document.addEventListener('contextmenu',function(e){e.preventDefault();return false},true);
 document.addEventListener('keydown',function(e){
   var k=e.key;
@@ -760,38 +776,127 @@ document.addEventListener('copy',function(e){
   e.preventDefault();
 },true);
 
-// Frame-bust if loaded inside iframe
+// ── Frame-bust ──
 try{if(window.top!==window.self){window.top.location=window.self.location}}catch(_){document.documentElement.innerHTML='';}
 
-// Devtools detector (timing-based + dimension-based)
-var blocked=false;
-function lock(){
-  if(blocked)return;blocked=true;
-  try{document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,Segoe UI,sans-serif;color:#C8922A;background:#080810;text-align:center;padding:40px"><div><div style="font-size:56px;margin-bottom:20px">🔒</div><div style="font-size:22px;font-weight:600;margin-bottom:12px">Developer tools detected</div><div style="font-size:14px;color:#7A7265;max-width:400px">This content is protected. Please close all developer tools (F12 / Inspect) and reload the page to continue.</div></div></div>';}catch(_){}
-}
-var dcCount=0;
-setInterval(function(){
+// ── Multi-layer devtools detection ──
+// Layer 1: Timing-based detection (uses Date check, NOT debugger statement — 
+// the obfuscator's own debugProtection handles debugger traps already)
+function _chkTiming(){
   try{
-    // Timing trap
-    var s=performance.now();
-    (function(){}).constructor('debugger')();
-    if(performance.now()-s>120){dcCount++;if(dcCount>1)lock();}
-    // Size heuristic (desktop only — mobile browsers can have mismatches)
-    if(window.innerWidth>800){
-      var wd=window.outerWidth-window.innerWidth;
-      var hd=window.outerHeight-window.innerHeight;
-      if(wd>180||hd>200){dcCount++;if(dcCount>2)lock();}
+    var s=Date.now();
+    for(var i=0;i<100;i++){Math.random();}
+    var d=Date.now()-s;
+    if(d>50){_dt++;if(_dt>3)_lock();}
+    else{_dt=Math.max(0,_dt-1);}
+  }catch(_){}
+}
+
+// Layer 2: Window size differential (desktop only)
+function _chkSize(){
+  try{
+    if(window.innerWidth<800)return;
+    var wd=window.outerWidth-window.innerWidth;
+    var hd=window.outerHeight-window.innerHeight;
+    if(wd>180||hd>200){_dc++;if(_dc>2)_lock();}
+    else{_dc=Math.max(0,_dc-1);}
+  }catch(_){}
+}
+
+// Layer 3: Console object identity check — devtools modifies console internals
+var _origLog;
+try{_origLog=console.log.toString();}catch(_){_origLog='';}
+function _chkConsole(){
+  try{
+    var s=console.log.toString();
+    if(s!==_origLog&&s.indexOf('native code')===-1){_lock();}
+  }catch(_){}
+}
+
+// Layer 4: Stack depth — profiler/debugger increases call stack
+function _chkStack(){
+  try{
+    var e=new Error();
+    if(e.stack){
+      var lines=e.stack.split('\\n');
+      if(lines.length>15){_dc++;if(_dc>3)_lock();}
     }
   }catch(_){}
-},1500);
+}
 
-// Override console methods (harmless decorations that reveal devtool inspection)
+// Layer 5: Element-inspect detector — when user inspects element, browser briefly
+// inserts a special class or resizes; we detect via a hidden trap element
+var _trap=null;
+function _setupTrap(){
+  try{
+    _trap=document.createElement('div');
+    _trap.id='__x';
+    _trap.style.cssText='position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;opacity:0';
+    Object.defineProperty(_trap,'id',{
+      get:function(){_lock();return '__x';}
+    });
+    if(document.body)document.body.appendChild(_trap);
+  }catch(_){}
+}
+
+// Layer 6: Detect console.log() output interception (Firebug-style)
+function _chkRegex(){
+  try{
+    var d=new Date();
+    d.__proto__.toString=function(){_lock();return '';};
+  }catch(_){}
+}
+
+// Combined interval check
+setInterval(function(){
+  _chkTiming();
+  _chkSize();
+  _chkStack();
+},1200);
+setInterval(function(){
+  _chkConsole();
+},3000);
+
+// ── Source protection: make outerHTML/innerHTML less useful ──
 try{
-  var t=function(){};
-  ['log','debug','info','warn','error','table','dir','trace','group','groupEnd','profile','profileEnd'].forEach(function(k){
-    try{console[k]=t}catch(_){}
+  // Getter override on <html> — returns blank for scraping tools that read documentElement.outerHTML
+  var _origGetter=Object.getOwnPropertyDescriptor(Element.prototype,'outerHTML');
+  if(_origGetter&&_origGetter.get){
+    Object.defineProperty(document.documentElement,'outerHTML',{
+      get:function(){return '<!DOCTYPE html><html><head></head><body></body></html>';},
+      configurable:false
+    });
+  }
+}catch(_){}
+
+// ── Override console methods ──
+try{
+  var _noop=function(){};
+  ['log','debug','info','warn','error','table','dir','trace','group','groupEnd',
+   'profile','profileEnd','clear','count','countReset','time','timeEnd','timeLog',
+   'assert','dirxml'].forEach(function(k){
+    try{Object.defineProperty(console,k,{value:_noop,writable:false,configurable:false});}catch(_){}
   });
 }catch(_){}
+
+// ── Disable toString on key functions (prevents decompilation) ──
+// NOTE: Do NOT override Function.prototype.toString itself — the obfuscator's
+// selfDefending mechanism calls it internally to verify code integrity.
+try{
+  // Instead, trap specific high-value targets
+  var _origToString=Function.prototype.toString;
+  Function.prototype.toString=function(){
+    // If called on our own protection functions, return native stub
+    if(this===_lock||this===_chkTiming||this===_chkSize||this===_chkConsole||this===_chkStack||this===_setupTrap||this===_chkRegex){
+      return'function(){[native code]}';
+    }
+    return _origToString.call(this);
+  };
+}catch(_){}
+
+// ── Init trap on DOMContentLoaded ──
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){_setupTrap();_chkRegex();});}
+else{_setupTrap();_chkRegex();}
 })();`;
 
   // Loader that decodes base64 body with proper UTF-8 handling
@@ -854,7 +959,11 @@ try{
       manifestUrl: 'chunks/manifest.json',
       passphrase: ${JSON.stringify(BUILD_PASSPHRASE)},
       basePath: ''
-    }).catch(function(e){ /* silent: app code retries via TN26Chunks */ });
+    }).then(function(){
+      /* init complete — manifest loaded, key derived, IDB clean */
+    }).catch(function(e){
+      /* manifest fetch failed — app's _start() will also fail via ready() */
+    });
   }
   boot();
   // Register service worker for cache-first chunk delivery

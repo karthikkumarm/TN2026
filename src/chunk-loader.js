@@ -106,31 +106,44 @@
   let _key = null;
   let _basePath = '';
   let _passphrase = '';
+  let _initPromise = null;
 
   async function init({ manifestUrl, passphrase, basePath } = {}) {
     _basePath = basePath || '';
     _passphrase = passphrase || '';
     const url = manifestUrl || (_basePath + 'chunks/manifest.json');
-    const res = await fetch(url, { cache: 'no-cache' });
-    if (!res.ok) throw new Error('manifest fetch failed: ' + res.status);
-    _manifest = await res.json();
-    if (_passphrase && _manifest.salt) {
-      _key = await deriveKey(_passphrase, _manifest.salt);
-    }
-    // Garbage-collect IDB entries no longer in manifest
-    try {
-      const keys = await idbKeys(STORE);
-      const valid = new Set(Object.keys(_manifest.chunks || {}));
-      for (const k of keys) {
-        if (!valid.has(k)) await idbDel(STORE, k);
+    // Store the init promise so load() can await it
+    _initPromise = (async () => {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (!res.ok) throw new Error('manifest fetch failed: ' + res.status);
+      _manifest = await res.json();
+      if (_passphrase && _manifest.salt) {
+        _key = await deriveKey(_passphrase, _manifest.salt);
       }
-    } catch (e) { /* non-fatal */ }
-    await idbSet(META_STORE, 'manifest', _manifest);
-    return _manifest;
+      // Garbage-collect IDB entries no longer in manifest
+      try {
+        const keys = await idbKeys(STORE);
+        const valid = new Set(Object.keys(_manifest.chunks || {}));
+        for (const k of keys) {
+          if (!valid.has(k)) await idbDel(STORE, k);
+        }
+      } catch (e) { /* non-fatal */ }
+      await idbSet(META_STORE, 'manifest', _manifest);
+      return _manifest;
+    })();
+    return _initPromise;
+  }
+
+  /** Wait until init() has resolved. Throws if init was never called. */
+  function ready() {
+    if (_initPromise) return _initPromise;
+    return Promise.reject(new Error('chunk-loader: init() was never called'));
   }
 
   /** Load a chunk by id. Returns ArrayBuffer (caller decodes). Cache-first w/ integrity check. */
   async function load(id) {
+    // Auto-wait for init to complete (fixes race between sync script order and async init)
+    if (!_manifest && _initPromise) await _initPromise;
     if (!_manifest) throw new Error('chunk-loader not initialised');
     const entry = _manifest.chunks[id];
     if (!entry) throw new Error('unknown chunk: ' + id);
@@ -198,5 +211,5 @@
     return out;
   }
 
-  window.TN26Chunks = { init, load, loadJSON, loadText, refresh, purge, status };
+  window.TN26Chunks = { init, ready, load, loadJSON, loadText, refresh, purge, status };
 })();

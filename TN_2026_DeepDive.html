@@ -2355,46 +2355,60 @@ function renderBatches(){
 // Build a single scheme card with always-visible preview row
 function schemeCardHtml(s, opts){
   opts = opts || {};
-  const v = s[5], vCls = 'verdict-'+(v||'U');
-  const VMAP_={I:'Include',C:'Conditional',E:'Exclude',R:'Review',U:'Unratable'};
-  const FY26_BUDGET=372000, TN_DEBT_2027=1071000;
+  var AT = window.AudienceTiers;
+  var tier = AT ? AT.current() : 'V';
+  var v = s[5], vCls = 'verdict-'+(v||'U');
+  var VMAP_={I:'Include',C:'Conditional',E:'Exclude',R:'Review',U:'Unratable'};
+  var FY26_BUDGET=372000, TN_DEBT_2027=1071000;
   function pCost(raw){
     if(!raw) return null;
-    const s2=String(raw).replace(/,/g,'').replace(/\s+/g,' ').trim();
+    var s2=String(raw).replace(/,/g,'').replace(/\s+/g,' ').trim();
     if(/^₹?\s*0\b/.test(s2)) return {cr:0,kind:'flat'};
-    const m=s2.match(/₹?\s*([0-9]*\.?[0-9]+)\s*(?:[–\-to]+\s*([0-9]*\.?[0-9]+))?\s*(L)?\s*Cr/i);
+    var m=s2.match(/₹?\s*([0-9]*\.?[0-9]+)\s*(?:[–\-to]+\s*([0-9]*\.?[0-9]+))?\s*(L)?\s*Cr/i);
     if(!m) return null;
-    let lo=parseFloat(m[1]), hi=m[2]?parseFloat(m[2]):lo;
+    var lo=parseFloat(m[1]), hi=m[2]?parseFloat(m[2]):lo;
     if(m[3]){lo*=100000;hi*=100000;}
     return {cr:(lo+hi)/2,kind:/\/\s*yr|per\s*yr|annual/i.test(s2)?'yr':(/one[\s-]?time|once/i.test(s2)?'one':'flat')};
   }
   function fmtPct(p){if(p<0.01)return '<0.01%';if(p<1)return p.toFixed(2)+'%';if(p<10)return p.toFixed(1)+'%';return Math.round(p)+'%';}
   function shareTier(p){if(p===0)return 'zero';if(p<1)return 'lo';if(p<5)return 'md';return 'hi';}
   function shareHtmlLocal(costRaw){
-    const p=pCost(costRaw);
+    var p=pCost(costRaw);
     if(!p) return '';
     if(p.cr===0) return '<span class="sc-share zero">Budget <b>0%</b></span><span class="sc-share zero">Debt <b>0%</b></span>';
-    const bPct=(p.cr/FY26_BUDGET)*100, dPct=(p.cr/TN_DEBT_2027)*100;
+    var bPct=(p.cr/FY26_BUDGET)*100, dPct=(p.cr/TN_DEBT_2027)*100;
     return '<span class="sc-share '+shareTier(bPct)+'">Budget <b>'+fmtPct(bPct)+'</b></span><span class="sc-share '+shareTier(dPct/2)+'">Debt <b>'+fmtPct(dPct)+'</b></span>';
   }
-  const starsStrL = n=>n===0?'—':'★'.repeat(n)+'☆'.repeat(5-n);
-  const prosCount = Array.isArray(s[7])?s[7].length:0;
-  const consCount = Array.isArray(s[8])?s[8].length:0;
-  const hasWorld = s[9] && s[9].length>10;
-  const hasRel   = s[10] && s[10].length>10;
-  const prosLi = (arr)=>arr&&arr.length?arr.map(p=>'<li>'+p+'</li>').join(''):'<li>—</li>';
-  const openCls = opts.preOpen ? ' open' : '';
-  const catLabel = opts.cat ? '<span class="sc-cat">'+opts.cat+'</span>' : '';
-  // Scheme id used by tooltip system (1-based, matches order in D[])
+  var starsStrL = function(n){return n===0?'—':'★'.repeat(n)+'☆'.repeat(5-n);};
+  var prosCount = Array.isArray(s[7])?s[7].length:0;
+  var consCount = Array.isArray(s[8])?s[8].length:0;
+  var hasWorld = s[9] && s[9].length>10;
+  var hasRel   = s[10] && s[10].length>10;
+  var openCls = opts.preOpen ? ' open' : '';
+  var catLabel = opts.cat ? '<span class="sc-cat">'+opts.cat+'</span>' : '';
   var schemeId = (typeof opts.id === 'number') ? opts.id : (D.indexOf(s) + 1);
+
+  // Build tier-adapted content for the card body
+  var bodyHtml = buildTierBody(s, schemeId, tier);
+
+  // Tier-adapted header labels
+  var verdictLabel = VMAP_[v]||'—';
+  var partyLabel = s[1];
+  var costLabel = s[4];
+  if(AT){
+    verdictLabel = (AT.VERDICT_HUMAN[v]||AT.VERDICT_HUMAN.U)[tier]||verdictLabel;
+    partyLabel = (AT.PARTY_HUMAN[s[1]]||{})[tier]||s[1];
+    costLabel = AT.explainCost(s[4], tier)||s[4];
+  }
+
   return '<div class="scheme-card '+vCls+openCls+'" data-scheme-id="'+schemeId+'" data-party="'+s[1]+'" data-stars="'+s[3]+'" data-cat="'+s[0]+'">'
     + '<div class="sc-header" onclick="this.parentElement.classList.toggle(\'open\')">'
     +   '<div class="sc-meta">'
-    +     '<div class="sc-title">'+catLabel+'<span class="party-tag '+s[1]+'" data-tip="party">'+s[1]+'</span> '+s[2]+'</div>'
+    +     '<div class="sc-title">'+catLabel+'<span class="party-tag '+s[1]+'" data-tip="party">'+escH(partyLabel.split('—')[0].trim())+'</span> '+s[2]+'</div>'
     +     '<div class="sc-subtitle">'
     +       '<span class="stars" data-tip="stars">'+starsStrL(s[3])+'</span>'
-    +       '<span class="vbadge '+v+'" data-tip="verdict">'+(VMAP_[v]||'—')+'</span>'
-    +       '<span class="sc-cost" data-tip="cost">'+s[4]+'</span>'
+    +       '<span class="vbadge '+v+'" data-tip="verdict">'+escH(verdictLabel)+'</span>'
+    +       '<span class="sc-cost" data-tip="cost">'+escH(costLabel)+'</span>'
     +       shareHtmlLocal(s[4])
     +     '</div>'
     +   '</div>'
@@ -2411,65 +2425,95 @@ function schemeCardHtml(s, opts){
     +   '</div>'
     + '</div>'
     + '<div class="sc-body"><div class="sc-inner">'
-    +   '<div class="sc-tier-explainer" data-scheme-id="'+schemeId+'"></div>'
-    +   '<div class="sc-insight"><strong>Key Insight:</strong> '+s[6]+'</div>'
-    +   '<div class="sc-pc">'
-    +     '<div class="sc-pros"><h4 data-tip="pros">✅ Pros</h4><ul>'+prosLi(s[7])+'</ul></div>'
-    +     '<div class="sc-cons"><h4 data-tip="cons">❌ Cons</h4><ul>'+prosLi(s[8])+'</ul></div>'
+    +   '<div class="sc-tier-body" data-scheme-id="'+schemeId+'">'
+    +     bodyHtml
     +   '</div>'
-    +   '<div class="sc-world"><h4 data-tip="world-context">🌍 World Context</h4><p>'+(s[9]||'No direct global parallel identified.')+'</p></div>'
-    +   '<div class="sc-relevance"><h4 data-tip="tn-relevance">📌 Current Relevance to TN (2025)</h4><p>'+(s[10]||'Assessment pending.')+'</p></div>'
     + '</div></div>'
     + '</div>';
 }
 
-/** Render the inline "explain at my level" panel inside an opened scheme card. */
-function renderTierExplainer(schemeId, tier){
-  if(!window.AudienceTiers) return '';
-  tier = tier || window.AudienceTiers.current();
-  var arr = D[schemeId-1]; if(!arr) return '';
-  var s = { id:schemeId, batchId:arr[0], party:arr[1], name:arr[2], stars:arr[3], cost:arr[4],
-            verdict:arr[5], insight:arr[6], pros:arr[7]||[], cons:arr[8]||[],
-            worldContext:arr[9]||'', tnRelevance:arr[10]||'',
-            categoryTitle:(typeof catTitle!=='undefined' && catTitle[arr[0]])||'' };
-  var r = window.AudienceTiers.renderSchemeForTier(s, tier);
-  function esc(t){ return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-  var label = (window.AudienceTiers.TIERS.find(function(x){return x.id===tier;})||{label:tier}).label;
-  return '<div class="tier-card" data-tier="'+tier+'">'
-    + '<div class="tier-card-head">📖 Reading at: <b>'+esc(label)+'</b> <span class="tier-card-hint">(change with the floating "Read as" picker)</span></div>'
-    + '<div class="tier-card-line"><b>Headline:</b> '+esc(r.headline)+'</div>'
-    + '<div class="tier-card-line"><b>Verdict:</b> '+esc(r.verdict)+' · '+esc(r.stars)+'</div>'
-    + '<div class="tier-card-line"><b>Cost:</b> '+esc(r.cost)+'</div>'
-    + (r.summary?'<div class="tier-card-line"><b>In short:</b> '+esc(r.summary)+'</div>':'')
+function escH(t){ return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/** Build the full tier-aware card body for a scheme. */
+function buildTierBody(s, schemeId, tier){
+  var AT = window.AudienceTiers;
+  if(!AT) tier = 'V';
+  else tier = tier || AT.current();
+
+  // Convert array to scheme object for AT
+  var obj = { id:schemeId, batchId:s[0], party:s[1], name:s[2], stars:s[3], cost:s[4],
+              verdict:s[5], insight:s[6], pros:s[7]||[], cons:s[8]||[],
+              worldContext:s[9]||'', tnRelevance:s[10]||'',
+              categoryTitle:(typeof catTitle!=='undefined' && catTitle[s[0]])||'' };
+
+  // Get tier-adapted rendering
+  var r = AT ? AT.renderSchemeForTier(obj, tier) : null;
+  var tierLabel = AT ? (AT.TIERS.find(function(x){return x.id===tier;})||{label:tier}).label : 'Voter 18+';
+
+  // Tier banner
+  var html = '<div class="tier-card" data-tier="'+tier+'">'
+    + '<div class="tier-card-head">📖 Reading at: <b>'+escH(tierLabel)+'</b> <span class="tier-card-hint">(change with the floating "Read as" picker)</span></div>';
+  if(r){
+    html += '<div class="tier-card-line"><b>Headline:</b> '+escH(r.headline)+'</div>'
+      + '<div class="tier-card-line"><b>Verdict:</b> '+escH(r.verdict)+' · '+escH(r.stars)+'</div>'
+      + '<div class="tier-card-line"><b>Cost:</b> '+escH(r.cost)+'</div>'
+      + (r.summary?'<div class="tier-card-line"><b>In short:</b> '+escH(r.summary)+'</div>':'');
+  }
+  html += '</div>';
+
+  // Insight — tier-adapted
+  var insightText = s[6]||'—';
+  if(r && r.summary) insightText = r.summary;
+  html += '<div class="sc-insight"><strong>Key Insight:</strong> '+escH(insightText)+'</div>';
+
+  // Pros — tier-adapted
+  var prosArr = r ? r.pros : (s[7]||[]);
+  var consArr = r ? r.cons : (s[8]||[]);
+  var prosLi = function(arr){return arr&&arr.length?arr.map(function(p){return '<li>'+escH(p)+'</li>';}).join(''):'<li>—</li>';};
+  html += '<div class="sc-pc">'
+    + '<div class="sc-pros"><h4 data-tip="pros">✅ Pros</h4><ul>'+prosLi(prosArr)+'</ul></div>'
+    + '<div class="sc-cons"><h4 data-tip="cons">❌ Cons</h4><ul>'+prosLi(consArr)+'</ul></div>'
     + '</div>';
+
+  // World Context — tier-adapted
+  var ctxText = r && r.context ? r.context : (s[9]||'No direct global parallel identified.');
+  html += '<div class="sc-world"><h4 data-tip="world-context">🌍 World Context</h4><p>'+escH(ctxText)+'</p></div>';
+
+  // TN Relevance — tier-adapted
+  var relText = r && r.whyItMatters ? r.whyItMatters : (s[10]||'Assessment pending.');
+  html += '<div class="sc-relevance"><h4 data-tip="tn-relevance">📌 Current Relevance to TN (2025)</h4><p>'+escH(relText)+'</p></div>';
+
+  return html;
 }
 
-/** Refresh all open scheme cards' tier-explainer panels for current tier. */
-function refreshAllTierExplainers(){
-  var tier = window.AudienceTiers ? window.AudienceTiers.current() : 'V';
-  document.querySelectorAll('.sc-tier-explainer[data-scheme-id]').forEach(function(el){
+/** Refresh all scheme cards for the current tier. Re-renders body content + header labels. */
+function refreshAllTierContent(){
+  var AT = window.AudienceTiers;
+  if(!AT) return;
+  var tier = AT.current();
+  // Re-render all card bodies that exist in DOM
+  document.querySelectorAll('.sc-tier-body[data-scheme-id]').forEach(function(el){
     var id = parseInt(el.getAttribute('data-scheme-id'),10);
-    el.innerHTML = renderTierExplainer(id, tier);
+    var s = D[id-1]; if(!s) return;
+    el.innerHTML = buildTierBody(s, id, tier);
+  });
+  // Also update header labels (verdict badge, party tag, cost)
+  document.querySelectorAll('.scheme-card[data-scheme-id]').forEach(function(card){
+    var id = parseInt(card.getAttribute('data-scheme-id'),10);
+    var s = D[id-1]; if(!s) return;
+    var v = s[5];
+    var VMAP_={I:'Include',C:'Conditional',E:'Exclude',R:'Review',U:'Unratable'};
+    var vBadge = card.querySelector('.vbadge');
+    if(vBadge) vBadge.textContent = (AT.VERDICT_HUMAN[v]||AT.VERDICT_HUMAN.U)[tier]||(VMAP_[v]||'—');
+    var pTag = card.querySelector('.party-tag');
+    if(pTag) pTag.textContent = ((AT.PARTY_HUMAN[s[1]]||{})[tier]||s[1]).split('—')[0].trim();
+    var cEl = card.querySelector('.sc-cost');
+    if(cEl) cEl.textContent = AT.explainCost(s[4], tier)||s[4];
   });
 }
 
-// Render explainer when card is opened (delegated)
-document.addEventListener('click', function(e){
-  var hdr = e.target.closest && e.target.closest('.sc-header, .sc-open-btn');
-  if(!hdr) return;
-  setTimeout(function(){
-    var card = hdr.closest('.scheme-card');
-    if(!card || !card.classList.contains('open')) return;
-    var ex = card.querySelector('.sc-tier-explainer');
-    if(ex && !ex.innerHTML){
-      var id = parseInt(ex.getAttribute('data-scheme-id'),10);
-      ex.innerHTML = renderTierExplainer(id);
-    }
-  }, 50);
-});
-
 // Re-render on tier change
-document.addEventListener('tn26:tier-change', refreshAllTierExplainers);
+document.addEventListener('tn26:tier-change', refreshAllTierContent);
 
 // Spotlight wrapper — delegates to override that adds category badges
 function renderSpotlight(){ renderSpotlightOverride(); }
