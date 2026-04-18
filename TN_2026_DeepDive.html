@@ -192,6 +192,56 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1p
 .sc-relevance h4{color:var(--gold);font-size:12px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
 .sc-relevance p{color:var(--t2);margin:0}
 
+/* ═══ DEEP-ANALYSIS DISCOVERABILITY ═══ */
+.deep-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0 24px}
+.deep-stat{background:linear-gradient(135deg,var(--bg2),var(--bg1));border:1px solid var(--bg3);border-radius:var(--r);padding:14px 16px;text-align:center;border-top:2px solid var(--gold-dim)}
+.deep-stat .num{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--gold);line-height:1.1}
+.deep-stat .lbl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
+.deep-howto{background:linear-gradient(135deg,rgba(200,146,42,.08),rgba(200,146,42,.03));border:1px solid var(--gold-dim);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;font-size:13px;color:var(--t2);line-height:1.7}
+.deep-howto strong{color:var(--gold)}
+.deep-howto .legend{display:inline-flex;align-items:center;gap:5px;margin:0 8px;font-size:12px;color:var(--t3)}
+.deep-howto .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:middle}
+
+/* Spotlight 5★ */
+.spotlight{background:linear-gradient(135deg,rgba(46,204,113,.06),rgba(200,146,42,.04));border:1px solid var(--gold-dim);border-radius:var(--r);padding:18px 18px 8px;margin:16px 0 28px;position:relative;overflow:hidden}
+.spotlight::before{content:'★';position:absolute;top:-20px;right:-10px;font-size:140px;color:var(--gold);opacity:.06;pointer-events:none}
+.spotlight h3{font-size:15px;color:var(--gold);margin-bottom:6px}
+.spotlight .sub{font-size:12px;color:var(--t3);margin-bottom:12px}
+.spotlight-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px}
+
+/* Always-visible preview row inside scheme card */
+.sc-preview{padding:0 20px 14px;display:grid;gap:10px;border-top:1px dashed var(--bg3);margin-top:-2px;padding-top:12px}
+.sc-preview .teaser{font-size:13px;color:var(--t2);line-height:1.6}
+.sc-preview .teaser b{color:var(--gold);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:.6px;margin-right:6px}
+.sc-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.sc-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:3px 8px;border-radius:10px;background:var(--bg1);border:1px solid var(--bg3);color:var(--t3);font-family:var(--mono)}
+.sc-chip.pros{border-color:rgba(46,204,113,.3);color:#6dd49a}
+.sc-chip.cons{border-color:rgba(231,76,60,.3);color:#ee7a70}
+.sc-chip.world{border-color:rgba(52,152,219,.3);color:#5dade2}
+.sc-chip.rel{border-color:rgba(200,146,42,.3);color:var(--gold)}
+.sc-chip b{color:inherit;font-weight:700}
+.sc-open-btn{margin-left:auto;font-size:11px;font-family:var(--mono);background:var(--gold);color:var(--bg0);border:none;padding:4px 10px;border-radius:10px;cursor:pointer;font-weight:700;letter-spacing:.4px;transition:transform .15s}
+.sc-open-btn:hover{transform:translateY(-1px)}
+.scheme-card.open .sc-open-btn{background:var(--bg3);color:var(--t2)}
+.scheme-card.open .sc-open-btn::after{content:' ▴'}
+.scheme-card:not(.open) .sc-open-btn::after{content:' ▾'}
+
+/* Per-batch "Open all" + summary line */
+.batch-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;align-items:center}
+.batch-action-btn{font-size:11px;font-family:var(--mono);background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .15s;letter-spacing:.4px}
+.batch-action-btn:hover{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+.batch-tally{font-size:11px;color:var(--t3);font-family:var(--mono);margin-left:auto}
+.batch-tally span{margin-left:10px}
+.batch-tally .ti{color:#2ECC71}
+.batch-tally .te{color:#E74C3C}
+.batch-tally .tc{color:#E67E22}
+
+@media(max-width:600px){
+  .sc-chips{font-size:10px}
+  .sc-open-btn{margin-left:0;width:100%;text-align:center;margin-top:4px}
+  .batch-tally{margin-left:0;width:100%;margin-top:6px}
+}
+
 /* Party Manifesto Pros/Cons Section */
 .manifesto-pc{background:var(--bg1);border:1px solid var(--bg3);border-radius:var(--r);padding:24px;margin-bottom:20px}
 .manifesto-pc h3{margin-bottom:16px}
@@ -517,6 +567,23 @@ document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT
 <!-- ALL 174 SCHEMES -->
 <section id="batches">
   <h2>3. All 174 Schemes — Deep Analysis</h2>
+
+  <div class="deep-howto">
+    <strong>📖 How to read this section.</strong> Every scheme below has six layers of analysis — verdict, key insight, pros, cons, global precedent, and TN-2025 relevance. Each card shows a teaser; click <strong>Open Deep Analysis ▾</strong> (or the card itself) to see the full breakdown. Verdict colours:
+    <span class="legend"><span class="swatch" style="background:#2ECC71"></span>Include</span>
+    <span class="legend"><span class="swatch" style="background:#E67E22"></span>Conditional</span>
+    <span class="legend"><span class="swatch" style="background:#E74C3C"></span>Exclude</span>
+    <span class="legend"><span class="swatch" style="background:#3498DB"></span>Review</span>
+    <span class="legend"><span class="swatch" style="background:#95A5A6"></span>Unratable</span>
+  </div>
+
+  <div class="deep-stats" id="deepStats"></div>
+
+  <div class="spotlight" id="spotlight">
+    <h3>★★★★★ Spotlight — the schemes that genuinely matter</h3>
+    <div class="sub">Auto-expanded below: every five-star scheme across all 4 parties and 7 policy batches. Read these first.</div>
+    <div class="spotlight-grid" id="spotlightGrid"></div>
+  </div>
 
   <div class="filter-bar">
     <input type="text" id="schemeSearch" placeholder="Search schemes by name, party, or keyword..." oninput="filterSchemes()">
@@ -2254,36 +2321,131 @@ function renderBatches(){
           <strong style="color:#2ECC71">Best:</strong> ${b.best}<br>
           <strong style="color:#E74C3C">Worst:</strong> ${b.worst}
         </div>
-        ${schemes.map(s=>{
-          const v=s[5],vCls='verdict-'+(v||'U');
-          return `<div class="scheme-card ${vCls}" data-party="${s[1]}" data-stars="${s[3]}">
-            <div class="sc-header" onclick="this.parentElement.classList.toggle('open')">
-              <div class="sc-meta">
-                <div class="sc-title"><span class="party-tag ${s[1]}">${s[1]}</span> ${s[2]}</div>
-                <div class="sc-subtitle">
-                  <span class="stars">${starsStr(s[3])}</span>
-                  <span class="vbadge ${v}">${VMAP[v]||'—'}</span>
-                  <span class="sc-cost">${s[4]}</span>
-                  ${shareHtml(s[4])}
-                </div>
-              </div>
-              <span class="sc-expand">▼</span>
-            </div>
-            <div class="sc-body"><div class="sc-inner">
-              <div class="sc-insight"><strong>Key Insight:</strong> ${s[6]}</div>
-              <div class="sc-pc">
-                <div class="sc-pros"><h4>✅ Pros</h4><ul>${prosHtml(s[7])}</ul></div>
-                <div class="sc-cons"><h4>❌ Cons</h4><ul>${prosHtml(s[8])}</ul></div>
-              </div>
-              <div class="sc-world"><h4>🌍 World Context</h4><p>${s[9]||'No direct global parallel identified.'}</p></div>
-              <div class="sc-relevance"><h4>📌 Current Relevance to TN (2025)</h4><p>${s[10]||'Assessment pending.'}</p></div>
-            </div></div>
-          </div>`;
-        }).join('')}
+        <div class="batch-actions">
+          <button class="batch-action-btn" onclick="openAllInBatch(this,true)">⊕ Open all deep analyses</button>
+          <button class="batch-action-btn" onclick="openAllInBatch(this,false)">⊖ Collapse all</button>
+          <span class="batch-tally">
+            <span class="ti">✓ ${schemes.filter(s=>s[5]==='I').length} Include</span>
+            <span class="tc">~ ${schemes.filter(s=>s[5]==='C').length} Conditional</span>
+            <span class="te">✗ ${schemes.filter(s=>s[5]==='E').length} Exclude</span>
+          </span>
+        </div>
+        ${schemes.map(s=>schemeCardHtml(s)).join('')}
       </div></div>`;
     container.appendChild(acc);
   });
+  // Open all batch accordions by default — users immediately see schemes
+  document.querySelectorAll('.batch-acc').forEach(a=>a.classList.add('open'));
+  renderSpotlight();
+  renderDeepStats();
   filterSchemes();
+}
+
+// Build a single scheme card with always-visible preview row
+function schemeCardHtml(s, opts){
+  opts = opts || {};
+  const v = s[5], vCls = 'verdict-'+(v||'U');
+  const VMAP_={I:'Include',C:'Conditional',E:'Exclude',R:'Review',U:'Unratable'};
+  const FY26_BUDGET=372000, TN_DEBT_2027=1071000;
+  function pCost(raw){
+    if(!raw) return null;
+    const s2=String(raw).replace(/,/g,'').replace(/\s+/g,' ').trim();
+    if(/^₹?\s*0\b/.test(s2)) return {cr:0,kind:'flat'};
+    const m=s2.match(/₹?\s*([0-9]*\.?[0-9]+)\s*(?:[–\-to]+\s*([0-9]*\.?[0-9]+))?\s*(L)?\s*Cr/i);
+    if(!m) return null;
+    let lo=parseFloat(m[1]), hi=m[2]?parseFloat(m[2]):lo;
+    if(m[3]){lo*=100000;hi*=100000;}
+    return {cr:(lo+hi)/2,kind:/\/\s*yr|per\s*yr|annual/i.test(s2)?'yr':(/one[\s-]?time|once/i.test(s2)?'one':'flat')};
+  }
+  function fmtPct(p){if(p<0.01)return '<0.01%';if(p<1)return p.toFixed(2)+'%';if(p<10)return p.toFixed(1)+'%';return Math.round(p)+'%';}
+  function shareTier(p){if(p===0)return 'zero';if(p<1)return 'lo';if(p<5)return 'md';return 'hi';}
+  function shareHtmlLocal(costRaw){
+    const p=pCost(costRaw);
+    if(!p) return '';
+    if(p.cr===0) return '<span class="sc-share zero">Budget <b>0%</b></span><span class="sc-share zero">Debt <b>0%</b></span>';
+    const bPct=(p.cr/FY26_BUDGET)*100, dPct=(p.cr/TN_DEBT_2027)*100;
+    return '<span class="sc-share '+shareTier(bPct)+'">Budget <b>'+fmtPct(bPct)+'</b></span><span class="sc-share '+shareTier(dPct/2)+'">Debt <b>'+fmtPct(dPct)+'</b></span>';
+  }
+  const starsStrL = n=>n===0?'—':'★'.repeat(n)+'☆'.repeat(5-n);
+  const prosCount = Array.isArray(s[7])?s[7].length:0;
+  const consCount = Array.isArray(s[8])?s[8].length:0;
+  const hasWorld = s[9] && s[9].length>10;
+  const hasRel   = s[10] && s[10].length>10;
+  const prosLi = (arr)=>arr&&arr.length?arr.map(p=>'<li>'+p+'</li>').join(''):'<li>—</li>';
+  const openCls = opts.preOpen ? ' open' : '';
+  return '<div class="scheme-card '+vCls+openCls+'" data-party="'+s[1]+'" data-stars="'+s[3]+'">'
+    + '<div class="sc-header" onclick="this.parentElement.classList.toggle(\'open\')">'
+    +   '<div class="sc-meta">'
+    +     '<div class="sc-title"><span class="party-tag '+s[1]+'">'+s[1]+'</span> '+s[2]+'</div>'
+    +     '<div class="sc-subtitle">'
+    +       '<span class="stars">'+starsStrL(s[3])+'</span>'
+    +       '<span class="vbadge '+v+'">'+(VMAP_[v]||'—')+'</span>'
+    +       '<span class="sc-cost">'+s[4]+'</span>'
+    +       shareHtmlLocal(s[4])
+    +     '</div>'
+    +   '</div>'
+    +   '<span class="sc-expand">▼</span>'
+    + '</div>'
+    + '<div class="sc-preview">'
+    +   '<div class="teaser"><b>Why:</b>'+(s[6]||'—')+'</div>'
+    +   '<div class="sc-chips">'
+    +     '<span class="sc-chip pros">✅ <b>'+prosCount+'</b> strengths</span>'
+    +     '<span class="sc-chip cons">❌ <b>'+consCount+'</b> risks</span>'
+    +     (hasWorld?'<span class="sc-chip world">🌍 Global precedent</span>':'')
+    +     (hasRel?'<span class="sc-chip rel">📌 TN-2025 angle</span>':'')
+    +     '<button class="sc-open-btn" onclick="event.stopPropagation();this.closest(\'.scheme-card\').classList.toggle(\'open\')">Open Deep Analysis</button>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="sc-body"><div class="sc-inner">'
+    +   '<div class="sc-insight"><strong>Key Insight:</strong> '+s[6]+'</div>'
+    +   '<div class="sc-pc">'
+    +     '<div class="sc-pros"><h4>✅ Pros</h4><ul>'+prosLi(s[7])+'</ul></div>'
+    +     '<div class="sc-cons"><h4>❌ Cons</h4><ul>'+prosLi(s[8])+'</ul></div>'
+    +   '</div>'
+    +   '<div class="sc-world"><h4>🌍 World Context</h4><p>'+(s[9]||'No direct global parallel identified.')+'</p></div>'
+    +   '<div class="sc-relevance"><h4>📌 Current Relevance to TN (2025)</h4><p>'+(s[10]||'Assessment pending.')+'</p></div>'
+    + '</div></div>'
+    + '</div>';
+}
+
+// Spotlight: render every 5★ scheme pre-expanded
+function renderSpotlight(){
+  const grid = document.getElementById('spotlightGrid');
+  if(!grid) return;
+  const fives = D.filter(s=>s[3]===5);
+  grid.innerHTML = fives.map(s=>schemeCardHtml(s,{preOpen:true})).join('');
+}
+
+// Top stats banner — drives home the depth of analysis
+function renderDeepStats(){
+  const el = document.getElementById('deepStats');
+  if(!el) return;
+  const total = D.length;
+  const prosTotal = D.reduce((a,s)=>a+(Array.isArray(s[7])?s[7].length:0),0);
+  const consTotal = D.reduce((a,s)=>a+(Array.isArray(s[8])?s[8].length:0),0);
+  const worlds = D.filter(s=>s[9]&&s[9].length>10).length;
+  const relev  = D.filter(s=>s[10]&&s[10].length>10).length;
+  const fives  = D.filter(s=>s[3]===5).length;
+  const incl   = D.filter(s=>s[5]==='I').length;
+  const excl   = D.filter(s=>s[5]==='E').length;
+  const cells = [
+    [total,'schemes analysed'],
+    [prosTotal,'strengths documented'],
+    [consTotal,'risks flagged'],
+    [worlds,'global precedents'],
+    [relev,'TN-2025 angles'],
+    [fives,'five-star schemes'],
+    [incl,'verdict: Include'],
+    [excl,'verdict: Exclude']
+  ];
+  el.innerHTML = cells.map(c=>'<div class="deep-stat"><div class="num">'+c[0]+'</div><div class="lbl">'+c[1]+'</div></div>').join('');
+}
+
+// Open / collapse every card inside a single batch accordion
+function openAllInBatch(btn, open){
+  const acc = btn.closest('.batch-acc');
+  if(!acc) return;
+  acc.querySelectorAll('.scheme-card').forEach(c=>c.classList.toggle('open', open));
 }
 
 // Theme
