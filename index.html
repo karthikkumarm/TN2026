@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TN 2026 Election — Manifesto Analysis & Candidate Directory</title>
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --border: #d2d2d7;
+      --accent: #0071e3;
+      --dmk: #e63946;
+      --admk: #2a9d8f;
+      --tvk: #e9c46a;
+      --ntk: #f4a261;
+      --accepted: #34c759;
+      --rejected: #ff3b30;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1d1d1f 0%, #2c2c2e 100%);
+      color: #fff;
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #a1a1a6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header .meta {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    header .meta span {
+      font-size: 0.85rem;
+      color: #86868b;
+      background: rgba(255,255,255,0.08);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+
+    nav.tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      padding: 1rem 1rem 0;
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav.tabs button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    nav.tabs button:hover { color: var(--text); }
+    nav.tabs button.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    main { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+
+    section { display: none; }
+    section.active { display: block; }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 1rem 0 0.5rem;
+    }
+
+    /* Scorecard grid */
+    .scorecard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .party-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+      border-top: 4px solid;
+    }
+
+    .party-card.dmk { border-top-color: var(--dmk); }
+    .party-card.admk { border-top-color: var(--admk); }
+    .party-card.tvk { border-top-color: var(--tvk); }
+    .party-card.ntk { border-top-color: var(--ntk); }
+
+    .party-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .party-card .stat {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 0.88rem;
+    }
+
+    .party-card .stat:last-child { border-bottom: none; }
+    .party-card .stat .label { color: var(--text-secondary); }
+    .party-card .stat .value { font-weight: 600; }
+
+    .party-card .verdict {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .risk-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .risk-badge.sustainable { background: #d4edda; color: #155724; }
+    .risk-badge.severe { background: #fff3cd; color: #856404; }
+    .risk-badge.critical { background: #f8d7da; color: #721c24; }
+
+    /* Fiscal anchor */
+    .fiscal-table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.88rem; }
+    .fiscal-table th, .fiscal-table td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid #f0f0f0; }
+    .fiscal-table th { color: var(--text-secondary); font-weight: 500; font-size: 0.82rem; }
+
+    /* Ideal manifesto */
+    .ideal-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .ideal-table th { background: #f5f5f7; padding: 0.6rem; text-align: left; font-weight: 600; font-size: 0.8rem; color: var(--text-secondary); position: sticky; top: 48px; z-index: 10; }
+    .ideal-table td { padding: 0.6rem; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    .ideal-table tr:hover { background: #fafafa; }
+    .ideal-table .party-tag {
+      display: inline-block;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .ideal-table .party-tag.dmk { background: #fde8ea; color: #c62828; }
+    .ideal-table .party-tag.ntk { background: #fff3e0; color: #e65100; }
+    .ideal-table .party-tag.tvk { background: #fff8e1; color: #f57f17; }
+    .ideal-table .party-tag.admk { background: #e0f2f1; color: #00695c; }
+
+    /* Stress test */
+    .stress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .stress-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+    }
+
+    .stress-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .stress-card .metric { font-size: 0.85rem; margin: 0.3rem 0; }
+    .stress-card .metric .val { font-weight: 600; }
+
+    /* Candidate directory */
+    .filters {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters input, .filters select {
+      padding: 0.6rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: var(--card-bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .filters input:focus, .filters select:focus {
+      border-color: var(--accent);
+    }
+
+    .filters input[type="search"] {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .result-count {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .candidate-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+
+    .candidate-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .candidate-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #f0f0f0;
+    }
+
+    .candidate-card .info { flex: 1; min-width: 0; }
+
+    .candidate-card .name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .candidate-card .party {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .candidate-card .constituency {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .candidate-card .status-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 0.25rem;
+    }
+
+    .candidate-card .status-badge.accepted { background: #d4edda; color: #155724; }
+    .candidate-card .status-badge.rejected { background: #f8d7da; color: #721c24; }
+
+    .load-more {
+      display: block;
+      margin: 1.5rem auto;
+      padding: 0.7rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .load-more:hover { opacity: 0.85; }
+
+    /* Overview section */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: 1rem;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .stat-box .number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-box .label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* Responsive table wrapper */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+    /* Missing policies */
+    .missing-policy {
+      padding: 1rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .missing-policy:last-child { border-bottom: none; }
+    .missing-policy h4 { font-size: 0.95rem; color: var(--text); }
+    .missing-policy p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.35rem; }
+    .missing-policy .cost { font-weight: 600; color: var(--accent); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .disclaimer {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #856404;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.5rem; }
+      header { padding: 2rem 1rem 1.5rem; }
+      nav.tabs { overflow-x: auto; justify-content: flex-start; padding: 0.75rem 0.5rem 0; }
+      nav.tabs button { font-size: 0.82rem; padding: 0.5rem 0.8rem; white-space: nowrap; }
+      main { padding: 1rem 0.75rem; }
+      .scorecard-grid { grid-template-columns: 1fr; }
+      .candidate-grid { grid-template-columns: 1fr; }
+      .filters { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Tamil Nadu 2026 Assembly Election</h1>
+  <p>Independent Fiscal Analysis of Party Manifestos & Complete Candidate Directory</p>
+  <div class="meta">
+    <span>Voting: 23 April 2026</span>
+    <span>Results: 4 May 2026</span>
+    <span>234 Constituencies</span>
+    <span id="header-count">7,070 Candidates</span>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="active" data-tab="overview">Overview</button>
+  <button data-tab="scorecard">Party Scorecard</button>
+  <button data-tab="ideal">Ideal Manifesto</button>
+  <button data-tab="stress">Fiscal Stress Test</button>
+  <button data-tab="missing">What's Missing</button>
+  <button data-tab="candidates">Candidates</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="overview" class="active">
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> This is NOT a political endorsement of any party. This is a data-driven fiscal analysis designed to give Tamil Nadu citizens the information they deserve — a clear-eyed, macroeconomically grounded evaluation of what each party is promising, what it costs, and whether it builds or drains the state.
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="number">4</div>
+      <div class="label">Parties Analysed</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">174</div>
+      <div class="label">Scheme Rows</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">7</div>
+      <div class="label">Policy Batches</div>
+    </div>
+    <div class="stat-box">
+      <div class="number" id="stat-candidates">7,070</div>
+      <div class="label">Candidates (ECI)</div>
+    </div>
+    <div class="stat-box">
+      <div class="number" id="stat-constituencies">233</div>
+      <div class="label">Constituencies</div>
+    </div>
+    <div class="stat-box">
+      <div class="number" id="stat-parties">120</div>
+      <div class="label">Parties Contesting</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Fiscal Anchor Data</h2>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:0.75rem">All analysis benchmarked against these verified parameters.</p>
+    <div class="table-wrap">
+      <table class="fiscal-table">
+        <tr><th>Parameter</th><th>Value</th></tr>
+        <tr><td>TN Projected Debt (2027)</td><td><strong>₹10.71 lakh crore</strong></td></tr>
+        <tr><td>TN Own Tax Revenue (FY25 est.)</td><td><strong>~₹2.05 lakh crore/yr</strong></td></tr>
+        <tr><td>TN Total Budget (FY25-26)</td><td><strong>~₹3.72 lakh crore</strong></td></tr>
+        <tr><td>TN Capital Expenditure Budget (FY25)</td><td><strong>~₹62,000 Cr</strong></td></tr>
+        <tr><td>TASMAC Revenue</td><td><strong>~₹40,000 Cr/yr</strong></td></tr>
+        <tr><td>TANGEDCO Outstanding Debt</td><td><strong>~₹1.25 lakh crore</strong></td></tr>
+        <tr><td>FRBM Fiscal Deficit Ceiling</td><td><strong>3% of GSDP (~₹25,000 Cr headroom)</strong></td></tr>
+        <tr><td>TN Fertility Rate</td><td><strong>1.7</strong> (below 2.1 replacement)</td></tr>
+        <tr><td>Groundwater Over-exploited Districts</td><td><strong>24 of 38</strong></td></tr>
+        <tr><td>GIM 2024 Investment MoUs</td><td><strong>₹6.6 lakh crore</strong></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Final Recommendation to the Tamil Nadu Voter</h2>
+    <p style="font-size:0.92rem;line-height:1.7;margin-bottom:1rem">
+      <strong>No single party's manifesto deserves your unconditional trust.</strong> DMK has the highest-quality schemes (8 five-star, zero one-star, 3.60★ average) and the deepest institutional understanding of governance — but it is promising ~₹84,000 Cr/yr that would consume 41% of own tax revenue. ADMK's manifesto is fiscally unserious — ₹1.08–1.48 lakh crore in recurring costs with zero five-star schemes. TVK brings genuine innovation but buries it under mathematically impossible targets. NTK is the fiscal surprise — the only party whose entire manifesto fits within TN's fiscal reality.
+    </p>
+    <p style="font-size:0.92rem;line-height:1.7">
+      The ideal TN government would implement <strong>~52% DMK policy + ~35% NTK policy + selected TVK governance reforms</strong>. The total cost of "everything TN actually needs" is <strong>₹27,200 Cr/yr (13.3% of own tax revenue)</strong> — NOT the ₹84,000–₹1,48,000 Cr/yr that parties are promising.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PARTY SCORECARD -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="scorecard">
+  <h2 style="font-size:1.4rem;margin-bottom:1.5rem">Master Scorecard — All 4 Parties</h2>
+
+  <div class="scorecard-grid">
+    <!-- DMK -->
+    <div class="party-card dmk">
+      <h3>🟠 DMK</h3>
+      <div class="stat"><span class="label">Avg Rating</span><span class="value">3.60 ★</span></div>
+      <div class="stat"><span class="label">Schemes Rated</span><span class="value">48</span></div>
+      <div class="stat"><span class="label">INCLUDE</span><span class="value">23 (48%)</span></div>
+      <div class="stat"><span class="label">CONDITIONAL</span><span class="value">19 (40%)</span></div>
+      <div class="stat"><span class="label">EXCLUDE</span><span class="value">3 (6%)</span></div>
+      <div class="stat"><span class="label">★★★★★ Schemes</span><span class="value">8</span></div>
+      <div class="stat"><span class="label">★☆☆☆☆ Schemes</span><span class="value">0</span></div>
+      <div class="stat"><span class="label">Annual Burden</span><span class="value">~₹84,120 Cr/yr</span></div>
+      <div class="stat"><span class="label">% Own Tax Revenue</span><span class="value">~41%</span></div>
+      <div class="stat"><span class="label">Fiscal Risk</span><span class="value"><span class="risk-badge severe">⚠️ SEVERE</span></span></div>
+      <div class="stat"><span class="label">Governance Score</span><span class="value">7.5 / 10</span></div>
+      <div class="verdict">
+        <strong>"The Experienced Spender"</strong> — Highest quality, highest cost. 8 five-star schemes, zero one-star. Strongest in human capital and federal reform (₹0 cost structural changes that could unlock ₹18,000–20,000 Cr/yr). But ~₹84,000 Cr/yr in recurring spending crowds out capex.
+      </div>
+    </div>
+
+    <!-- ADMK -->
+    <div class="party-card admk">
+      <h3>🔵 ADMK</h3>
+      <div class="stat"><span class="label">Avg Rating</span><span class="value">2.46 ★</span></div>
+      <div class="stat"><span class="label">Schemes Rated</span><span class="value">39</span></div>
+      <div class="stat"><span class="label">INCLUDE</span><span class="value">4 (10%)</span></div>
+      <div class="stat"><span class="label">CONDITIONAL</span><span class="value">13 (33%)</span></div>
+      <div class="stat"><span class="label">EXCLUDE</span><span class="value">17 (44%)</span></div>
+      <div class="stat"><span class="label">★★★★★ Schemes</span><span class="value">0</span></div>
+      <div class="stat"><span class="label">★☆☆☆☆ Schemes</span><span class="value">4</span></div>
+      <div class="stat"><span class="label">Annual Burden</span><span class="value">~₹1,08,240 Cr/yr</span></div>
+      <div class="stat"><span class="label">% Own Tax Revenue</span><span class="value">~53–72%</span></div>
+      <div class="stat"><span class="label">Fiscal Risk</span><span class="value"><span class="risk-badge critical">🔴 CRITICAL</span></span></div>
+      <div class="stat"><span class="label">Governance Score</span><span class="value">3.5 / 10</span></div>
+      <div class="verdict">
+        <strong>"The Fridge Party"</strong> — Most fiscally reckless. ₹35,000 Cr free refrigerators (56% of capex budget), ₹40,000 Cr prohibition revenue hole, uninterrupted 3-phase farm power that would double TANGEDCO's ₹1.25L Cr debt. Delimitation credibility: 1/10 (NDA membership contradicts every federal demand).
+      </div>
+    </div>
+
+    <!-- TVK -->
+    <div class="party-card tvk">
+      <h3>🟢 TVK</h3>
+      <div class="stat"><span class="label">Avg Rating</span><span class="value">2.79 ★</span></div>
+      <div class="stat"><span class="label">Schemes Rated</span><span class="value">38</span></div>
+      <div class="stat"><span class="label">INCLUDE</span><span class="value">5 (13%)</span></div>
+      <div class="stat"><span class="label">CONDITIONAL</span><span class="value">18 (47%)</span></div>
+      <div class="stat"><span class="label">EXCLUDE</span><span class="value">13 (34%)</span></div>
+      <div class="stat"><span class="label">★★★★★ Schemes</span><span class="value">0</span></div>
+      <div class="stat"><span class="label">★☆☆☆☆ Schemes</span><span class="value">5</span></div>
+      <div class="stat"><span class="label">Annual Burden</span><span class="value">~₹1,11,260 Cr/yr</span></div>
+      <div class="stat"><span class="label">% Own Tax Revenue</span><span class="value">~54%</span></div>
+      <div class="stat"><span class="label">Fiscal Risk</span><span class="value"><span class="risk-badge critical">🔴 CRITICAL</span></span></div>
+      <div class="stat"><span class="label">Governance Score</span><span class="value">4.5 / 10</span></div>
+      <div class="verdict">
+        <strong>"The Newcomer's Paradox"</strong> — Genuine policy creativity (girl-education cash transfer, 21-day business approval, anti-corruption commission) fatally undermined by $1.5T economy target (38% CAGR, impossible), full crop loan waiver (₹1.5–2L Cr), and subsidised medicines (regression from TN's existing FREE baseline).
+      </div>
+    </div>
+
+    <!-- NTK -->
+    <div class="party-card ntk">
+      <h3>🟡 NTK</h3>
+      <div class="stat"><span class="label">Avg Rating</span><span class="value">3.53 ★</span></div>
+      <div class="stat"><span class="label">Schemes Rated</span><span class="value">47</span></div>
+      <div class="stat"><span class="label">INCLUDE</span><span class="value">20 (43%)</span></div>
+      <div class="stat"><span class="label">CONDITIONAL</span><span class="value">17 (36%)</span></div>
+      <div class="stat"><span class="label">EXCLUDE</span><span class="value">5 (11%)</span></div>
+      <div class="stat"><span class="label">★★★★★ Schemes</span><span class="value">5</span></div>
+      <div class="stat"><span class="label">★☆☆☆☆ Schemes</span><span class="value">1</span></div>
+      <div class="stat"><span class="label">Annual Burden</span><span class="value">~₹31,450–39,800 Cr/yr</span></div>
+      <div class="stat"><span class="label">% Own Tax Revenue</span><span class="value">~15–19%</span></div>
+      <div class="stat"><span class="label">Fiscal Risk</span><span class="value"><span class="risk-badge sustainable">✅ SUSTAINABLE</span></span></div>
+      <div class="stat"><span class="label">Governance Score</span><span class="value">7.0 / 10</span></div>
+      <div class="verdict">
+        <strong>"The Fiscal Surprise"</strong> — Only party whose entire manifesto fits within FRBM limits. 5 five-star schemes in ecology, water security, and institutional reform. Palmyra planting (₹150 Cr/yr) = cheapest, highest multi-dimensional ROI scheme across all 174 rows. Critical weakness: zero governance track record.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Recurring Annual Burden Comparison</h2>
+    <div class="table-wrap">
+      <table class="fiscal-table">
+        <tr><th>Party</th><th>Annual Burden</th><th>% Own Tax Revenue</th><th>Capex Remaining</th><th>FRBM Breach</th></tr>
+        <tr>
+          <td><strong>DMK</strong></td>
+          <td>₹84,120 Cr/yr</td>
+          <td>41%</td>
+          <td style="color:#c62828">Negative ₹22,120 Cr</td>
+          <td>Year 2–3</td>
+        </tr>
+        <tr>
+          <td><strong>ADMK</strong></td>
+          <td>₹1,08,240 Cr/yr</td>
+          <td>53–72%</td>
+          <td style="color:#c62828">Negative ₹46,240 Cr</td>
+          <td style="color:#c62828"><strong>Day 1</strong></td>
+        </tr>
+        <tr>
+          <td><strong>TVK</strong></td>
+          <td>₹1,11,260 Cr/yr</td>
+          <td>54%</td>
+          <td style="color:#c62828">Negative ₹49,260 Cr</td>
+          <td style="color:#c62828"><strong>Day 1</strong></td>
+        </tr>
+        <tr>
+          <td><strong>NTK</strong></td>
+          <td>₹31,450–39,800 Cr/yr</td>
+          <td>15–19%</td>
+          <td style="color:#155724"><strong>₹26,400 Cr remaining</strong></td>
+          <td style="color:#155724"><strong>No breach</strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- IDEAL MANIFESTO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="ideal">
+  <h2 style="font-size:1.4rem;margin-bottom:0.5rem">The Ideal Manifesto — Cherry-Picked Best of All Parties</h2>
+  <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.5rem">If a rational Chief Financial Advisor could pick the single best promise from each category, ignoring party loyalty.</p>
+
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="number">₹13,200</div>
+      <div class="label">Cr/yr New Recurring Cost</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">6.4%</div>
+      <div class="label">of Own Tax Revenue</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">17</div>
+      <div class="label">Cherry-Picked Schemes</div>
+    </div>
+    <div class="stat-box">
+      <div class="number">100%</div>
+      <div class="label">Capex Budget Intact</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table class="ideal-table">
+        <thead>
+          <tr><th>#</th><th>Category</th><th>Best Promise</th><th>Party</th><th>Annual Cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Women & Family</td><td>1,000 childcare centres in industrial areas</td><td><span class="party-tag dmk">DMK</span></td><td>₹800 Cr</td></tr>
+          <tr><td>2</td><td>Cash Transfer</td><td>Magalir Urimai Thogai (retain ₹1,000/month)</td><td><span class="party-tag dmk">DMK</span></td><td>₹16,440 Cr (existing)</td></tr>
+          <tr><td>3</td><td>School Nutrition</td><td>Free breakfast extension to Class 8</td><td><span class="party-tag dmk">DMK</span></td><td>₹1,500 Cr</td></tr>
+          <tr><td>4</td><td>Youth Employment</td><td>Naan Mudhalvan — scale to 5L trainees/yr</td><td><span class="party-tag dmk">DMK</span></td><td>₹900 Cr</td></tr>
+          <tr><td>5</td><td>Agriculture — Structural</td><td>Water body restoration (41,000 tanks)</td><td><span class="party-tag ntk">NTK</span></td><td>₹2,500 Cr</td></tr>
+          <tr><td>6</td><td>Agriculture — Market</td><td>Cold storage in all 38 districts</td><td><span class="party-tag ntk">NTK</span></td><td>₹100 Cr</td></tr>
+          <tr><td>7</td><td>Fishermen Welfare</td><td>National Fishermen's Welfare Board</td><td><span class="party-tag ntk">NTK</span></td><td>₹500 Cr</td></tr>
+          <tr><td>8</td><td>Healthcare</td><td>Double dialysis centres + expand free medicines</td><td><span class="party-tag dmk">DMK</span></td><td>₹900 Cr</td></tr>
+          <tr><td>9</td><td>Housing</td><td>Revive stalled PMAY + TNHB projects</td><td><span class="party-tag admk">ADMK</span></td><td>₹1,000 Cr</td></tr>
+          <tr><td>10</td><td>Urban Infrastructure</td><td>10,000 new electric public buses (TNSTC)</td><td><span class="party-tag dmk">DMK</span></td><td>₹1,200 Cr</td></tr>
+          <tr><td>11</td><td>Climate & Ecology</td><td>Comprehensive climate adaptation mission</td><td><span class="party-tag ntk">NTK</span></td><td>₹2,500 Cr</td></tr>
+          <tr><td>12</td><td>Ecology — Cultural</td><td>Palmyra tree planting (1 Cr trees/yr)</td><td><span class="party-tag ntk">NTK</span></td><td>₹150 Cr</td></tr>
+          <tr><td>13</td><td>Federal — Revenue</td><td>50% divisible tax pool for states</td><td><span class="party-tag dmk">DMK</span></td><td>₹0 (gain: ₹18-20K Cr)</td></tr>
+          <tr><td>14</td><td>Federal — Structural</td><td>Move Education & Healthcare to State List</td><td><span class="party-tag dmk">DMK</span></td><td>₹0</td></tr>
+          <tr><td>15</td><td>Governance Reform</td><td>Anti-corruption commission + 21-day approval</td><td><span class="party-tag tvk">TVK</span></td><td>₹550 Cr</td></tr>
+          <tr><td>16</td><td>Tamil Language</td><td>Tamil in courts + government</td><td><span class="party-tag dmk">DMK</span> + <span class="party-tag ntk">NTK</span></td><td>₹100 Cr</td></tr>
+          <tr><td>17</td><td>Heritage Tourism</td><td>Keeladi + Adichanallur as world-class hubs</td><td><span class="party-tag ntk">NTK</span></td><td>₹500 Cr</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-color:#a5d6a7">
+    <h2>Fiscal Headroom Check</h2>
+    <p style="font-size:0.9rem;margin:0.5rem 0">
+      The ideal manifesto costs <strong>₹13,200 Cr/yr</strong> in new recurring expenditure — <strong>6.4% of own tax revenue</strong>, well within FRBM limits, with <strong>zero capex displacement</strong>.
+    </p>
+    <p style="font-size:0.9rem;margin:0.5rem 0">
+      If the 50% divisible pool advocacy succeeds (net gain ₹18,000–20,000 Cr/yr), the ideal manifesto is not just affordable — it <strong>generates fiscal surplus</strong>.
+    </p>
+    <p style="font-size:0.88rem;color:var(--text-secondary);margin-top:0.75rem">
+      Source breakdown: DMK contributes 9 of 17 ideal schemes (52%), NTK contributes 6 (35%), TVK contributes 1 (6%), ADMK contributes 1 (6%).
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FISCAL STRESS TEST -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="stress">
+  <h2 style="font-size:1.4rem;margin-bottom:0.5rem">Fiscal Stress Test</h2>
+  <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.5rem">If each party implemented ALL its manifesto promises, what happens to TN's fiscal architecture?</p>
+
+  <div class="stress-grid">
+    <div class="stress-card" style="border-left:4px solid var(--dmk)">
+      <h4>🟠 DMK</h4>
+      <div class="metric">Recurring: <span class="val">₹84,120 Cr/yr</span></div>
+      <div class="metric">One-time: <span class="val">~₹50,000 Cr</span></div>
+      <div class="metric">% of Budget: <span class="val">22.6%</span></div>
+      <div class="metric">Debt trajectory: <span class="val">₹10.71L → ₹14.5L Cr (+35%)</span></div>
+      <div class="metric">FRBM: <span class="val" style="color:#e65100">Breach Year 2–3</span></div>
+      <div class="metric">Rating: <span class="val">5/10</span> — Viable if 30% dropped</div>
+    </div>
+
+    <div class="stress-card" style="border-left:4px solid var(--admk)">
+      <h4>🔵 ADMK</h4>
+      <div class="metric">Recurring: <span class="val">₹1,08,240 Cr/yr</span></div>
+      <div class="metric">One-time: <span class="val">~₹70,200 Cr</span></div>
+      <div class="metric">% of Budget: <span class="val">29.1%</span></div>
+      <div class="metric">Debt trajectory: <span class="val">₹10.71L → ₹17.2L Cr (+61%)</span></div>
+      <div class="metric">FRBM: <span class="val" style="color:#c62828">Breach Day 1</span></div>
+      <div class="metric">Rating: <span class="val">2/10</span> — Mathematically insolvent</div>
+    </div>
+
+    <div class="stress-card" style="border-left:4px solid var(--tvk)">
+      <h4>🟢 TVK</h4>
+      <div class="metric">Recurring: <span class="val">₹1,11,260 Cr/yr</span></div>
+      <div class="metric">One-time: <span class="val">~₹1.68–2.31L Cr</span></div>
+      <div class="metric">% of Budget: <span class="val">29.9%</span></div>
+      <div class="metric">Debt trajectory: <span class="val">₹10.71L → ₹18.5L Cr (+73%)</span></div>
+      <div class="metric">FRBM: <span class="val" style="color:#c62828">Breach Day 1</span></div>
+      <div class="metric">Rating: <span class="val">2/10</span> — Loan waiver = fiscal extinction</div>
+    </div>
+
+    <div class="stress-card" style="border-left:4px solid var(--ntk)">
+      <h4>🟡 NTK</h4>
+      <div class="metric">Recurring: <span class="val">₹35,600 Cr/yr</span></div>
+      <div class="metric">One-time: <span class="val">~₹40,000 Cr</span></div>
+      <div class="metric">% of Budget: <span class="val">9.6%</span></div>
+      <div class="metric">Debt trajectory: <span class="val">₹10.71L → ₹12.0L Cr (+12%)</span></div>
+      <div class="metric">FRBM: <span class="val" style="color:#155724">No breach</span></div>
+      <div class="metric">Rating: <span class="val">8/10</span> — Full implementation possible</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem">
+    <h3>What Does Negative Capex Mean for Citizens?</h3>
+    <div class="table-wrap">
+      <table class="fiscal-table">
+        <tr><th>Party</th><th>Capex Impact</th><th>What Citizens Lose</th></tr>
+        <tr>
+          <td>DMK</td>
+          <td style="color:#c62828">−₹22,120 Cr</td>
+          <td>~35% of planned road construction, 2–3 year delay on Chennai Metro Phase 2, deferred hospitals</td>
+        </tr>
+        <tr>
+          <td>ADMK</td>
+          <td style="color:#c62828">−₹46,240 Cr</td>
+          <td>Total capex shutdown — no new roads, schools, hospitals, metro for 2+ years</td>
+        </tr>
+        <tr>
+          <td>TVK</td>
+          <td style="color:#c62828">−₹49,260 Cr</td>
+          <td>Same as ADMK + credit downgrade, TANGEDCO defaults</td>
+        </tr>
+        <tr>
+          <td>NTK</td>
+          <td style="color:#155724">+₹26,400 Cr</td>
+          <td>42% of capex intact — metro, highways, industrial zones proceed</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Fiscal Honesty Index</h3>
+    <div class="table-wrap">
+      <table class="fiscal-table">
+        <tr><th>Party</th><th>Promises Costed?</th><th>Revenue Source?</th><th>Score</th></tr>
+        <tr><td>DMK</td><td>Partially</td><td>50% devolution (genuine plan)</td><td><strong>6/10</strong></td></tr>
+        <tr><td>ADMK</td><td>No</td><td>None (prohibition destroys revenue)</td><td><strong>1/10</strong></td></tr>
+        <tr><td>TVK</td><td>No</td><td>None</td><td><strong>2/10</strong></td></tr>
+        <tr><td>NTK</td><td>Partially</td><td>GST reform (directionally correct)</td><td><strong>6/10</strong></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- WHAT'S MISSING -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="missing">
+  <h2 style="font-size:1.4rem;margin-bottom:0.5rem">5 Promises No Party Made But TN Urgently Needs</h2>
+  <p style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:1.5rem">Combined cost: ₹14,000 Cr/yr (6.8% of own tax revenue) — less than ADMK's free refrigerator scheme alone.</p>
+
+  <div class="card">
+    <div class="missing-policy">
+      <h4>1. TANGEDCO Debt Restructuring & Tariff Rationalisation</h4>
+      <p>TANGEDCO's ₹1.25 lakh crore debt is TN's single largest fiscal time-bomb. Annual losses: ~₹15,000–₹20,000 Cr. Free farm power (₹6,000–₹8,000 Cr/yr) subsidises consumption at the expense of industrial reliability. No party touches this because tariff hikes = electoral suicide.</p>
+      <p><span class="cost">Cost: ₹5,000 Cr/yr</span> · 10-Year ROI: ₹2–3 lakh crore · Closest party: None</p>
+    </div>
+
+    <div class="missing-policy">
+      <h4>2. Statutory Tamil Nadu Climate Adaptation Authority</h4>
+      <p>Chennai floods (2015, 2021, 2023) = ₹50,000+ Cr cumulative damage. 85% of Chennai's wetlands destroyed since 1980. 24/38 districts groundwater over-exploited. Without a statutory authority with legal powers, TN faces ₹1–2L Cr in climate damage over the next decade.</p>
+      <p><span class="cost">Cost: ₹3,000 Cr/yr</span> · 10-Year ROI: ₹50,000–1,00,000 Cr · Closest: NTK</p>
+    </div>
+
+    <div class="missing-policy">
+      <h4>3. Population Ageing Preparedness Mission</h4>
+      <p>TN fertility rate: 1.7 (below 2.1 replacement). By 2036, 20% of TN will be 60+. This creates shrinking workforce, exploding geriatric healthcare demand, and pension burden escalation. DMK's OPS reversion actually worsens the trajectory.</p>
+      <p><span class="cost">Cost: ₹2,000 Cr/yr</span> · 10-Year ROI: ₹30,000–50,000 Cr · Closest: None</p>
+    </div>
+
+    <div class="missing-policy">
+      <h4>4. Groundwater Regulation & Aquifer Mapping Act</h4>
+      <p>24 of 38 districts over-exploited. Annual extraction: 22 BCM, recharge: 18 BCM — net deficit of 4 BCM/yr. At current rates, 12 districts face zero groundwater by 2035. Every party promises water body restoration (recharge) but none addresses extraction — filling a bathtub with the drain open.</p>
+      <p><span class="cost">Cost: ₹1,500 Cr/yr</span> · 10-Year ROI: ₹20,000–40,000 Cr · Closest: NTK</p>
+    </div>
+
+    <div class="missing-policy">
+      <h4>5. GIM Investment Conversion Mission (MoU → FDI → Jobs)</h4>
+      <p>GIM 2024 signed ₹6.6 lakh crore in MoUs. Historical conversion rate: 15–25%. Without a dedicated mission for land acquisition, skill pipeline, power reliability, and single-window clearance, investments flee to AP, Gujarat, Karnataka. Each ₹1L Cr = ~2L direct + 5L indirect jobs.</p>
+      <p><span class="cost">Cost: ₹2,500 Cr/yr</span> · 10-Year ROI: ₹3–5 lakh crore · Closest: TVK + DMK</p>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,#e3f2fd,#e8eaf6);border-color:#90caf9">
+    <h2>The Bottom Line</h2>
+    <p style="font-size:0.92rem;line-height:1.7">
+      These 5 missing policies addressing TN's existential structural challenges cost <strong>₹14,000 Cr/yr</strong> (6.8% of own tax revenue). Combined with the Ideal Manifesto (₹13,200 Cr/yr), the total cost of "everything TN actually needs" = <strong>₹27,200 Cr/yr = 13.3% of own tax revenue</strong>. This is well within FRBM limits, leaves capex 100% intact, and would make Tamil Nadu the most comprehensively governed state in India. Instead, voters are being offered solutions costing 3–8× more delivering 50–70% less.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- CANDIDATE DIRECTORY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="candidates">
+  <h2 style="font-size:1.4rem;margin-bottom:1rem">Candidate Directory</h2>
+
+  <div class="filters">
+    <input type="search" id="search-input" placeholder="Search by name, party, or constituency...">
+    <select id="constituency-filter">
+      <option value="">All Constituencies</option>
+    </select>
+    <select id="party-filter">
+      <option value="">All Parties</option>
+    </select>
+    <select id="status-filter">
+      <option value="">All Status</option>
+      <option value="Accepted">Accepted</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+  </div>
+
+  <div class="result-count" id="result-count">Loading candidates...</div>
+  <div class="candidate-grid" id="candidate-grid"></div>
+  <button class="load-more" id="load-more" style="display:none">Load More</button>
+</section>
+
+</main>
+
+<footer>
+  <p>Data sourced from <a href="https://affidavit.eci.gov.in/" target="_blank" rel="noopener">Election Commission of India — Affidavit Portal</a></p>
+  <p>Manifesto analysis framework: Chief Financial & Policy Advisor to the Government of Tamil Nadu, on behalf of the taxpaying citizen.</p>
+  <p style="margin-top:0.5rem">Sources: RBI State Finances · CAG Audit Reports · TN Finance Dept · CGWB · TANGEDCO · DPIIT · IPCC AR6 · NFHS-5 · WHO India</p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// Tab navigation
+// ═══════════════════════════════════════════════════════════
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ═══════════════════════════════════════════════════════════
+// Candidate directory
+// ═══════════════════════════════════════════════════════════
+let allCandidates = [];
+let filtered = [];
+let displayCount = 50;
+const BATCH = 50;
+
+const grid = document.getElementById('candidate-grid');
+const loadMoreBtn = document.getElementById('load-more');
+const resultCount = document.getElementById('result-count');
+const searchInput = document.getElementById('search-input');
+const constFilter = document.getElementById('constituency-filter');
+const partyFilter = document.getElementById('party-filter');
+const statusFilter = document.getElementById('status-filter');
+
+function getPhotoSrc(c) {
+  if (c.photo_local && !c.photo_local.startsWith('http')) {
+    return c.photo_local;
+  }
+  return c.photo_url || '';
+}
+
+function createCard(c) {
+  const div = document.createElement('div');
+  div.className = 'candidate-card';
+  const photoSrc = getPhotoSrc(c);
+  const statusClass = (c.status || '').toLowerCase();
+  div.innerHTML = `
+    <img src="${photoSrc}" alt="${c.name}" loading="lazy"
+         onerror="this.src='${c.photo_url || ''}'; this.onerror=function(){this.style.display='none'}">
+    <div class="info">
+      <div class="name" title="${c.name}">${c.name}</div>
+      <div class="party" title="${c.party}">${c.party}</div>
+      <div class="constituency">${c.constituency}</div>
+      <span class="status-badge ${statusClass}">${c.status}</span>
+    </div>
+  `;
+  if (c.profile_url) {
+    div.style.cursor = 'pointer';
+    div.addEventListener('click', () => window.open(c.profile_url, '_blank'));
+  }
+  return div;
+}
+
+function renderCandidates() {
+  grid.innerHTML = '';
+  const toShow = filtered.slice(0, displayCount);
+  toShow.forEach(c => grid.appendChild(createCard(c)));
+  resultCount.textContent = `Showing ${toShow.length} of ${filtered.length} candidates`;
+  loadMoreBtn.style.display = displayCount < filtered.length ? 'block' : 'none';
+}
+
+function applyFilters() {
+  const q = searchInput.value.toLowerCase().trim();
+  const constVal = constFilter.value;
+  const partyVal = partyFilter.value;
+  const statusVal = statusFilter.value;
+  displayCount = BATCH;
+
+  filtered = allCandidates.filter(c => {
+    if (constVal && c.constituency !== constVal) return false;
+    if (partyVal && c.party !== partyVal) return false;
+    if (statusVal && c.status !== statusVal) return false;
+    if (q) {
+      const haystack = `${c.name} ${c.party} ${c.constituency}`.toLowerCase();
+      return haystack.includes(q);
+    }
+    return true;
+  });
+
+  renderCandidates();
+}
+
+loadMoreBtn.addEventListener('click', () => {
+  displayCount += BATCH;
+  renderCandidates();
+});
+
+searchInput.addEventListener('input', applyFilters);
+constFilter.addEventListener('change', applyFilters);
+partyFilter.addEventListener('change', applyFilters);
+statusFilter.addEventListener('change', applyFilters);
+
+// Load data
+fetch('tn_candidates_2026.json')
+  .then(r => r.json())
+  .then(data => {
+    allCandidates = data.candidates || [];
+    filtered = [...allCandidates];
+
+    // Update header stats
+    document.getElementById('header-count').textContent = allCandidates.length.toLocaleString() + ' Candidates';
+    document.getElementById('stat-candidates').textContent = allCandidates.length.toLocaleString();
+    document.getElementById('stat-constituencies').textContent = data.constituency_count || '233';
+    document.getElementById('stat-parties').textContent = Object.keys(data.party_summary || {}).length || '120';
+
+    // Populate constituency dropdown
+    const constituencies = [...new Set(allCandidates.map(c => c.constituency))].sort();
+    constituencies.forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      constFilter.appendChild(opt);
+    });
+
+    // Populate party dropdown (sorted by count)
+    const partyCounts = {};
+    allCandidates.forEach(c => { partyCounts[c.party] = (partyCounts[c.party] || 0) + 1; });
+    const parties = Object.entries(partyCounts).sort((a, b) => b[1] - a[1]);
+    parties.forEach(([name, count]) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = `${name} (${count})`;
+      partyFilter.appendChild(opt);
+    });
+
+    renderCandidates();
+  })
+  .catch(err => {
+    resultCount.textContent = 'Error loading candidate data. Ensure tn_candidates_2026.json is in the same directory.';
+    console.error(err);
+  });
+</script>
+
+</body>
+</html>
