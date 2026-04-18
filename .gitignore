@@ -1,0 +1,10 @@
+# Ignore everything by default; explicitly allow public content below
+# (prevents accidentally leaking sources from a checkout of main)
+*
+
+# Allow only these
+!.gitignore
+!README.md
+!LICENSE
+!docs/
+!docs/**
