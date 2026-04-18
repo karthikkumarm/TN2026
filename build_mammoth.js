@@ -701,7 +701,7 @@ ${ddBody}
   const obfBase = {
     compact: true,
     debugProtection: true,
-    debugProtectionInterval: 2000,
+    debugProtectionInterval: 0,
     disableConsoleOutput: false, // was true — silently swallowed errors; now we log
     identifierNamesGenerator: 'hexadecimal',
     identifiersPrefix: '_0x',
@@ -828,7 +828,7 @@ function _chkTiming(){
     var s=Date.now();
     for(var i=0;i<100;i++){Math.random();}
     var d=Date.now()-s;
-    if(d>50){_dt++;if(_dt>3)_lock();}
+    if(d>120){_dt++;if(_dt>5)_lock();}
     else{_dt=Math.max(0,_dt-1);}
   }catch(_){}
 }
@@ -839,20 +839,12 @@ function _chkSize(){
     if(window.innerWidth<800)return;
     var wd=window.outerWidth-window.innerWidth;
     var hd=window.outerHeight-window.innerHeight;
-    if(wd>180||hd>200){_dc++;if(_dc>2)_lock();}
+    if(wd>300||hd>350){_dc++;if(_dc>4)_lock();}
     else{_dc=Math.max(0,_dc-1);}
   }catch(_){}
 }
 
-// Layer 3: Console object identity check — devtools modifies console internals
-var _origLog;
-try{_origLog=console.log.toString();}catch(_){_origLog='';}
-function _chkConsole(){
-  try{
-    var s=console.log.toString();
-    if(s!==_origLog&&s.indexOf('native code')===-1){_lock();}
-  }catch(_){}
-}
+// Layer 3: (removed — was _chkConsole, but it conflicts with console override below)
 
 // Layer 4: Stack depth — profiler/debugger increases call stack
 function _chkStack(){
@@ -880,23 +872,14 @@ function _setupTrap(){
   }catch(_){}
 }
 
-// Layer 6: Detect console.log() output interception (Firebug-style)
-function _chkRegex(){
-  try{
-    var d=new Date();
-    d.__proto__.toString=function(){_lock();return '';};
-  }catch(_){}
-}
+// Layer 6: (removed — Date.prototype.toString override caused false positives)
 
 // Combined interval check
 setInterval(function(){
   _chkTiming();
   _chkSize();
   _chkStack();
-},1200);
-setInterval(function(){
-  _chkConsole();
-},3000);
+},2500);
 
 // ── Source protection: make outerHTML/innerHTML less useful ──
 try{
@@ -928,7 +911,7 @@ try{
   var _origToString=Function.prototype.toString;
   Function.prototype.toString=function(){
     // If called on our own protection functions, return native stub
-    if(this===_lock||this===_chkTiming||this===_chkSize||this===_chkConsole||this===_chkStack||this===_setupTrap||this===_chkRegex){
+    if(this===_lock||this===_chkTiming||this===_chkSize||this===_chkStack||this===_setupTrap){
       return'function(){[native code]}';
     }
     return _origToString.call(this);
@@ -936,8 +919,8 @@ try{
 }catch(_){}
 
 // ── Init trap on DOMContentLoaded ──
-if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){_setupTrap();_chkRegex();});}
-else{_setupTrap();_chkRegex();}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){_setupTrap();});}
+else{_setupTrap();}
 })();`;
 
   // Obfuscate protectionJs with light settings (must not break, but should be hard to read)
