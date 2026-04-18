@@ -8,6 +8,8 @@ __pycache__/
 # Large photo assets (242 MB) — not needed for mammoth
 public/assets/photos/
 
+# docs/photos/ IS tracked — served by GitHub Pages
+
 # Build intermediates / exploration artifacts
 dist/
 *.log

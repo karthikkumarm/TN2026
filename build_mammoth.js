@@ -80,16 +80,19 @@ async function build() {
   console.log(`  DeepDive:          ${(dd.length/1024).toFixed(0)} KB`);
   console.log(`  Candidates JSON:   ${(candidatesRaw.length/1024/1024).toFixed(2)} MB`);
 
-  // Parse candidates to strip photo URLs (saves space, we're using initials anyway)
+  // Parse candidates to strip bulky photo_url (we use photo_local paths only)
   const candidatesJson = JSON.parse(candidatesRaw);
   if (Array.isArray(candidatesJson.candidates)) {
     for (const c of candidatesJson.candidates) {
-      delete c.photo_local;
       delete c.photo_url;
+      // Normalize photo_local to relative 'photos/...' for Pages hosting
+      if (c.photo_local && typeof c.photo_local === 'string') {
+        c.photo_local = c.photo_local.replace(/^public[\\/]assets[\\/]/, '').replace(/\\/g, '/');
+      }
     }
   }
   const candidatesMinified = JSON.stringify(candidatesJson);
-  console.log(`  Candidates minified (no photos): ${(candidatesMinified.length/1024/1024).toFixed(2)} MB`);
+  console.log(`  Candidates minified: ${(candidatesMinified.length/1024/1024).toFixed(2)} MB`);
 
   // ──────────────────────────────────────────────
   // 2. Fetch external resources
@@ -373,6 +376,9 @@ ${ddBody}
 
   viBody = viBody.substring(0, footerIdx) + deepdiveModule + viBody.substring(footerIdx);
 
+  // Add decoding="async" to any candidate img template string literals for better perf.
+  // (Template rendered client-side — we can't patch HTML directly, but we can patch the JS template below.)
+
   // ──────────────────────────────────────────────
   // 7. Transform: JavaScript
   // ──────────────────────────────────────────────
@@ -392,10 +398,21 @@ ${ddBody}
     ''
   );
 
-  // c) Force getPhotoSrc to return '' (no photos in mammoth)
+  // c) Keep getPhotoSrc but ensure it returns the normalized relative path.
+  //    Photos are hosted alongside index.html on GH Pages at /photos/<const>/<slug>.jpg
   mergedAppJs = mergedAppJs.replace(
     /function\s+getPhotoSrc\s*\([^)]*\)\s*\{[\s\S]*?\n\}/,
-    'function getPhotoSrc(c){return ""}'
+    `function getPhotoSrc(c){
+  if(!c) return '';
+  if(c.photo_local && typeof c.photo_local==='string' && !/^https?:/.test(c.photo_local)) return c.photo_local;
+  return '';
+}`
+  );
+
+  // c2) Upgrade candidate image tag: add decoding="async" + explicit dimensions hint
+  mergedAppJs = mergedAppJs.replace(
+    /<img class="cand-photo" src="\$\{photo\}" alt="\$\{c\.name\}" loading="lazy"/g,
+    '<img class="cand-photo" src="${photo}" alt="${c.name}" loading="lazy" decoding="async" width="60" height="60"'
   );
 
   // d) Replace the entire fetch().then().then().catch() chain with inline data loader
@@ -626,6 +643,61 @@ try{
   console.log(`  Size: ${finalSize.toFixed(2)} MB`);
   console.log(`  WhatsApp document limit: 100 MB ${finalSize < 100 ? '✓ OK' : '✗ TOO LARGE'}`);
   console.log(`═══════════════════════════════════════════\n`);
+
+  // ──────────────────────────────────────────────
+  // 12. Sync to docs/ for GitHub Pages (index.html + photos/)
+  // ──────────────────────────────────────────────
+  console.log('▸ Syncing to docs/ for GitHub Pages...');
+  const DOCS = 'docs';
+  if (!fs.existsSync(DOCS)) fs.mkdirSync(DOCS, { recursive: true });
+  // Copy built file as index.html
+  fs.copyFileSync(OUT, path.join(DOCS, 'index.html'));
+  console.log(`  ✓ ${DOCS}/index.html`);
+
+  // Copy photos: public/assets/photos/  →  docs/photos/
+  const SRC_PHOTOS = path.join('public', 'assets', 'photos');
+  const DST_PHOTOS = path.join(DOCS, 'photos');
+  if (fs.existsSync(SRC_PHOTOS)) {
+    let copied = 0, skipped = 0;
+    function walk(rel) {
+      const srcDir = path.join(SRC_PHOTOS, rel);
+      const dstDir = path.join(DST_PHOTOS, rel);
+      if (!fs.existsSync(dstDir)) fs.mkdirSync(dstDir, { recursive: true });
+      for (const name of fs.readdirSync(srcDir)) {
+        const s = path.join(srcDir, name);
+        const d = path.join(dstDir, name);
+        const st = fs.statSync(s);
+        if (st.isDirectory()) {
+          walk(path.join(rel, name));
+        } else {
+          // Incremental: skip if destination exists with same size + mtime
+          if (fs.existsSync(d)) {
+            const dt = fs.statSync(d);
+            if (dt.size === st.size && Math.abs(dt.mtimeMs - st.mtimeMs) < 1000) { skipped++; continue; }
+          }
+          fs.copyFileSync(s, d);
+          fs.utimesSync(d, st.atime, st.mtime);
+          copied++;
+        }
+      }
+    }
+    walk('');
+    console.log(`  ✓ ${DOCS}/photos: ${copied} copied, ${skipped} already up-to-date`);
+  } else {
+    console.log(`  ⚠ ${SRC_PHOTOS} not found — candidate photos will fall back to initials avatars`);
+  }
+
+  // Write a _config.yml so Jekyll doesn't exclude _-prefixed or large files
+  fs.writeFileSync(path.join(DOCS, '_config.yml'), 'include: ["_*"]\n');
+
+  // Write a 404 that redirects to root (nice fallback for GH Pages)
+  fs.writeFileSync(path.join(DOCS, '404.html'),
+`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Not Found</title>
+<meta http-equiv="refresh" content="0;url=./"></head>
+<body style="background:#080810;color:#F0ECE4;font-family:system-ui;text-align:center;padding:3em">
+<h1>Redirecting…</h1><p><a href="./" style="color:#C8922A">Go to TN 2026 Voter Intelligence</a></p>
+</body></html>`);
+  console.log(`  ✓ ${DOCS}/404.html  ·  ${DOCS}/_config.yml\n`);
 
   console.log('Contents:');
   console.log('  • Manifesto Analysis module (Chart.js)');
