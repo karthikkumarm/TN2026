@@ -590,13 +590,60 @@ ${ddBody}
 
   const protectionJs = `
 (function(){
-document.addEventListener('contextmenu',function(e){e.preventDefault()});
+'use strict';
+// Block context menu, text-select (except inputs), drag, common shortcuts
+document.addEventListener('contextmenu',function(e){e.preventDefault();return false},true);
 document.addEventListener('keydown',function(e){
-if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u')||(e.ctrlKey&&e.key==='s'))
-{e.preventDefault();return false}});
-document.addEventListener('dragstart',function(e){e.preventDefault()});
-document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA')e.preventDefault()});
-var dc=0;setInterval(function(){var s=performance.now();(function(){}).constructor('debugger')();if(performance.now()-s>100){dc++;if(dc>2){document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#C8922A;font-size:24px;background:#080810;text-align:center;padding:40px"><div><p style="font-size:48px;margin-bottom:20px">🔒</p><p>Developer tools detected.</p><p style="font-size:16px;color:#505070;margin-top:12px">This content is protected. Please close developer tools to continue.</p></div></div>';}}},2000);
+  var k=e.key;
+  if(k==='F12'
+    ||(e.ctrlKey&&e.shiftKey&&(k==='I'||k==='J'||k==='C'||k==='K'))
+    ||(e.metaKey&&e.altKey&&(k==='I'||k==='J'||k==='C'))
+    ||(e.ctrlKey&&(k==='u'||k==='U'||k==='s'||k==='S'||k==='p'||k==='P'))){
+    e.preventDefault();e.stopPropagation();return false;
+  }
+},true);
+document.addEventListener('dragstart',function(e){e.preventDefault()},true);
+document.addEventListener('selectstart',function(e){
+  var t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'))return;
+  e.preventDefault();
+},true);
+document.addEventListener('copy',function(e){
+  var t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'))return;
+  e.preventDefault();
+},true);
+
+// Frame-bust if loaded inside iframe
+try{if(window.top!==window.self){window.top.location=window.self.location}}catch(_){document.documentElement.innerHTML='';}
+
+// Devtools detector (timing-based + dimension-based)
+var blocked=false;
+function lock(){
+  if(blocked)return;blocked=true;
+  try{document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,Segoe UI,sans-serif;color:#C8922A;background:#080810;text-align:center;padding:40px"><div><div style="font-size:56px;margin-bottom:20px">🔒</div><div style="font-size:22px;font-weight:600;margin-bottom:12px">Developer tools detected</div><div style="font-size:14px;color:#7A7265;max-width:400px">This content is protected. Please close all developer tools (F12 / Inspect) and reload the page to continue.</div></div></div>';}catch(_){}
+}
+var dcCount=0;
+setInterval(function(){
+  try{
+    // Timing trap
+    var s=performance.now();
+    (function(){}).constructor('debugger')();
+    if(performance.now()-s>120){dcCount++;if(dcCount>1)lock();}
+    // Size heuristic (desktop only — mobile browsers can have mismatches)
+    if(window.innerWidth>800){
+      var wd=window.outerWidth-window.innerWidth;
+      var hd=window.outerHeight-window.innerHeight;
+      if(wd>180||hd>200){dcCount++;if(dcCount>2)lock();}
+    }
+  }catch(_){}
+},1500);
+
+// Override console methods (harmless decorations that reveal devtool inspection)
+try{
+  var t=function(){};
+  ['log','debug','info','warn','error','table','dir','trace','group','groupEnd','profile','profileEnd'].forEach(function(k){
+    try{console[k]=t}catch(_){}
+  });
+}catch(_){}
 })();`;
 
   // Loader that decodes base64 body with proper UTF-8 handling
@@ -621,6 +668,24 @@ try{
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="TN 2026 — An independent, non-partisan voter intelligence platform for the Tamil Nadu 2026 Legislative Assembly Election. Manifesto analysis, 4,610 candidates across 233 constituencies, 174 schemes deep-dive.">
+<meta name="keywords" content="Tamil Nadu 2026, TN Election, voter intelligence, manifesto analysis, DMK, ADMK, TVK, NTK, ECI candidates, assembly election">
+<meta name="author" content="Karthi — Robosynaptix">
+<meta name="robots" content="index,follow">
+<meta name="referrer" content="no-referrer">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), accelerometer=(), gyroscope=()">
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="TN 2026 — Voter Intelligence Platform">
+<meta property="og:description" content="Independent, non-partisan analysis of the Tamil Nadu 2026 Assembly Election — manifestos, candidates, schemes.">
+<meta property="og:site_name" content="TN 2026 Voter Intelligence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TN 2026 — Voter Intelligence Platform">
+<meta name="twitter:description" content="Independent, non-partisan analysis of the Tamil Nadu 2026 Assembly Election.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23080810'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%23C8922A' font-family='serif' font-weight='700'%3E🪔%3C/text%3E%3C/svg%3E">
 <title>TN 2026 — Voter Intelligence Platform</title>
 <style id="fonts">${fontCss}</style>
 <style id="app">${cssMin}</style>
@@ -697,7 +762,25 @@ try{
 <body style="background:#080810;color:#F0ECE4;font-family:system-ui;text-align:center;padding:3em">
 <h1>Redirecting…</h1><p><a href="./" style="color:#C8922A">Go to TN 2026 Voter Intelligence</a></p>
 </body></html>`);
-  console.log(`  ✓ ${DOCS}/404.html  ·  ${DOCS}/_config.yml\n`);
+
+  // robots.txt — allow root, discourage photo indexing
+  fs.writeFileSync(path.join(DOCS, 'robots.txt'),
+`User-agent: *
+Allow: /$
+Allow: /index.html
+Disallow: /photos/
+Disallow: /404.html
+`);
+
+  // sitemap.xml — single URL (the main site)
+  fs.writeFileSync(path.join(DOCS, 'sitemap.xml'),
+`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url><loc>https://karthikkumarm.github.io/TN2026/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+</urlset>
+`);
+
+  console.log(`  ✓ ${DOCS}/404.html  ·  ${DOCS}/_config.yml  ·  ${DOCS}/robots.txt  ·  ${DOCS}/sitemap.xml\n`);
 
   console.log('Contents:');
   console.log('  • Manifesto Analysis module (Chart.js)');
