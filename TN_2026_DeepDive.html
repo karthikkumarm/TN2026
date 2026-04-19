@@ -163,8 +163,9 @@ footer{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1p
 .sc-share.md{border-color:rgba(230,126,34,.35);color:#e8a065}
 .sc-share.hi{border-color:rgba(231,76,60,.4);color:#ee7a70}
 .sc-share.zero{border-color:rgba(149,165,166,.35);color:var(--t3)}
-.sc-expand{font-size:14px;color:var(--t3);transition:transform .3s;flex-shrink:0;margin-top:4px}
-.scheme-card.open .sc-expand{transform:rotate(180deg)}
+.sc-expand{font-size:18px;color:var(--gold-dim);transition:transform .3s,color .2s;flex-shrink:0;margin-top:4px;cursor:pointer;padding:4px 8px;border-radius:6px}
+.sc-expand:hover{color:var(--gold);background:rgba(200,146,42,.1)}
+.scheme-card.open .sc-expand{transform:rotate(180deg);color:var(--gold)}
 .sc-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
 .scheme-card.open .sc-body{max-height:3000px}
 .sc-inner{padding:0 20px 20px;display:grid;gap:16px}
@@ -591,7 +592,7 @@ document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT
   <h2>3. All 174 Schemes — Deep Analysis</h2>
 
   <div class="deep-howto">
-    <strong>📖 How to read this section.</strong> Every scheme below has six layers of analysis — verdict, key insight, pros, cons, global precedent, and TN-2025 relevance. Each card shows a teaser; click <strong>Open Deep Analysis ▾</strong> (or the card itself) to see the full breakdown. Verdict colours:
+    <strong>📖 How to read this section.</strong> Every scheme below has six layers of analysis — verdict, key insight, pros, cons, global precedent, and TN-2025 relevance. Each card shows a teaser; click the <strong>▼ arrow</strong> or <strong>Expand Analysis ▾</strong> button to expand the full breakdown. Click again to collapse. Verdict colours:
     <span class="legend"><span class="swatch" style="background:#2ECC71"></span>Include</span>
     <span class="legend"><span class="swatch" style="background:#E67E22"></span>Conditional</span>
     <span class="legend"><span class="swatch" style="background:#E74C3C"></span>Exclude</span>
@@ -2303,7 +2304,11 @@ function toggleExpandAll(){
   var visible=[...cards].filter(c=>c.style.display!=='none');
   if(!visible.length)return;
   var allOpen=visible.every(c=>c.classList.contains('open'));
-  visible.forEach(c=>c.classList.toggle('open',!allOpen));
+  visible.forEach(function(c){
+    c.classList.toggle('open',!allOpen);
+    var ob=c.querySelector('.sc-open-btn');
+    if(ob)ob.textContent=allOpen?'Expand Analysis ▾':'Collapse ▴';
+  });
   btn.textContent=allOpen?'Expand All':'Collapse All';
 }
 
@@ -2402,7 +2407,7 @@ function schemeCardHtml(s, opts){
   }
 
   return '<div class="scheme-card '+vCls+openCls+'" data-scheme-id="'+schemeId+'" data-party="'+s[1]+'" data-stars="'+s[3]+'" data-cat="'+s[0]+'">'
-    + '<div class="sc-header" onclick="this.parentElement.classList.toggle(\'open\')">'
+    + '<div class="sc-header" onclick="var p=this.parentElement;p.classList.toggle(\'open\');var ob=p.querySelector(\'.sc-open-btn\');if(ob)ob.textContent=p.classList.contains(\'open\')?\'Collapse ▴\':\'Expand Analysis ▾\';">'
     +   '<div class="sc-meta">'
     +     '<div class="sc-title">'+catLabel+'<span class="party-tag '+s[1]+'" data-tip="party">'+escH(partyLabel.split('—')[0].trim())+'</span> '+s[2]+'</div>'
     +     '<div class="sc-subtitle">'
@@ -2412,7 +2417,7 @@ function schemeCardHtml(s, opts){
     +       shareHtmlLocal(s[4])
     +     '</div>'
     +   '</div>'
-    +   '<span class="sc-expand">▼</span>'
+    +   '<span class="sc-expand" data-tip-text="Click to expand or collapse the full analysis.">▼</span>'
     + '</div>'
     + '<div class="sc-preview">'
     +   '<div class="teaser"><b>Why:</b>'+(s[6]||'—')+'</div>'
@@ -2421,7 +2426,7 @@ function schemeCardHtml(s, opts){
     +     '<span class="sc-chip cons" data-tip="cons">❌ <b>'+consCount+'</b> risks</span>'
     +     (hasWorld?'<span class="sc-chip world" data-tip="world-context">🌍 Global precedent</span>':'')
     +     (hasRel?'<span class="sc-chip rel" data-tip="tn-relevance">📌 TN-2025 angle</span>':'')
-    +     '<button class="sc-open-btn" data-tip-scheme="'+schemeId+'" onclick="event.stopPropagation();this.closest(\'.scheme-card\').classList.toggle(\'open\')">Open Deep Analysis</button>'
+    +     '<button class="sc-open-btn" data-tip-text="Click to expand full analysis: verdict, pros, cons, global precedent &amp; TN relevance. Click again to collapse." onclick="event.stopPropagation();var c=this.closest(\'.scheme-card\');c.classList.toggle(\'open\');this.textContent=c.classList.contains(\'open\')?\'Collapse ▴\':\'Expand Analysis ▾\';">Expand Analysis ▾</button>'
     +   '</div>'
     + '</div>'
     + '<div class="sc-body"><div class="sc-inner">'

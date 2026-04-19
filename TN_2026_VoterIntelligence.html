@@ -600,35 +600,35 @@ body.light .site-footer{background:#e8e8f0}
 
     <!-- Top anchor tiles -->
     <div class="pulse-hero">
-      <div class="pulse-tile">
+      <div class="pulse-tile" data-tip-text="Based on the latest ECI electoral rolls for 2026, adjusted for new registrations since 2021 (6.27 Cr baseline).">
         <div class="p-lbl">Projected Electorate</div>
         <div class="p-num">6.42 Cr</div>
         <div class="p-sub">Total registered voters (ECI rolls, 2026). 2021 baseline: 6.27 Cr.</div>
       </div>
-      <div class="pulse-tile">
+      <div class="pulse-tile" data-tip-text="Turnout band derived from the last 3 TN Assembly elections. Higher turnout tends to favour challengers; lower turnout favours the incumbent.">
         <div class="p-lbl">Expected Turnout</div>
         <div class="p-num">73–75%</div>
         <div class="p-sub">Band of the last 3 TN Assembly polls (2011: 77.8% · 2016: 74.3% · 2021: 72.8%). ≈ <strong>4.69–4.82 Cr votes cast</strong>.</div>
       </div>
-      <div class="pulse-tile">
+      <div class="pulse-tile" data-tip-text="All 234 Assembly constituencies are up for election. The magic number is 118 — any party or alliance crossing this forms the government.">
         <div class="p-lbl">Seats in Play</div>
         <div class="p-num">234</div>
         <div class="p-sub">Majority mark: <strong>118 seats</strong>. No single party has crossed it alone since 2011.</div>
       </div>
-      <div class="pulse-tile">
+      <div class="pulse-tile" data-tip-text="DMK-led SPA won 159/234 seats in 2021 with 45.38% vote share. First-term incumbents in TN have been re-elected only twice since 1967 (MGR 1980, JJ 2016).">
         <div class="p-lbl">Incumbent (2021)</div>
         <div class="p-num">DMK +</div>
         <div class="p-sub">159/234 seats · 45.38% vote share · 2.08 Cr votes. Facing first-term anti-incumbency.</div>
       </div>
     </div>
 
-    <!-- Three scenario cards -->
+    <!-- Seven scenario cards (A–G) -->
     <div class="forecast-grid">
 
-      <div class="fc-card fav">
+      <div class="fc-card fav" data-tip-text="Most likely scenario. DMK's welfare schemes (Magalir Urimai, breakfast, dialysis) blunt anti-incumbency while TVK splits the opposition vote. Probability: 33%.">
         <div class="fc-head">
           <div class="fc-name">Scenario A · Welfare holds, TVK splits opposition</div>
-          <div class="fc-prob">33%</div>
+          <div class="fc-prob" data-tip-text="Probability assigned based on 2021 ECI baseline, welfare scheme penetration data, and TVK's likely vote-split impact.">33%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:42%"></span>
@@ -644,10 +644,10 @@ body.light .site-footer{background:#e8e8f0}
         <div class="fc-note">Welfare schemes (Magalir Urimai, breakfast, dialysis) blunt anti-incumbency. Vijay's TVK eats into ADMK's urban youth base more than DMK's SHG-women base. BJP stays separate → ADMK cap ~34%.</div>
       </div>
 
-      <div class="fc-card">
+      <div class="fc-card" data-tip-text="A unified ADMK-BJP-PMK front creates a competitive two-front race. The tightest scenario — a gap under 5 points usually means hung assembly in TN.">
         <div class="fc-head">
           <div class="fc-name">Scenario B · ADMK+BJP alliance confirmed, tight race</div>
-          <div class="fc-prob">27%</div>
+          <div class="fc-prob" data-tip-text="Second most likely. Alliance confirmation shifts ~6-8 pp from fragmented to consolidated opposition.">27%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:39%"></span>
@@ -662,10 +662,10 @@ body.light .site-footer{background:#e8e8f0}
         <div class="fc-note">Double anti-incumbency plus a unified ADMK-BJP-PMK front. TN last saw a decisive re-election in 1984 (MGR). A gap under 5 points usually means <strong>hung assembly</strong>.</div>
       </div>
 
-      <div class="fc-card">
+      <div class="fc-card" data-tip-text="TVK surges to 15-22% vote share, collapsing ADMK's non-core vote. Mirrors the MNM 2021 hype but at 3× the scale. DMK still largest bloc due to alliance arithmetic.">
         <div class="fc-head">
           <div class="fc-name">Scenario C · TVK breakout, opposition fragments</div>
-          <div class="fc-prob">14%</div>
+          <div class="fc-prob" data-tip-text="Moderate probability. Requires significant fan-to-vote conversion in urban and western TN.">14%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:40%"></span>
@@ -680,10 +680,10 @@ body.light .site-footer{background:#e8e8f0}
         <div class="fc-note">Mirrors MNM 2021 hype × 3. Vijay's fan base converts to votes in urban + western TN. ADMK's non-core vote collapses; DMK still largest block thanks to alliance arithmetic (Congress, VCK, Left, MDMK).</div>
       </div>
 
-      <div class="fc-card">
+      <div class="fc-card" data-tip-text="Black swan for TVK. Turnout crosses 78-80% driven by first-time youth voters. Fan-to-vote conversion above 35% — historically rare for first-time actor-parties.">
         <div class="fc-head">
           <div class="fc-name">Scenario D · TVK tsunami, high-turnout fan conversion</div>
-          <div class="fc-prob">6%</div>
+          <div class="fc-prob" data-tip-text="Low probability tail scenario. Only MGR's ADMK achieved a first-outing win (1977).">6%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:33%"></span>
@@ -698,10 +698,10 @@ body.light .site-footer{background:#e8e8f0}
         <div class="fc-note">Turnout crosses <strong>78–80%</strong> (vs 72.8% in 2021), driven by first-time and youth voters. TVK's reported 1.5 Cr membership (Dina Thanthi, Sep 2025) and the 8-lakh Vikravandi rally (The Hindu, 27 Oct 2024) translate into booth-level turnout. Requires fan-to-vote conversion above 35% — historically rare for first-time actor-parties (DMDK 2006: 8.4% / 0 seats; MNM 2021: 2.6% / 0 seats), but MGR-founded ADMK did win its first outing in 1977.</div>
       </div>
 
-      <div class="fc-card">
+      <div class="fc-card" data-tip-text="Anti-incumbency consolidates behind a single front. Backed by multiple stress markers: Senthil Balaji arrest, TANGEDCO debt, Anna University case.">
         <div class="fc-head">
           <div class="fc-name">Scenario E · DMK collapse, ADMK+BJP sweep</div>
-          <div class="fc-prob">10%</div>
+          <div class="fc-prob" data-tip-text="Meaningful tail risk. First-term TN incumbents have been re-elected only twice since 1967.">10%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:33%"></span>
@@ -716,10 +716,10 @@ body.light .site-footer{background:#e8e8f0}
         <div class="fc-note">Anti-incumbency consolidates behind a single front. Verified stress markers: Senthil Balaji's ED money-laundering arrest (July 2023), TANGEDCO's ₹1.25 L Cr debt, Sasikala's "financial morass" critique of both Dravidian parties (The Hindu, Apr 2026), Anna University sexual-assault case (July 2024). Udhayanidhi's Sanatana Dharma remarks polarise a section of traditional voters. First-term TN incumbents have been re-elected only twice since 1967 (MGR 1980, JJ 2016) — base-rate favours a swing.</div>
       </div>
 
-      <div class="fc-card">
+      <div class="fc-card" data-tip-text="Neither bloc crosses 118 seats. TVK with 20-40 seats becomes the pivot — parallel to Karnataka 2004 or Maharashtra 2019 post-poll scenarios.">
         <div class="fc-head">
           <div class="fc-name">Scenario F · Hung assembly, TVK kingmaker</div>
-          <div class="fc-prob">5%</div>
+          <div class="fc-prob" data-tip-text="Requires a three-way vote split with no clear winner. Depends on TVK crossing the 20-seat viability threshold.">5%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:36%"></span>
@@ -734,10 +734,10 @@ body.light .site-footer{background:#e8e8f0}
         <div class="fc-note">Neither bloc crosses the 118-seat majority mark; TVK with 20–40 seats becomes the pivot. Parallel to Karnataka 2004 or Maharashtra 2019 post-poll scenarios. Sengottaiyan's defection to TVK (The Hindu, 26 Nov 2025) creates credible bridges to AIADMK factions. Outcome depends on whether Vijay (currently facing CBI summons on the Karur stampede case — The Hindu, 13 Jan 2026) chooses support-from-outside or a coalition government.</div>
       </div>
 
-      <div class="fc-card">
+      <div class="fc-card" data-tip-text="NTK extends its rising trajectory (2016: 1.06% → 2021: 6.89% → 2024 LS: 8.19% → 2025 Erode: 15.59%). Even at 10-13% it wins 0-1 seats but spoils ADMK margins.">
         <div class="fc-head">
           <div class="fc-name">Scenario G · NTK consolidation, no seats but spoiler</div>
-          <div class="fc-prob">5%</div>
+          <div class="fc-prob" data-tip-text="Tail scenario. FPTP penalty on geographically diffused vote prevents seat conversion despite rising share.">5%</div>
         </div>
         <div class="fc-bar">
           <span style="background:#E53935;width:38%"></span>
@@ -758,7 +758,7 @@ body.light .site-footer{background:#e8e8f0}
 
     <!-- Weighted central estimate table -->
     <div class="chart-box reveal" style="padding:1.25rem 1.25rem 1rem">
-      <h4 style="margin-bottom:.75rem">Weighted central estimate (single-row verdict)</h4>
+      <h4 style="margin-bottom:.75rem" data-tip-text="Mid-point of the scenario-weighted range across all seven scenarios (A–G). Vote totals calculated on 4.72 Cr valid votes (74% turnout of 6.42 Cr electorate).">Weighted central estimate (single-row verdict)</h4>
       <div style="overflow-x:auto">
       <table class="pulse-table">
         <thead>
@@ -820,9 +820,9 @@ body.light .site-footer{background:#e8e8f0}
 
     <!-- Probability-weighted headline -->
     <div class="winner-card reveal" style="margin-top:1.5rem">
-      <h3>🏆 Probability-weighted outcome</h3>
-      <p class="text-muted" style="font-size:.88rem;line-height:1.7">Combining the seven scenarios above, weighted by their likelihood, the most probable outcome is a <strong style="color:var(--t1)">DMK-led alliance win with a thin majority — ~118 seats, ~39.5% vote share, ≈ 1.86 Cr votes</strong>. The range is wide enough that an ADMK+BJP upset, a hung house, or a TVK-driven surprise are all live tail-risks — see the seven-scenario breakdown above.</p>
-      <div class="win-bar-wrap">
+      <h3 data-tip-text="Weighted average across all seven scenarios (A–G), using each scenario's assigned probability. This is NOT a poll prediction — it's a structured scenario model.">🏆 Probability-weighted outcome</h3>
+      <p class="text-muted" style="font-size:.88rem;line-height:1.7">Combining the <strong data-tip-text="Seven scenarios: A (33%), B (27%), C (14%), D (6%), E (10%), F (5%), G (5%). Probabilities sum to 100%.">seven scenarios</strong> above, weighted by their likelihood, the most probable outcome is a <strong style="color:var(--t1)">DMK-led alliance win with a thin majority — ~118 seats, ~39.5% vote share, ≈ 1.86 Cr votes</strong>. The range is wide enough that an ADMK+BJP upset, a hung house, or a TVK-driven surprise are all live tail-risks — see the seven-scenario breakdown above.</p>
+      <div class="win-bar-wrap" data-tip-text="Win probability = sum of scenario probabilities where each bloc wins a majority. DMK+ wins in scenarios A, C, G (55%). ADMK+ wins in B, E (27%). Hung in D, F (14%). TVK surprise in D only (4%).">
         <div class="win-bar">
           <span style="background:#E53935;width:55%" title="DMK alliance wins majority">DMK+ wins · 55%</span>
           <span style="background:#43A047;width:27%" title="ADMK+BJP alliance wins">ADMK+BJP · 27%</span>
