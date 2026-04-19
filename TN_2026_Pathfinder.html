@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TN Launchpad — Pathfinder: Career &amp; Livelihood Guide</title>
+<meta name="description" content="Find your career path, business idea, government schemes and free resources in Tamil Nadu based on your education, capital and district.">
+<meta name="theme-color" content="#0D0F12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root {
+  --bg0:#0D0F12; --bg1:#161A1F; --bg2:#1E2329; --bg3:#262C34;
+  --t1:#F0ECE4; --t2:#B8B0A2; --t3:#7A7265;
+  --gold:#C8922A; --gold-dim:rgba(200,146,42,.15); --gold-light:#F5C842;
+  --r:10px; --max-w:1100px; --nav-h:56px;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --s1:0 1px 3px rgba(0,0,0,.4);
+  --s2:0 2px 8px rgba(0,0,0,.3);
+  --green:#2ECC71; --orange:#E67E22; --red:#E74C3C; --blue:#3498DB; --purple:#9B59B6;
+}
+body{margin:0;background:var(--bg0);color:var(--t1);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.35) transparent}
+html::-webkit-scrollbar{width:8px;height:8px}
+html::-webkit-scrollbar-track{background:transparent}
+html::-webkit-scrollbar-thumb{background:rgba(200,146,42,.3);border-radius:8px}
+html::-webkit-scrollbar-thumb:hover{background:rgba(200,146,42,.5)}
+a{color:var(--gold);text-decoration:none} a:hover{text-decoration:underline}
+::selection{background:var(--gold);color:var(--bg0)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;min-height:var(--nav-h);background:rgba(13,15,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100}
+nav .back{font-size:13px;color:var(--t2);font-weight:500}
+nav .back:hover{color:var(--gold)}
+nav .title{font-family:var(--serif);font-size:16px;color:var(--gold);font-weight:600}
+nav .nav-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;flex:1;margin-left:12px}
+nav .nav-links a{font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px;white-space:nowrap}
+nav .nav-links a:hover{color:var(--gold);border-color:rgba(200,146,42,.3);text-decoration:none}
+nav .nav-links a.active{color:var(--gold);border-color:rgba(200,146,42,.3);background:rgba(200,146,42,.1)}
+
+/* Tier Selector */
+.tier-bar{background:var(--bg1);border:1px solid var(--bg3);border-radius:var(--r);padding:8px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.tier-bar .tier-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-right:8px}
+.tier-btn{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:var(--sans)}
+.tier-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tier-btn.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+.tier-hint{font-size:10px;color:var(--t3);margin-left:auto;font-style:italic}
+
+/* Layout */
+main{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + 24px) 20px 60px}
+section{margin-bottom:48px}
+h1{font-family:var(--serif);font-size:clamp(28px,4vw,42px);color:var(--gold);margin-bottom:8px}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bg3)}
+h3{font-family:var(--serif);font-size:20px;color:var(--t1);margin-bottom:12px}
+p{color:var(--t2);margin-bottom:12px}
+
+/* Tab System */
+.tab-bar{display:flex;border-bottom:2px solid var(--bg3);margin-bottom:24px;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{padding:12px 20px;font-size:13px;font-weight:600;color:var(--t3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:var(--sans);transition:all .2s;white-space:nowrap}
+.tab:hover{color:var(--t2)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Cards */
+.pf-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);padding:20px;margin-bottom:16px;transition:border-color .2s}
+.pf-card:hover{border-color:rgba(200,146,42,.3)}
+.pf-card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pf-card-header .icon{font-size:24px}
+.pf-card-header h3{margin-bottom:0;font-size:18px}
+.pf-tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--gold-dim);color:var(--gold);font-weight:600;margin-right:6px;margin-bottom:6px}
+.pf-tag.green{background:rgba(46,204,113,.12);color:var(--green)}
+.pf-tag.blue{background:rgba(52,152,219,.12);color:var(--blue)}
+.pf-tag.orange{background:rgba(230,126,34,.12);color:var(--orange)}
+.pf-tag.red{background:rgba(231,76,60,.12);color:var(--red)}
+.pf-tag.purple{background:rgba(155,89,182,.12);color:var(--purple)}
+.pf-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--t2);margin:12px 0}
+.pf-meta span{display:flex;align-items:center;gap:4px}
+.pf-detail{font-size:13px;color:var(--t2);line-height:1.7;margin-top:8px}
+
+/* Selector Chips */
+.selector-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.sel-chip{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;font-family:var(--sans)}
+.sel-chip:hover{border-color:rgba(200,146,42,.3);color:var(--gold)}
+.sel-chip.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+
+/* Emergency Banner */
+.emergency-banner{background:linear-gradient(135deg,rgba(231,76,60,.08),rgba(230,126,34,.08));border:1px solid rgba(231,76,60,.25);border-radius:var(--r);padding:20px;margin-bottom:24px}
+.emergency-banner h2{color:var(--red);border-bottom-color:rgba(231,76,60,.2)}
+
+/* Helpline Grid */
+.helpline-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.helpline-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:12px}
+.helpline-card .hl-icon{font-size:24px;min-width:36px;text-align:center}
+.helpline-card .hl-info{flex:1}
+.helpline-card .hl-name{font-size:13px;color:var(--t1);font-weight:600}
+.helpline-card .hl-num{font-family:var(--mono);font-size:18px;color:var(--gold);font-weight:700;letter-spacing:1px}
+
+/* District Grid */
+.district-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+
+/* Resource Category */
+.res-category{margin-bottom:32px}
+.res-category h3{font-size:18px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.res-item{background:var(--bg1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:14px;margin-bottom:8px}
+.res-item-name{font-size:14px;color:var(--t1);font-weight:600;margin-bottom:4px}
+.res-item-provider{font-size:11px;color:var(--gold);margin-bottom:6px}
+.res-item-desc{font-size:12px;color:var(--t2);line-height:1.5}
+.res-item-who{font-size:11px;color:var(--t3);margin-top:6px;font-style:italic}
+.res-links{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.res-links a{font-size:11px;padding:3px 10px;background:rgba(200,146,42,.08);border:1px solid rgba(200,146,42,.2);border-radius:6px;color:var(--gold)}
+
+/* Investment Section */
+.invest-bracket{margin-bottom:24px}
+.invest-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.invest-header .inv-icon{font-size:28px}
+.invest-header h3{margin-bottom:0}
+.invest-header .inv-range{font-size:13px;color:var(--gold);font-family:var(--mono)}
+.idea-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.idea-card{background:var(--bg1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:16px}
+.idea-name{font-size:15px;color:var(--t1);font-weight:600;margin-bottom:8px}
+.idea-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.idea-detail{font-size:12px;color:var(--t2);line-height:1.5}
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--bg0);border:none;cursor:pointer;font-size:20px;display:none;align-items:center;justify-content:center;z-index:90;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.scroll-top.show{display:flex}
+
+/* Footer */
+footer{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1px solid var(--bg3);color:var(--t3);font-size:12px}
+footer p{color:var(--t3)}
+
+/* Responsive */
+.nav-ham{display:none;background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px}
+@media(max-width:768px){
+  nav .title{display:none}
+  .nav-ham{display:block}
+  nav .nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(13,15,18,.96);backdrop-filter:blur(12px);flex-direction:column;padding:12px 20px;gap:4px;border-bottom:1px solid var(--bg3)}
+  nav .nav-links.open{display:flex}
+  nav .nav-links a{padding:10px;border-radius:8px;font-size:14px}
+  .tab{padding:10px 14px;font-size:12px}
+  .tier-hint{display:none}
+  .helpline-grid{grid-template-columns:1fr}
+  .district-grid{grid-template-columns:1fr}
+  .idea-grid{grid-template-columns:1fr}
+  .pf-meta{gap:10px}
+}
+@media(max-width:480px){
+  .selector-bar{gap:6px}
+  .sel-chip{padding:6px 12px;font-size:12px}
+  .helpline-card .hl-num{font-size:15px}
+}
+</style>
+<script>
+(function(){
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){
+if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u')||(e.ctrlKey&&e.key==='s'))
+{e.preventDefault();return false}});
+document.addEventListener('dragstart',function(e){e.preventDefault()});
+document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA')e.preventDefault()});
+})();
+</script>
+<script src="src/audience-tiers.js"></script>
+<script src="src/pathfinder-data.js"></script>
+</head>
+<body>
+<nav>
+<div style="display:flex;align-items:center;gap:12px;flex:1">
+<a class="back" href="index.html">&#127968; Home</a>
+<button class="nav-ham" id="navHam" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+<div class="nav-links">
+<a href="TN_2026_BusinessGuide.html">&#127970; Business</a>
+<a href="TN_Heritage.html">&#127963; Heritage</a>
+<a href="TN_2026_VoterIntelligence.html">&#128483;&#65039; Elections</a>
+<a href="TN_2026_Pathfinder.html" class="active">&#128161; Pathfinder</a>
+<a href="TN_2026_CivicTech.html">&#128187; Civic Tech</a>
+<a href="TN_2026_DeepDive_v2.html">&#128214; Deep Dive</a>
+</div>
+</div>
+<div class="title">TN Launchpad — Pathfinder</div>
+</nav>
+
+<main>
+
+<section id="hero">
+<h1>&#128161; Pathfinder — Your Career &amp; Livelihood Guide</h1>
+<p>This site is a light for those who lost their way. A hope for every individual — showing real paths to income, careers, and self-reliance using the resources this great land provides. No matter your education, capital, or location — there is a way forward.</p>
+
+<div style="background:var(--bg2);padding:16px 20px;border-radius:var(--r);margin:16px 0 24px;border-left:4px solid var(--green)">
+<strong style="color:var(--green)">&#9888;&#65039; Need income immediately?</strong> <a href="#tab-emergency" onclick="switchTab('emergency');return false" style="color:var(--gold);font-weight:600">Jump to Emergency Start →</a> — 7 ways to earn within this week, zero capital needed.
+</div>
+
+<div class="tier-bar" id="tierBar">
+<span class="tier-label">Explain as:</span>
+<button class="tier-btn" data-tier="K" title="Age 10 — simple stories">&#129490; Kid</button>
+<button class="tier-btn" data-tier="T" title="Age 15 — clear basics">&#129489;&#8205;&#127891; Teen</button>
+<button class="tier-btn active" data-tier="V" title="Age 18+ — practical details">&#128483;&#65039; Voter</button>
+<button class="tier-btn" data-tier="W" title="Policy analysis">&#128203; Wonk</button>
+<button class="tier-btn" data-tier="E" title="Economic analysis">&#128202; Economist</button>
+<span class="tier-hint">Changes all content below to match your comprehension level</span>
+</div>
+</section>
+
+<!-- Tab Bar -->
+<div class="tab-bar">
+<button class="tab active" data-tab="careers">&#127891; Career Paths</button>
+<button class="tab" data-tab="invest">&#128176; Business Ideas</button>
+<button class="tab" data-tab="districts">&#128205; District Opportunities</button>
+<button class="tab" data-tab="resources">&#128218; Free Resources</button>
+<button class="tab" data-tab="emergency">&#127384; Emergency Start</button>
+<button class="tab" data-tab="helplines">&#128222; Helplines</button>
+</div>
+
+<!-- Tab: Career Paths -->
+<div class="tab-panel active" id="tab-careers">
+<h2>&#127891; Career Paths by Education Level</h2>
+<p>Select your education level to see career options, training programs, income potential, and government support available to you.</p>
+<div class="selector-bar" id="eduSelector"></div>
+<div id="careerResults"></div>
+</div>
+
+<!-- Tab: Investment Guide / Business Ideas -->
+<div class="tab-panel" id="tab-invest">
+<h2>&#128176; Business Ideas by Capital</h2>
+<p>How much can you invest? Select a bracket to discover business ideas matched to your capital — with ROI timelines, risk levels, and available subsidies.</p>
+<div class="selector-bar" id="investSelector"></div>
+<div id="investResults"></div>
+</div>
+
+<!-- Tab: District Opportunities -->
+<div class="tab-panel" id="tab-districts">
+<h2>&#128205; Top Untapped Opportunity by District</h2>
+<p>Each district in Tamil Nadu has a unique #1 opportunity based on local resources, geography, and demand gaps. Find yours.</p>
+<div class="district-grid" id="districtGrid"></div>
+</div>
+
+<!-- Tab: Free Resources -->
+<div class="tab-panel" id="tab-resources">
+<h2>&#128218; Free Government &amp; Online Resources</h2>
+<p>Zero-cost skill training, online courses, employment exchanges, MSME support, and special programs — all available right now.</p>
+<div id="resourcesList"></div>
+</div>
+
+<!-- Tab: Emergency Start -->
+<div class="tab-panel" id="tab-emergency">
+<div class="emergency-banner">
+<h2>&#127384; Emergency Start — Earn This Week</h2>
+<p style="color:var(--t2);margin-bottom:0">If you need income urgently, these 7 actions require zero capital and can generate money within days. Every link below is real and active.</p>
+</div>
+<div id="emergencyList"></div>
+</div>
+
+<!-- Tab: Helplines -->
+<div class="tab-panel" id="tab-helplines">
+<h2>&#128222; Government Helplines</h2>
+<p>Toll-free numbers for government schemes, employment support, women's help, and business guidance. All active 24/7 or during business hours.</p>
+<div class="helpline-grid" id="helplineGrid"></div>
+</div>
+
+</main>
+
+<footer>
+<p>&copy; 2025 TN Launchpad. For informational and educational use only. All government scheme details sourced from official portals. Verify eligibility directly with scheme providers.</p>
+<p style="margin-top:12px;color:#6A667E;font-size:12px;text-align:center">Made with <span style="color:#E74C3C">❤</span> by Karthi — Robosynaptix</p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+(function(){
+'use strict';
+
+var PD = window.PathfinderData;
+var AT = window.AudienceTiers;
+var currentTier = 'V';
+var currentEdu = 'no_formal';
+var currentBracket = 'zero';
+
+function esc(s) {
+  if (!s) return '';
+  var d = document.createElement('div');
+  d.appendChild(document.createTextNode(s));
+  return d.innerHTML;
+}
+
+/* ── Tab System ── */
+function initTabs() {
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener('click', function() {
+      var target = this.getAttribute('data-tab');
+      switchTab(target);
+    });
+  }
+}
+
+function switchTab(target) {
+  var tabs = document.querySelectorAll('.tab');
+  var panels = document.querySelectorAll('.tab-panel');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  for (var j = 0; j < panels.length; j++) panels[j].classList.remove('active');
+  var activeTab = document.querySelector('.tab[data-tab="' + target + '"]');
+  if (activeTab) activeTab.classList.add('active');
+  var panel = document.getElementById('tab-' + target);
+  if (panel) panel.classList.add('active');
+}
+window.switchTab = switchTab;
+
+/* ── Tier Bar ── */
+function initTierBar() {
+  var btns = document.querySelectorAll('.tier-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function() {
+      currentTier = this.getAttribute('data-tier');
+      var all = document.querySelectorAll('.tier-btn');
+      for (var j = 0; j < all.length; j++) all[j].classList.remove('active');
+      this.classList.add('active');
+      if (AT && AT.setCurrent) AT.setCurrent(currentTier);
+      renderAll();
+    });
+  }
+}
+
+/* ── Scroll to Top ── */
+function initScroll() {
+  var btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', function() {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+}
+
+/* ── Education Selector ── */
+function renderEduSelector() {
+  if (!PD) return;
+  var levels = Object.keys(PD.CAREER_PATHWAYS);
+  var html = '';
+  for (var i = 0; i < levels.length; i++) {
+    var lvl = PD.CAREER_PATHWAYS[levels[i]];
+    html += '<button class="sel-chip' + (levels[i] === currentEdu ? ' active' : '') + '" data-edu="' + levels[i] + '">';
+    html += lvl.icon + ' ' + esc(lvl.label) + '</button>';
+  }
+  document.getElementById('eduSelector').innerHTML = html;
+  var chips = document.querySelectorAll('#eduSelector .sel-chip');
+  for (var j = 0; j < chips.length; j++) {
+    chips[j].addEventListener('click', function() {
+      currentEdu = this.getAttribute('data-edu');
+      var all = document.querySelectorAll('#eduSelector .sel-chip');
+      for (var k = 0; k < all.length; k++) all[k].classList.remove('active');
+      this.classList.add('active');
+      renderCareers();
+    });
+  }
+}
+
+/* ── Career Paths ── */
+function renderCareers() {
+  if (!PD) return;
+  var data = PD.CAREER_PATHWAYS[currentEdu];
+  if (!data) return;
+  var paths = data.paths;
+  var html = '<div style="margin-bottom:16px"><span class="pf-tag">' + data.icon + ' ' + esc(data.label) + '</span>';
+  if (data.note) html += '<span style="font-size:12px;color:var(--t3);font-style:italic"> — ' + esc(data.note) + '</span>';
+  html += '</div>';
+
+  for (var i = 0; i < paths.length; i++) {
+    var p = paths[i];
+    html += '<div class="pf-card">';
+    html += '<div class="pf-card-header"><span class="icon">' + p.icon + '</span><h3>' + esc(p.title) + '</h3></div>';
+    html += '<div class="pf-meta">';
+    html += '<span>&#128176; Income: <strong>' + esc(p.income) + '</strong></span>';
+    html += '<span>&#128184; Investment: <strong>' + esc(p.investment) + '</strong></span>';
+    html += '</div>';
+    html += '<div class="pf-detail">';
+    html += '<div style="margin-bottom:8px"><strong style="color:var(--t1)">Skills needed:</strong> ' + esc(p.skill) + '</div>';
+    html += '<div style="margin-bottom:8px"><strong style="color:var(--t1)">Training:</strong> ' + esc(p.training) + '</div>';
+    html += '<div style="margin-bottom:8px"><strong style="color:var(--t1)">Where to work:</strong> ' + esc(p.where) + '</div>';
+    if (p.govSupport) html += '<div><span class="pf-tag green">&#127963; Govt Support:</span> ' + esc(p.govSupport) + '</div>';
+    html += '</div></div>';
+  }
+
+  document.getElementById('careerResults').innerHTML = html;
+}
+
+/* ── Investment Selector ── */
+function renderInvestSelector() {
+  if (!PD) return;
+  var brackets = PD.INVESTMENT_GUIDE;
+  var html = '';
+  for (var i = 0; i < brackets.length; i++) {
+    var b = brackets[i];
+    html += '<button class="sel-chip' + (b.bracket === currentBracket ? ' active' : '') + '" data-bracket="' + b.bracket + '">';
+    html += b.icon + ' ' + esc(b.label) + '</button>';
+  }
+  document.getElementById('investSelector').innerHTML = html;
+  var chips = document.querySelectorAll('#investSelector .sel-chip');
+  for (var j = 0; j < chips.length; j++) {
+    chips[j].addEventListener('click', function() {
+      currentBracket = this.getAttribute('data-bracket');
+      var all = document.querySelectorAll('#investSelector .sel-chip');
+      for (var k = 0; k < all.length; k++) all[k].classList.remove('active');
+      this.classList.add('active');
+      renderInvestment();
+    });
+  }
+}
+
+/* ── Investment Ideas ── */
+function renderInvestment() {
+  if (!PD) return;
+  var bracket = null;
+  for (var i = 0; i < PD.INVESTMENT_GUIDE.length; i++) {
+    if (PD.INVESTMENT_GUIDE[i].bracket === currentBracket) {
+      bracket = PD.INVESTMENT_GUIDE[i];
+      break;
+    }
+  }
+  if (!bracket) return;
+  var html = '<div class="invest-bracket">';
+  html += '<div class="invest-header"><span class="inv-icon">' + bracket.icon + '</span>';
+  html += '<div><h3 style="margin-bottom:2px">' + esc(bracket.label) + '</h3>';
+  html += '<span class="inv-range">' + esc(bracket.range) + '</span></div></div>';
+  html += '<div class="idea-grid">';
+
+  var ideas = bracket.ideas;
+  for (var j = 0; j < ideas.length; j++) {
+    var idea = ideas[j];
+    var riskClass = idea.risk === 'Low' ? 'green' : idea.risk === 'Medium' ? 'orange' : 'red';
+    html += '<div class="idea-card">';
+    html += '<div class="idea-name">' + esc(idea.name) + '</div>';
+    html += '<div class="idea-meta">';
+    html += '<span class="pf-tag ' + riskClass + '">' + esc(idea.risk) + ' Risk</span>';
+    if (idea.roi) html += '<span class="pf-tag blue">ROI: ' + esc(idea.roi) + '</span>';
+    html += '</div>';
+    if (idea.income) html += '<div style="font-size:12px;color:var(--gold);margin-bottom:6px">&#128176; ' + esc(idea.income) + '</div>';
+    html += '<div class="idea-detail">' + esc(idea.detail) + '</div>';
+    if (idea.subsidy) html += '<div style="margin-top:8px"><span class="pf-tag green">&#127963; Subsidy:</span> <span style="font-size:12px;color:var(--t2)">' + esc(idea.subsidy) + '</span></div>';
+    html += '</div>';
+  }
+
+  html += '</div></div>';
+  document.getElementById('investResults').innerHTML = html;
+}
+
+/* ── Districts ── */
+function renderDistricts() {
+  if (!PD) return;
+  var districts = PD.DISTRICT_OPPORTUNITIES;
+  var html = '';
+  for (var i = 0; i < districts.length; i++) {
+    var d = districts[i];
+    html += '<div class="pf-card">';
+    html += '<div class="pf-card-header"><span class="icon">' + d.icon + '</span>';
+    html += '<h3>' + esc(d.district) + '</h3></div>';
+    if (d.districtTa) html += '<div style="font-size:12px;color:var(--t3);margin-bottom:8px">' + esc(d.districtTa) + ' — Pop: ' + esc(d.population) + '</div>';
+    html += '<div style="background:rgba(200,146,42,.06);border:1px solid rgba(200,146,42,.15);border-radius:8px;padding:12px;margin-bottom:12px">';
+    html += '<div style="font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Top Opportunity</div>';
+    html += '<div style="font-size:16px;color:var(--t1);font-weight:600">' + esc(d.topOpportunity) + '</div>';
+    html += '</div>';
+    html += '<div class="pf-detail">';
+    html += '<div style="margin-bottom:6px"><strong style="color:var(--t1)">Why here:</strong> ' + esc(d.why) + '</div>';
+    html += '<div style="margin-bottom:6px"><strong style="color:var(--t1)">How to start:</strong> ' + esc(d.howToStart) + '</div>';
+    if (d.govSupport) html += '<div style="margin-bottom:6px"><span class="pf-tag green">Govt Support</span> ' + esc(d.govSupport) + '</div>';
+    html += '<div class="pf-meta">';
+    html += '<span>&#128184; Avg Investment: <strong>' + esc(d.avgInvestment) + '</strong></span>';
+    html += '<span>&#128176; Expected Income: <strong>' + esc(d.expectedIncome) + '</strong></span>';
+    html += '</div></div></div>';
+  }
+  document.getElementById('districtGrid').innerHTML = html;
+}
+
+/* ── Free Resources ── */
+function renderResources() {
+  if (!PD) return;
+  var cats = PD.FREE_RESOURCES;
+  var html = '';
+  for (var i = 0; i < cats.length; i++) {
+    var cat = cats[i];
+    html += '<div class="res-category">';
+    html += '<h3>' + cat.icon + ' ' + esc(cat.category) + ' <span style="font-size:12px;color:var(--t3);font-weight:400">(' + cat.resources.length + ' resources)</span></h3>';
+    for (var j = 0; j < cat.resources.length; j++) {
+      var r = cat.resources[j];
+      html += '<div class="res-item">';
+      html += '<div class="res-item-name">' + esc(r.name) + '</div>';
+      html += '<div class="res-item-provider">' + esc(r.provider) + '</div>';
+      html += '<div class="res-item-desc">' + esc(r.description) + '</div>';
+      if (r.who) html += '<div class="res-item-who">Who: ' + esc(r.who) + '</div>';
+      html += '<div class="res-links">';
+      if (r.url) html += '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">&#127760; Website</a>';
+      if (r.helpline) html += '<a href="tel:' + esc(r.helpline) + '">&#128222; ' + esc(r.helpline) + '</a>';
+      if (r.app) html += '<span style="font-size:11px;color:var(--t3);padding:3px 8px">&#128241; ' + esc(r.app) + '</span>';
+      html += '</div></div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('resourcesList').innerHTML = html;
+}
+
+/* ── Emergency Start ── */
+function renderEmergency() {
+  if (!PD) return;
+  var items = PD.EMERGENCY_START;
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    var e = items[i];
+    html += '<div class="pf-card" style="border-left:3px solid var(--orange)">';
+    html += '<div class="pf-card-header"><span class="icon" style="font-size:28px">' + e.icon + '</span>';
+    html += '<div><h3 style="color:var(--orange)">' + esc(e.action) + '</h3>';
+    html += '<div style="font-size:12px;color:var(--t3)">&#9200; ' + esc(e.time) + '</div></div></div>';
+    html += '<div class="pf-detail">' + esc(e.benefit) + '</div>';
+    if (e.url) html += '<div style="margin-top:10px"><a href="' + esc(e.url) + '" target="_blank" rel="noopener" style="font-size:13px;font-weight:600">&#128279; Access Now →</a></div>';
+    html += '</div>';
+  }
+  document.getElementById('emergencyList').innerHTML = html;
+}
+
+/* ── Helplines ── */
+function renderHelplines() {
+  if (!PD) return;
+  var items = PD.HELPLINES;
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    var h = items[i];
+    html += '<div class="helpline-card">';
+    html += '<div class="hl-icon">' + h.icon + '</div>';
+    html += '<div class="hl-info">';
+    html += '<div class="hl-name">' + esc(h.name) + '</div>';
+    html += '<div class="hl-num"><a href="tel:' + esc(h.number) + '" style="color:var(--gold)">' + esc(h.number) + '</a></div>';
+    html += '</div></div>';
+  }
+  document.getElementById('helplineGrid').innerHTML = html;
+}
+
+/* ── Render All ── */
+function renderAll() {
+  renderCareers();
+  renderInvestment();
+  renderDistricts();
+  renderResources();
+  renderEmergency();
+  renderHelplines();
+}
+
+/* ── Init ── */
+function init() {
+  initTabs();
+  initTierBar();
+  initScroll();
+  renderEduSelector();
+  renderInvestSelector();
+  renderAll();
+}
+
+/* Listen for tier changes from tier-switcher module */
+document.addEventListener('tierChange', function(e) {
+  if (e.detail && e.detail.tier) {
+    currentTier = e.detail.tier;
+    renderAll();
+  }
+});
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+</script>
+<script defer src="src/tier-pills.js"></script>
+<script defer src="src/tier-switcher.js"></script>
+<script defer src="src/google-translate.js"></script>
+<script defer src="src/floating-dictionary.js"></script>
+</body>
+</html>

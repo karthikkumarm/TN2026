@@ -634,11 +634,33 @@ ${ddBody}
   //      can mangle, and they need to be loadable BEFORE the obfuscated bundle to
   //      power data fetches.)
   // ──────────────────────────────────────────────
-  console.log('\n▸ Bundling src/ modules (audience-tier + tooltip + chunk-loader)...');
+  console.log('\n▸ Bundling src/ modules (audience-tier + tooltip + chunk-loader + data modules)...');
   const audienceTiersJs = fs.readFileSync(path.join('src', 'audience-tiers.js'), 'utf8');
   const tooltipSystemJs = fs.readFileSync(path.join('src', 'tooltip-system.js'), 'utf8');
   const chunkLoaderJs   = fs.readFileSync(path.join('src', 'chunk-loader.js'), 'utf8');
-  const srcModulesPlain = audienceTiersJs + '\n' + tooltipSystemJs + '\n' + chunkLoaderJs;
+
+  // New data modules (Heritage, Business, Tools)
+  const srcDataModules = [
+    'tn-history-data.js', 'trade-fdi-data.js', 'district-data.js',
+    'subsidies-data.js', 'success-stories-data.js', 'tools-data.js',
+    'business-guide-data.js', 'state-comparison-data.js', 'pathfinder-data.js',
+    'civic-tech-data.js', 'employment-data.js',
+    'policy-links.js', 'search-index.js', 'tier-pills.js', 'tier-switcher.js',
+    'google-translate.js',
+    'floating-dictionary.js'
+  ];
+  let dataModulesJs = '';
+  for (const mod of srcDataModules) {
+    const fp = path.join('src', mod);
+    if (fs.existsSync(fp)) {
+      dataModulesJs += '\n' + fs.readFileSync(fp, 'utf8');
+      console.log(`    + ${mod}`);
+    } else {
+      console.log(`    ⚠ ${mod} not found, skipping`);
+    }
+  }
+
+  const srcModulesPlain = audienceTiersJs + '\n' + tooltipSystemJs + '\n' + chunkLoaderJs + dataModulesJs;
   // Multi-layer encoding: XOR + base64 (harder than single atob)
   const SRC_XOR_KEY = crypto.randomBytes(16).toString('hex');
   const srcModulesXored = xorEncode(srcModulesPlain, SRC_XOR_KEY);

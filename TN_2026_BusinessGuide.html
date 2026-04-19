@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TN 2026 — Business &amp; Entrepreneurship Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root {
+  --bg0:#0D0F12; --bg1:#161A1F; --bg2:#1E2329; --bg3:#262C34;
+  --t1:#F0ECE4; --t2:#B8B0A2; --t3:#7A7265;
+  --gold:#C8922A; --gold-dim:rgba(200,146,42,.15); --gold-light:#F5C842;
+  --r:10px; --max-w:1100px; --nav-h:56px;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --s1:0 1px 3px rgba(0,0,0,.4);
+  --s2:0 2px 8px rgba(0,0,0,.3);
+  --green:#2ECC71; --orange:#E67E22; --red:#E74C3C; --blue:#3498DB; --purple:#9B59B6;
+}
+body{margin:0;background:var(--bg0);color:var(--t1);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.35) transparent}
+html::-webkit-scrollbar{width:8px;height:8px}
+html::-webkit-scrollbar-track{background:transparent}
+html::-webkit-scrollbar-thumb{background:rgba(200,146,42,.3);border-radius:8px}
+html::-webkit-scrollbar-thumb:hover{background:rgba(200,146,42,.5)}
+a{color:var(--gold);text-decoration:none} a:hover{text-decoration:underline}
+::selection{background:var(--gold);color:var(--bg0)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;min-height:var(--nav-h);background:rgba(13,15,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100}
+nav .back{font-size:13px;color:var(--t2);font-weight:500}
+nav .back:hover{color:var(--gold)}
+nav .title{font-family:var(--serif);font-size:16px;color:var(--gold);font-weight:600}
+nav .controls{display:flex;gap:8px;align-items:center}
+
+/* Tier Selector */
+.tier-bar{background:var(--bg1);border:1px solid var(--bg3);border-radius:var(--r);padding:8px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.tier-bar .tier-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-right:8px}
+.tier-btn{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:var(--sans)}
+.tier-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tier-btn.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+.tier-hint{font-size:10px;color:var(--t3);margin-left:auto;font-style:italic}
+
+/* Layout */
+main{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + 24px) 20px 60px}
+section{margin-bottom:48px}
+h1{font-family:var(--serif);font-size:clamp(28px,4vw,42px);color:var(--gold);margin-bottom:8px}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bg3)}
+h3{font-family:var(--serif);font-size:20px;color:var(--t1);margin-bottom:12px}
+p{color:var(--t2);margin-bottom:12px}
+
+/* Hero Stats */
+.hero-disclaimer{background:var(--bg2);padding:16px 20px;border-radius:var(--r);margin:16px 0 24px;border-left:4px solid var(--gold)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:20px 0}
+.stat-card{background:linear-gradient(135deg,var(--bg2),var(--bg1));border:1px solid var(--bg3);border-radius:var(--r);padding:16px;text-align:center;border-top:2px solid var(--gold-dim)}
+.stat-card .num{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--gold);line-height:1.1}
+.stat-card .lbl{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px;margin-top:6px}
+
+/* Filter Bar */
+.filter-bar{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.filter-bar input{background:var(--bg2);border:1px solid var(--bg3);color:var(--t1);padding:10px 14px;border-radius:var(--r);font-size:14px;flex:1;min-width:200px;font-family:var(--sans)}
+.filter-bar input::placeholder{color:var(--t3)}
+.filter-bar input:focus{outline:none;border-color:var(--gold)}
+.filter-btn{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:8px 14px;border-radius:var(--r);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:var(--sans)}
+.filter-btn:hover,.filter-btn.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+
+/* Sector Chips */
+.sector-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.sector-chip{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;display:flex;align-items:center;gap:6px}
+.sector-chip:hover{border-color:var(--gold);color:var(--gold)}
+.sector-chip.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+.sector-chip .icon{font-size:14px}
+
+/* Tab System */
+.tab-bar{display:flex;border-bottom:2px solid var(--bg3);margin-bottom:24px;gap:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{padding:12px 24px;font-size:14px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;font-family:var(--sans);background:none;border-top:none;border-left:none;border-right:none}
+.tab:hover{color:var(--t1)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ═══ TOOLS TAB ═══ */
+.tool-tab{padding:8px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:var(--bg2);color:var(--t2);cursor:pointer;font-size:13px;font-weight:500;transition:all .2s}
+.tool-tab:hover{border-color:rgba(200,146,42,.2);color:var(--gold)}
+.tool-tab.active{background:rgba(200,146,42,.12);color:var(--gold);border-color:rgba(200,146,42,.3)}
+.tool-panel{display:none}
+.tool-panel.active{display:block;animation:fadeIn .3s ease}
+.cal-filter{padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:var(--t3);cursor:pointer;font-size:11px;transition:all .2s}
+.cal-filter.active{background:rgba(200,146,42,.1);color:var(--gold);border-color:rgba(200,146,42,.2)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ BUSINESS CARDS ═══ */
+.biz-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);margin-bottom:16px;overflow:hidden;padding:20px;transition:border-color .2s}
+.biz-card:hover{border-color:var(--gold-dim)}
+.biz-card-header{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.biz-sector-icon{font-size:24px}
+.biz-sector-tag{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.6px;color:var(--gold);background:var(--gold-dim);padding:3px 10px;border-radius:10px;font-weight:600}
+.biz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0}
+.biz-grid>div{background:var(--bg1);padding:12px 14px;border-radius:8px;border:1px solid var(--bg3);font-size:13px;color:var(--t2)}
+.biz-grid>div b{display:block;color:var(--t1);margin-bottom:4px;font-size:12px}
+.biz-section{margin:14px 0}
+.biz-section b{font-size:13px;color:var(--t1);display:block;margin-bottom:8px}
+.biz-section ol,.biz-section ul{padding-left:20px;font-size:13px;color:var(--t2);line-height:1.8}
+.biz-section li{margin-bottom:4px}
+.biz-chip-list{display:flex;flex-wrap:wrap;gap:6px}
+.biz-chip{display:inline-block;font-size:11px;padding:4px 10px;border-radius:12px;background:var(--bg1);border:1px solid var(--bg3);color:var(--t2);font-family:var(--mono)}
+.biz-chip-loan{border-color:rgba(46,204,113,.25);color:var(--green)}
+.biz-highlight{background:var(--bg1);padding:8px 12px;border-radius:8px;margin:6px 0;font-size:14px;color:var(--t1);border-left:3px solid var(--gold)}
+.biz-tn-advantage{background:rgba(46,204,113,.06);border:1px solid rgba(46,204,113,.15);border-radius:var(--r);padding:12px 16px;font-size:13px;color:var(--t2);line-height:1.7;margin:14px 0}
+.biz-tn-advantage b{color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:4px}
+.biz-link{display:inline-block;margin-top:10px;font-size:12px;background:var(--gold);color:var(--bg0);padding:6px 14px;border-radius:6px;font-weight:600;transition:transform .15s}
+.biz-link:hover{transform:translateY(-1px);text-decoration:none}
+.biz-links{margin-top:10px;font-size:12px}
+.biz-links a{margin-right:12px}
+.biz-detail{font-size:13px;color:var(--t2);margin:6px 0;padding:4px 0}
+.biz-detail b{color:var(--t1)}
+.biz-steps-kid ol{padding-left:20px;font-size:14px;color:var(--t1);line-height:1.9}
+
+/* Tier-specific card backgrounds */
+.biz-kid{border-left:4px solid #F39C12}
+.biz-teen{border-left:4px solid #3498DB}
+.biz-voter{border-left:4px solid var(--green)}
+.biz-wonk{border-left:4px solid var(--purple)}
+.biz-econ{border-left:4px solid var(--red)}
+
+/* ═══ LOAN CARDS ═══ */
+.biz-loan{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);margin-bottom:14px;padding:16px 20px;transition:border-color .2s}
+.biz-loan:hover{border-color:var(--gold-dim)}
+.biz-loan-name{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.biz-type-badge{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.6px;color:var(--bg0);background:var(--gold);padding:2px 8px;border-radius:4px;margin-left:8px;font-weight:700;vertical-align:middle}
+
+/* ═══ LICENSE CARDS ═══ */
+.biz-license{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);margin-bottom:14px;padding:16px 20px;transition:border-color .2s}
+.biz-license:hover{border-color:var(--gold-dim)}
+.biz-lic-name{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--t1);margin-bottom:8px}
+
+/* Tables */
+.biz-table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0;border-radius:var(--r);overflow:hidden}
+.biz-table th{background:var(--bg1);color:var(--gold);font-weight:600;text-align:left;padding:8px 12px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.biz-table td{padding:8px 12px;border-top:1px solid var(--bg3);color:var(--t2);vertical-align:top;font-size:12px}
+.biz-table tr:hover td{background:rgba(200,146,42,.03)}
+
+/* Startup Roadmap */
+.roadmap{display:grid;gap:16px;margin:20px 0}
+.roadmap-step{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);padding:16px 20px;position:relative;padding-left:56px}
+.roadmap-step::before{content:attr(data-step);position:absolute;left:16px;top:16px;width:28px;height:28px;background:var(--gold);color:var(--bg0);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:var(--mono)}
+.roadmap-step h4{font-size:14px;color:var(--t1);margin-bottom:4px}
+.roadmap-step p{font-size:12px;color:var(--t2);margin:0}
+.roadmap-step .time{font-size:11px;color:var(--gold);font-family:var(--mono);margin-top:4px}
+
+/* Comparison Table */
+.compare-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--bg3);margin:16px 0;scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.25) transparent}
+.compare-wrap::-webkit-scrollbar{height:6px}
+.compare-wrap::-webkit-scrollbar-track{background:transparent}
+.compare-wrap::-webkit-scrollbar-thumb{background:rgba(200,146,42,.25);border-radius:6px}
+.compare-wrap table{min-width:700px}
+
+/* Accordion for subsections */
+.biz-acc{background:var(--bg1);border:1px solid var(--bg3);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.biz-acc-header{padding:14px 20px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;transition:background .2s}
+.biz-acc-header:hover{background:var(--bg2)}
+.biz-acc-header h3{font-size:15px;color:var(--t1);margin:0}
+.biz-acc-header .arrow{font-size:16px;color:var(--t3);transition:transform .3s}
+.biz-acc.open .biz-acc-header .arrow{transform:rotate(180deg)}
+.biz-acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.biz-acc.open .biz-acc-body{max-height:none}
+.biz-acc-inner{padding:0 20px 20px}
+
+/* TOC */
+.toc{background:var(--bg2);border-radius:var(--r);padding:20px;border:1px solid var(--bg3);margin:20px 0}
+.toc h3{font-size:14px;margin-bottom:12px;color:var(--gold)}
+.toc ol{padding-left:24px;font-size:13px;columns:2;column-gap:32px}
+.toc li{margin-bottom:6px;color:var(--t2)}
+.toc a{color:var(--t2)}.toc a:hover{color:var(--gold)}
+@media(max-width:600px){.toc ol{columns:1}}
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--bg0);border:none;cursor:pointer;font-size:20px;display:none;align-items:center;justify-content:center;z-index:90;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.scroll-top.show{display:flex}
+
+/* Footer */
+footer{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1px solid var(--bg3);color:var(--t3);font-size:12px}
+footer p{color:var(--t3)}
+
+/* Hamburger */
+.nav-ham{display:none;background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px}
+
+/* Responsive */
+@media(max-width:768px){
+  nav .title{display:none}
+  .nav-ham{display:block}
+  nav .nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(13,15,18,.96);backdrop-filter:blur(12px);flex-direction:column;padding:12px 20px;gap:4px;border-bottom:1px solid var(--bg3);z-index:99}
+  nav .nav-links.open{display:flex}
+  nav .nav-links a{padding:10px;border-radius:8px;font-size:14px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .filter-bar{flex-direction:column}
+  .filter-bar input{width:100%}
+  .biz-grid{grid-template-columns:1fr}
+  .tab{padding:10px 16px;font-size:12px}
+  .tier-hint{display:none}
+}
+@media(max-width:480px){
+  .stat-grid{grid-template-columns:1fr}
+  .sector-chips{gap:6px}
+  .sector-chip{font-size:11px;padding:5px 10px}
+}
+</style>
+<script>
+(function(){
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){
+if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u')||(e.ctrlKey&&e.key==='s'))
+{e.preventDefault();return false}});
+document.addEventListener('dragstart',function(e){e.preventDefault()});
+document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA')e.preventDefault()});
+})();
+</script>
+<script src="src/audience-tiers.js"></script>
+<script src="src/business-guide-data.js"></script>
+<script src="src/tools-data.js"></script>
+<script src="src/state-comparison-data.js"></script>
+</head>
+<body>
+<nav>
+<button class="nav-ham" id="navHam" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+<div class="nav-links" style="display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap">
+<a class="back" href="index.html">&#127968; Home</a>
+<a href="TN_2026_BusinessGuide.html" style="font-size:12px;color:var(--gold);padding:4px 10px;border:1px solid rgba(200,146,42,.3);border-radius:6px;background:rgba(200,146,42,.1)">&#127970; Business</a>
+<a href="TN_Heritage.html" style="font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px">&#127963; Heritage</a>
+<a href="TN_2026_VoterIntelligence.html" style="font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px">&#128483;&#65039; Elections</a>
+<a href="TN_2026_Pathfinder.html" style="font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px">&#128161; Pathfinder</a>
+<a href="TN_2026_CivicTech.html" style="font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px">&#128187; Civic Tech</a>
+<a href="TN_2026_DeepDive_v2.html" style="font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px">&#128214; Deep Dive</a>
+</div>
+<div class="title">TN Launchpad — Entrepreneur Guide</div>
+</nav>
+
+<main>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+<h1>🚀 Tamil Nadu Entrepreneur Guide</h1>
+<p>The complete, data-driven handbook to starting a business in Tamil Nadu — from idea to revenue. Covering government schemes, loans, licenses, sector opportunities, and step-by-step implementation.</p>
+
+<div class="hero-disclaimer">
+<strong>Why Tamil Nadu?</strong> India's 2nd largest state economy (GSDP ₹35.68 lakh crore / $420B). Most industrialized state with the largest SME count. Home to "Detroit of Asia" (auto) and "SaaS Capital of India" (Chennai). 14,200+ recognized startups across 30 sectors. 526 engineering colleges. 110 industrial parks. This guide shows you exactly how to leverage these advantages.
+</div>
+
+<div class="stat-grid" id="heroStats"></div>
+
+<!-- Tier Selector -->
+<div class="tier-bar" id="tierBar">
+<span class="tier-label">Explain as:</span>
+<button class="tier-btn" data-tier="K" title="Age 10 — simple stories">🧒 Kid</button>
+<button class="tier-btn" data-tier="T" title="Age 15 — clear basics">🧑‍🎓 Teen</button>
+<button class="tier-btn active" data-tier="V" title="Age 18+ — practical details">🗳️ Voter</button>
+<button class="tier-btn" data-tier="W" title="Policy analysis">📋 Wonk</button>
+<button class="tier-btn" data-tier="E" title="Economic analysis">📊 Economist</button>
+<span class="tier-hint">Changes all content below to match your comprehension level</span>
+</div>
+</section>
+
+<!-- ═══ TABLE OF CONTENTS ═══ -->
+<div class="toc">
+<h3>📑 What's in this Guide</h3>
+<ol>
+<li><a href="#sec-businesses">Business Opportunities by Sector</a> — 15 detailed business profiles</li>
+<li><a href="#sec-loans">Government Loans &amp; Subsidies</a> — 13 schemes with eligibility &amp; amounts</li>
+<li><a href="#sec-licenses">Licenses &amp; Registrations</a> — Complete checklist for every business type</li>
+<li><a href="#sec-roadmap">Step-by-Step Startup Roadmap</a> — From idea to revenue in 8 steps</li>
+</ol>
+</div>
+
+<!-- ═══ TAB BAR ═══ -->
+<div class="tab-bar">
+<button class="tab active" data-tab="businesses">💼 Business Ideas</button>
+<button class="tab" data-tab="loans">🏦 Loans &amp; Subsidies</button>
+<button class="tab" data-tab="licenses">📄 Licenses</button>
+<button class="tab" data-tab="roadmap">🗺️ Startup Roadmap</button>
+<button class="tab" data-tab="ecosystem">🚀 TN Ecosystem</button>
+<button class="tab" data-tab="tools">🧮 Tools</button>
+<button class="tab" data-tab="export">🚢 Export Guide</button>
+<button class="tab" data-tab="resources">⛏️ Resource Chains</button>
+<button class="tab" data-tab="gaps">🎯 Gap Opportunities</button>
+</div>
+
+<!-- ═══ TAB: BUSINESS IDEAS ═══ -->
+<div class="tab-panel active" id="tab-businesses">
+<section id="sec-businesses">
+<h2>💼 Business Opportunities in Tamil Nadu</h2>
+<p>15 sector-wise business profiles with capital requirements, revenue projections, eligible loans, required licenses, sales channels, and step-by-step implementation guides — all tailored to TN's unique advantages.</p>
+
+<!-- Sector Filter -->
+<div class="sector-chips" id="sectorChips">
+<button class="sector-chip active" data-sector="all"><span class="icon">🌐</span> All Sectors</button>
+</div>
+
+<!-- Search -->
+<div class="filter-bar">
+<input type="text" id="bizSearch" placeholder="Search businesses by name, sector, capital range...">
+</div>
+
+<!-- Business Cards Container -->
+<div id="bizContainer"></div>
+</section>
+</div>
+
+<!-- ═══ TAB: LOANS ═══ -->
+<div class="tab-panel" id="tab-loans">
+<section id="sec-loans">
+<h2>🏦 Government Loans &amp; Subsidies</h2>
+<p>13 major loan and subsidy schemes available for Tamil Nadu entrepreneurs — from ₹50,000 micro-loans to ₹10 crore enterprise funding. All with eligibility, amounts, and application links.</p>
+
+<!-- Loan Filter -->
+<div class="filter-bar">
+<input type="text" id="loanSearch" placeholder="Search loans by name, provider, amount...">
+<button class="filter-btn" data-ltype="all">All</button>
+<button class="filter-btn" data-ltype="loan">Loans Only</button>
+<button class="filter-btn" data-ltype="subsidy">With Subsidy</button>
+<button class="filter-btn" data-ltype="guarantee">Guarantee</button>
+</div>
+
+<!-- Loan Comparison Table -->
+<div class="biz-acc open" id="loanCompare">
+<div class="biz-acc-header" onclick="this.parentElement.classList.toggle('open')">
+<h3>📊 Quick Comparison Table</h3>
+<span class="arrow">▼</span>
+</div>
+<div class="biz-acc-body">
+<div class="biz-acc-inner">
+<div class="compare-wrap" id="loanCompareTable"></div>
+</div>
+</div>
+</div>
+
+<!-- Loan Cards Container -->
+<div id="loanContainer"></div>
+</section>
+</div>
+
+<!-- ═══ TAB: LICENSES ═══ -->
+<div class="tab-panel" id="tab-licenses">
+<section id="sec-licenses">
+<h2>📄 Licenses &amp; Registrations</h2>
+<p>Every license and registration you need to legally operate a business in Tamil Nadu — with costs, timelines, authorities, and application links.</p>
+
+<div class="filter-bar">
+<input type="text" id="licSearch" placeholder="Search licenses by name, authority...">
+</div>
+
+<!-- License Cards Container -->
+<div id="licContainer"></div>
+</section>
+</div>
+
+<!-- ═══ TAB: ROADMAP ═══ -->
+<div class="tab-panel" id="tab-roadmap">
+<section id="sec-roadmap">
+<h2>🗺️ Step-by-Step Startup Roadmap</h2>
+<p>A universal 8-step guide to starting any business in Tamil Nadu — from idea validation to revenue generation.</p>
+<div id="roadmapContainer"></div>
+</section>
+</div>
+
+<div class="tab-panel" id="tab-ecosystem">
+<section id="sec-ecosystem">
+<h2>🚀 TN Startup & Business Ecosystem</h2>
+<p>20+ government agencies, incubators, industry bodies, and infrastructure platforms that power Tamil Nadu's business ecosystem. These are your allies — know them, use them.</p>
+<div id="ecosystemContainer"></div>
+</section>
+</div>
+
+<!-- ═══ TAB: TOOLS ═══ -->
+<div class="tab-panel" id="tab-tools">
+<section id="sec-tools">
+<h2>🧮 Business Tools</h2>
+<p id="toolsIntro"></p>
+
+<!-- Sub-tool nav -->
+<div class="tool-nav" style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap">
+<button class="tool-tab active" data-tool="calculator" onclick="switchTool('calculator')">💰 Cost Calculator</button>
+<button class="tool-tab" data-tool="eligibility" onclick="switchTool('eligibility')">🎯 Scheme Finder</button>
+<button class="tool-tab" data-tool="calendar" onclick="switchTool('calendar')">📅 Compliance Calendar</button>
+</div>
+
+<!-- Cost Calculator -->
+<div class="tool-panel active" id="tool-calculator">
+<div style="background:var(--bg2);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,.06)">
+<h3 style="color:var(--gold);margin:0 0 12px">💰 I have this much capital...</h3>
+<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<span style="color:var(--t2);font-size:20px">₹</span>
+<input type="number" id="capitalInput" placeholder="Enter amount (e.g. 100000)" style="flex:1;min-width:200px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:var(--bg1);color:var(--t1);font-size:16px;font-family:JetBrains Mono,monospace">
+<button onclick="runCalculator()" style="padding:12px 24px;border-radius:12px;border:none;background:var(--gold);color:#000;font-weight:600;cursor:pointer;font-size:14px">Find Businesses →</button>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+<button class="capital-quick" onclick="document.getElementById('capitalInput').value=25000;runCalculator()" style="padding:4px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:var(--t3);cursor:pointer;font-size:12px">₹25K</button>
+<button class="capital-quick" onclick="document.getElementById('capitalInput').value=100000;runCalculator()" style="padding:4px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:var(--t3);cursor:pointer;font-size:12px">₹1L</button>
+<button class="capital-quick" onclick="document.getElementById('capitalInput').value=500000;runCalculator()" style="padding:4px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:var(--t3);cursor:pointer;font-size:12px">₹5L</button>
+<button class="capital-quick" onclick="document.getElementById('capitalInput').value=2500000;runCalculator()" style="padding:4px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:var(--t3);cursor:pointer;font-size:12px">₹25L</button>
+<button class="capital-quick" onclick="document.getElementById('capitalInput').value=10000000;runCalculator()" style="padding:4px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:none;color:var(--t3);cursor:pointer;font-size:12px">₹1Cr</button>
+</div>
+</div>
+<div id="calcResults" style="margin-top:16px"></div>
+</div>
+
+<!-- Scheme Eligibility Checker -->
+<div class="tool-panel" id="tool-eligibility">
+<div style="background:var(--bg2);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,.06)">
+<h3 style="color:var(--gold);margin:0 0 16px">🎯 Find Your Matching Schemes</h3>
+<p style="color:var(--t3);font-size:13px;margin:0 0 16px">Answer 5 questions to discover government loans, subsidies, and incentives you may be eligible for.</p>
+<div id="eligQuestions"></div>
+<button id="eligSubmit" onclick="runEligibility()" style="margin-top:16px;padding:12px 24px;border-radius:12px;border:none;background:var(--gold);color:#000;font-weight:600;cursor:pointer;font-size:14px;display:none">Find My Schemes →</button>
+</div>
+<div id="eligResults" style="margin-top:16px"></div>
+</div>
+
+<!-- Compliance Calendar -->
+<div class="tool-panel" id="tool-calendar">
+<div style="background:var(--bg2);border-radius:16px;padding:24px;border:1px solid rgba(255,255,255,.06)">
+<h3 style="color:var(--gold);margin:0 0 12px">📅 Compliance Calendar</h3>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+<select id="calMonth" onchange="renderCalendar()" style="padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:var(--bg1);color:var(--t1);font-size:14px"></select>
+<div style="display:flex;gap:4px">
+<button class="cal-filter active" data-ctype="all" onclick="filterCal('all',this)">All</button>
+<button class="cal-filter" data-ctype="tax" onclick="filterCal('tax',this)">💰 Tax</button>
+<button class="cal-filter" data-ctype="gst" onclick="filterCal('gst',this)">📋 GST</button>
+<button class="cal-filter" data-ctype="labor" onclick="filterCal('labor',this)">👷 Labor</button>
+<button class="cal-filter" data-ctype="compliance" onclick="filterCal('compliance',this)">📕 Other</button>
+</div>
+</div>
+<div id="calDeadlines"></div>
+</div>
+</div>
+
+</section>
+</div>
+
+<!-- \u2550\u2550\u2550 TAB: EXPORT GUIDE \u2550\u2550\u2550 -->
+<div class="tab-panel" id="tab-export">
+<section id="sec-export">
+<h2>🚢 Export from Tamil Nadu — Step-by-Step</h2>
+<p style="color:var(--t2);line-height:1.7">Tamil Nadu is India's 3rd largest exporting state ($33.8B in FY24). Top exports: auto components, textiles/garments, electronics, marine products, leather goods, IT services. Here's how to start.</p>
+
+<div id="exportRoadmap" style="margin-top:24px"></div>
+
+<h3 style="color:var(--gold);margin:32px 0 16px">🌐 Key Export Bodies & Resources</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px" id="exportResources">
+  <div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1rem">
+    <strong style="color:var(--t1)">🏢 DGFT (Directorate General of Foreign Trade)</strong>
+    <p style="font-size:12px;color:var(--t2);margin:6px 0">IEC issuance, MEIS/RoDTEP benefits, advance/EPCG authorizations. Portal: <a href="https://dgft.gov.in" target="_blank" rel="noopener" style="color:var(--gold)">dgft.gov.in</a></p>
+  </div>
+  <div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1rem">
+    <strong style="color:var(--t1)">🚢 Chennai Customs / JNCH</strong>
+    <p style="font-size:12px;color:var(--t2);margin:6px 0">Customs clearance, shipping bills, drawback claims. Online via <a href="https://icegate.gov.in" target="_blank" rel="noopener" style="color:var(--gold)">ICEGATE</a></p>
+  </div>
+  <div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1rem">
+    <strong style="color:var(--t1)">🤝 Export Promotion Councils</strong>
+    <p style="font-size:12px;color:var(--t2);margin:6px 0">AEPC (Apparel), EPCH (Handicraft), MPEDA (Marine), CLE (Leather), EEPC (Engineering), APEDA (Agri). RCMC mandatory for benefits.</p>
+  </div>
+  <div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1rem">
+    <strong style="color:var(--t1)">💰 ECGC (Export Credit Guarantee Corp)</strong>
+    <p style="font-size:12px;color:var(--t2);margin:6px 0">Buyer credit insurance, political risk cover. Covers 85-90% of payment default risk. Essential for new markets.</p>
+  </div>
+  <div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1rem">
+    <strong style="color:var(--t1)">🏦 EXIM Bank / RBI</strong>
+    <p style="font-size:12px;color:var(--t2);margin:6px 0">Pre/post-shipment credit, buyer's credit, LoC support. RBI oversees FEMA compliance and forex regulations.</p>
+  </div>
+  <div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1rem">
+    <strong style="color:var(--t1)">🌍 TN Guidance Bureau</strong>
+    <p style="font-size:12px;color:var(--t2);margin:6px 0">State export facilitation, GIM connections, single-window for export infrastructure. <a href="https://investingintamilnadu.com" target="_blank" rel="noopener" style="color:var(--gold)">investingintamilnadu.com</a></p>
+  </div>
+</div>
+</section>
+</div>
+
+<!-- ═══ TAB: RESOURCE CHAINS ═══ -->
+<div class="tab-panel" id="tab-resources">
+<section id="sec-resources">
+<h2>⛏️ Resource → Value Chains in Tamil Nadu</h2>
+<p style="color:var(--t2);line-height:1.7" id="resourcesIntro">Tamil Nadu sits on rich natural resources. Each resource can be processed through 4-6 steps to multiply value 5-50x. Here are the complete chains with investment, jobs, and export potential.</p>
+<div id="resourceChains" style="margin-top:24px"></div>
+</section>
+</div>
+
+<!-- ═══ TAB: GAP OPPORTUNITIES ═══ -->
+<div class="tab-panel" id="tab-gaps">
+<section id="sec-gaps">
+<h2>🎯 Business Gap Opportunities</h2>
+<p style="color:var(--t2);line-height:1.7" id="gapsIntro">Sectors where TN has under-penetration vs demand. Each opportunity includes step-by-step action plan, investment required, and ROI estimates.</p>
+<div id="gapCards" style="margin-top:24px"></div>
+</section>
+</div>
+
+</main>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<footer>
+<p>TN 2026 Entrepreneur Guide — Data-driven business intelligence for Tamil Nadu. Sources: MSME Annual Report, MUDRA, KVIC, FSSAI, RBI, SIDBI, StartupTN, Guidance TN, TAHDCO, TANSIDCO, TIIC. All figures verified as of Q1 2026. This is an informational tool — verify latest eligibility criteria at respective government portals before applying.</p>
+<p style="margin-top:12px;color:#6A667E;font-size:12px;text-align:center">Made with <span style="color:#E74C3C">❤</span> by Karthi — Robosynaptix</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var BG = window.BusinessGuide;
+  var AT = window.AudienceTiers;
+
+  /* HTML escape helper */
+  function esc(s){ var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  // ── State ──
+  var currentTier = (AT && AT.current) ? AT.current() : 'V';
+  var currentSector = 'all';
+  var currentLoanType = 'all';
+
+  // ── Hero Stats ──
+  function renderHeroStats() {
+    var stats = BG.getSummaryStats();
+    var el = document.getElementById('heroStats');
+    el.innerHTML =
+      '<div class="stat-card"><div class="num">' + stats.totalBusinesses + '</div><div class="lbl">Business Profiles</div></div>' +
+      '<div class="stat-card"><div class="num">' + stats.totalLoans + '</div><div class="lbl">Loan Schemes</div></div>' +
+      '<div class="stat-card"><div class="num">' + stats.totalLicenses + '</div><div class="lbl">License Types</div></div>' +
+      '<div class="stat-card"><div class="num">' + stats.totalSectors + '</div><div class="lbl">Industry Sectors</div></div>' +
+      '<div class="stat-card"><div class="num">' + stats.lowestCapital + '</div><div class="lbl">Lowest Start Capital</div></div>' +
+      '<div class="stat-card"><div class="num">₹1Cr+</div><div class="lbl">Max Loan Available</div></div>';
+  }
+
+  // ── Tier Selector ──
+  function initTierBar() {
+    var bar = document.getElementById('tierBar');
+    var btns = bar.querySelectorAll('.tier-btn');
+    btns.forEach(function (btn) {
+      if (btn.getAttribute('data-tier') === currentTier) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+      btn.addEventListener('click', function () {
+        currentTier = this.getAttribute('data-tier');
+        btns.forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        if (AT && AT.setCurrent) AT.setCurrent(currentTier);
+        renderAll();
+      });
+    });
+  }
+
+  // ── Sector Chips ──
+  function initSectorChips() {
+    var container = document.getElementById('sectorChips');
+    var sectors = {};
+    BG.BUSINESS_IDEAS.forEach(function (biz) {
+      if (!sectors[biz.sector]) {
+        sectors[biz.sector] = biz.sectorIcon;
+      }
+    });
+    var html = '<button class="sector-chip active" data-sector="all"><span class="icon">🌐</span> All Sectors</button>';
+    Object.keys(sectors).forEach(function (s) {
+      html += '<button class="sector-chip" data-sector="' + s + '"><span class="icon">' + sectors[s] + '</span> ' + s + '</button>';
+    });
+    container.innerHTML = html;
+    container.querySelectorAll('.sector-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        currentSector = this.getAttribute('data-sector');
+        container.querySelectorAll('.sector-chip').forEach(function (c) { c.classList.remove('active'); });
+        this.classList.add('active');
+        renderBusinesses();
+      });
+    });
+  }
+
+  // ── Tab System ──
+  function initTabs() {
+    document.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = this.getAttribute('data-tab');
+        document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+        this.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+      });
+    });
+  }
+
+  // ── Render Business Ideas ──
+  function renderBusinesses() {
+    var container = document.getElementById('bizContainer');
+    var search = (document.getElementById('bizSearch').value || '').toLowerCase();
+    var html = '';
+    var count = 0;
+
+    BG.BUSINESS_IDEAS.forEach(function (biz) {
+      // Filter by sector
+      if (currentSector !== 'all' && biz.sector !== currentSector) return;
+
+      // Filter by search
+      if (search) {
+        var haystack = (biz.name + ' ' + biz.sector + ' ' + biz.capital.display + ' ' + biz.tnAdvantage).toLowerCase();
+        if (haystack.indexOf(search) === -1) return;
+      }
+
+      html += '<div class="tp-biz-wrap" data-biz-id="' + biz.id + '"></div>';
+      count++;
+    });
+
+    if (count === 0) {
+      html = '<div style="text-align:center;padding:40px;color:var(--t3)">No businesses match your filter. Try a different search or sector.</div>';
+    }
+
+    container.innerHTML = html;
+    attachBizPills();
+  }
+
+  // ── Render Loan Schemes ──
+  function renderLoans() {
+    var container = document.getElementById('loanContainer');
+    var search = (document.getElementById('loanSearch').value || '').toLowerCase();
+    var html = '';
+
+    BG.LOAN_SCHEMES.forEach(function (loan) {
+      // Filter by type
+      if (currentLoanType !== 'all') {
+        if (currentLoanType === 'subsidy' && loan.type.indexOf('subsidy') === -1) return;
+        if (currentLoanType === 'guarantee' && loan.type !== 'guarantee') return;
+        if (currentLoanType === 'loan' && loan.type.indexOf('subsidy') >= 0) return;
+        if (currentLoanType === 'loan' && loan.type === 'guarantee') return;
+      }
+
+      // Filter by search
+      if (search) {
+        var haystack = (loan.name + ' ' + loan.provider + ' ' + loan.amount.display + ' ' + loan.eligibility).toLowerCase();
+        if (haystack.indexOf(search) === -1) return;
+      }
+
+      html += '<div class="tp-loan-wrap" data-loan-id="' + loan.id + '"></div>';
+    });
+
+    if (!html) {
+      html = '<div style="text-align:center;padding:40px;color:var(--t3)">No loans match your filter.</div>';
+    }
+
+    container.innerHTML = html;
+    attachLoanPills();
+
+    // Comparison table
+    renderLoanCompare();
+  }
+
+  function renderLoanCompare() {
+    var el = document.getElementById('loanCompareTable');
+    if (currentTier === 'K') {
+      el.innerHTML = '<p style="padding:12px;color:var(--t2)">📊 A big table comparing all the loan options side by side — switch to Teen or Voter mode to see it!</p>';
+      return;
+    }
+    var html = '<table><thead><tr><th>Scheme</th><th>Type</th><th>Amount</th><th>Subsidy</th><th>Interest</th><th>Collateral</th></tr></thead><tbody>';
+    BG.LOAN_SCHEMES.forEach(function (loan) {
+      html += '<tr>' +
+        '<td style="font-weight:600;color:var(--t1)">' + loan.name + '</td>' +
+        '<td><span class="biz-type-badge" style="font-size:9px">' + loan.type + '</span></td>' +
+        '<td style="font-family:var(--mono);color:var(--gold)">' + loan.amount.display + '</td>' +
+        '<td>' + (loan.subsidy.length > 40 ? loan.subsidy.substring(0, 40) + '…' : loan.subsidy) + '</td>' +
+        '<td style="font-family:var(--mono)">' + loan.interest + '</td>' +
+        '<td>' + loan.collateral + '</td>' +
+        '</tr>';
+    });
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  // ── Render Licenses ──
+  function renderLicenses() {
+    var container = document.getElementById('licContainer');
+    var search = (document.getElementById('licSearch').value || '').toLowerCase();
+    var html = '';
+
+    BG.LICENSE_TYPES.forEach(function (lic) {
+      if (search) {
+        var haystack = (lic.name + ' ' + lic.authority + ' ' + lic.categories).toLowerCase();
+        if (haystack.indexOf(search) === -1) return;
+      }
+      html += '<div class="tp-lic-wrap" data-lic-id="' + lic.id + '"></div>';
+    });
+
+    if (!html) {
+      html = '<div style="text-align:center;padding:40px;color:var(--t3)">No licenses match your search.</div>';
+    }
+
+    container.innerHTML = html;
+    attachLicPills();
+  }
+
+  // ── Roadmap Steps Data ──
+  function getRoadmapSteps(tier) {
+    if (tier === 'K') return [
+      { title: 'Dream It! \ud83d\udcad', desc: 'Think about what you love doing \u2014 cooking, drawing, computers, teaching? That\'s where your business starts!', time: 'Day 1' },
+      { title: 'Learn About It \ud83d\udcd6', desc: 'Read about businesses that do what you love. See which ones work in Tamil Nadu.', time: 'Week 1' },
+      { title: 'Get Your IDs \ud83e\udea3', desc: 'Get a free Udyam card (like a business ID) and FSSAI license (if selling food \u2014 costs just \u20b9100!)', time: 'Week 2' },
+      { title: 'Get Money Help \ud83d\udcb0', desc: 'Apply for a MUDRA loan (up to \u20b950,000 \u2014 no guarantee needed!) or PMEGP (35% free money!)', time: 'Week 2-4' },
+      { title: 'Set Up Shop \ud83c\udfea', desc: 'Find a place to work \u2014 could be your home, a rented shop, or a TANSIDCO shed', time: 'Month 1-2' },
+      { title: 'Make Your Thing \ud83c\udfa8', desc: 'Start making your product or offering your service. Make it really good!', time: 'Month 2-3' },
+      { title: 'Tell Everyone! \ud83d\udce3', desc: 'Put your business on WhatsApp, Instagram, Amazon, or your local shop. Let people know!', time: 'Month 3' },
+      { title: 'Grow Bigger! \ud83d\ude80', desc: 'Sell more, hire helpers, get bigger loans, open another shop!', time: 'Month 6+' }
+    ];
+    if (tier === 'T') return [
+      { title: 'Validate Your Idea', desc: 'Research your business idea. Check if there\'s demand \u2014 talk to 20 potential customers. Look at what competitors charge.', time: 'Week 1' },
+      { title: 'Register Your Business', desc: 'Get Udyam registration (free, 10 min). Register for GST if turnover will exceed \u20b920L. Get FSSAI if food business.', time: 'Week 2' },
+      { title: 'Secure Funding', desc: 'Apply for MUDRA Shishu (\u20b950K) or Kishor (\u20b95L). If bigger project, try PMEGP (up to \u20b950L with 35% subsidy). TN residents: try NEEDS.', time: 'Week 2-4' },
+      { title: 'Set Up Operations', desc: 'Find workspace \u2014 home, rented space, or TANSIDCO industrial shed. Buy essential equipment within budget.', time: 'Month 1-2' },
+      { title: 'Get Remaining Licenses', desc: 'Trade license from local body, Fire NOC if commercial space, TNPCB if manufacturing. All doable in parallel.', time: 'Month 1-2' },
+      { title: 'Build Your Product/Service', desc: 'Create your initial product/service. Test with early customers. Iterate based on feedback.', time: 'Month 2-3' },
+      { title: 'Go to Market', desc: 'List on relevant platforms (Amazon, Swiggy, Urban Company). Build social media. Start local marketing.', time: 'Month 3-4' },
+      { title: 'Scale Up', desc: 'Once breakeven, reinvest profits. Apply for MUDRA Tarun or TIIC for expansion. Add new products/locations.', time: 'Month 6+' }
+    ];
+    if (tier === 'W') return [
+      { title: 'Opportunity Identification & Feasibility', desc: 'Market sizing using MSME-DI sectoral reports + TN DES statistics. Competitor mapping via GSTIN search (timbertax). Feasibility study aligning with TN Industrial Policy 2021 priority sectors and ODOP/SFURTI cluster mapping.', time: 'Week 1-2' },
+      { title: 'Entity Constitution & Registrations', desc: 'Legal entity: Proprietorship (simplest), LLP (limited liability), Pvt Ltd (for funding). Udyam (auto-linked to CBDT/GST). DPIIT Recognition (Section 80-IAC tax exemption eligibility). GST (threshold + voluntary ITC decision). Professional Tax (mandatory in TN for employees).', time: 'Week 2-3' },
+      { title: 'Capital Stack Assembly', desc: 'Optimal subsidy stacking: PMEGP (25-35% margin money) + CGTMSE (collateral-free guarantee) + NEEDS (25% back-end subsidy, TN-only) + TIIC (term loan). Cannot combine PMEGP with NEEDS. Stand-Up India for SC/ST/Women. Prepare Detailed Project Report (DPR) per KVIC/DIC norms.', time: 'Week 3-8' },
+      { title: 'Infrastructure & Compliance Framework', desc: 'Industrial space: TANSIDCO (micro), SIPCOT (medium), ELCOT (IT), private industrial parks. Single Window: Guidance TN for projects >\u20b910Cr. Compliance calendar: TNPCB CTE \u2192 building/setup \u2192 TNPCB CTO \u2192 trade license \u2192 fire NOC. Environmental categorization determines timeline.', time: 'Month 2-4' },
+      { title: 'Statutory Compliance Completion', desc: 'ESI/EPF (if 10+/20+ employees). PT registration. Shop & Establishment Act. Factories Act (if 10+workers with power). Labour law compliance (multiple acts, state-specific amendments). Legal metrology (for packaged goods). BIS/ISI (for notified products).', time: 'Month 2-3' },
+      { title: 'Production & Quality Systems', desc: 'ISO 9001/14001/22000 certification pathway. NABL-accredited testing. BIS certification for notified products. FSSAI compliance for food. GMP for pharma. Quality management system implementation for OEM/export readiness.', time: 'Month 3-5' },
+      { title: 'Market Access & Distribution', desc: 'GeM registration for government procurement (3% MSME mandate). Cluster marketing through MSME-DI. Export readiness: IEC + RCMC + APEDA/MPEDA/EPCH membership. Digital: marketplace onboarding + D2C + social commerce. Channel economics optimization.', time: 'Month 4-6' },
+      { title: 'Growth & Graduation Strategy', desc: 'MUDRA graduation ladder (Shishu\u2192Kishor\u2192Tarun\u2192TarunPlus). TIIC/SIDBI for medium-scale. PLI scheme alignment for eligible sectors. TReDS registration for receivable financing. IPO readiness for SME exchange (BSE SME/NSE Emerge) at \u20b910Cr+ revenue.', time: 'Month 6+' }
+    ];
+    if (tier === 'E') return [
+      { title: 'Market Opportunity Analysis', desc: 'TAM/SAM/SOM estimation using TN DES data + NSSO enterprise surveys. Porter\'s Five Forces for sector selection. Comparative advantage analysis: factor endowments (labour, raw material, infrastructure) specific to TN districts. Input-output multiplier analysis for employment generation.', time: 'Week 1-2' },
+      { title: 'Entity Design & Formalization', desc: 'Entity type driven by capital structure needs: proprietorship (lowest compliance cost \u20b95K/year), LLP (\u20b915K/year), Pvt Ltd (\u20b940K/year but equity-ready). Formalization premium: Udyam registration enables 2-3% interest rate advantage. GST registration creates ITC chain value vs informality tax.', time: 'Week 2-3' },
+      { title: 'Capital Structure Optimization', desc: 'Minimize WACC through subsidy stacking: PMEGP (reduces equity requirement by 25-35%) + CGTMSE (eliminates collateral opportunity cost) + NEEDS (further 25% back-end). Effective capital cost calculation: if PMEGP 35% subsidy + bank 10% on remainder, effective cost of capital = 6.5%. Compare vs informal credit at 24-36%. NPV analysis of each scheme option.', time: 'Week 3-8' },
+      { title: 'Location & Infrastructure Economics', desc: 'Location decision: agglomeration benefits (cluster) vs factor cost (land, labour). TANSIDCO shed: \u20b960-180/sq ft/year vs private \u20b9200-600/sq ft. SIPCOT: 20-year lease, fully serviced. Transport cost optimization: proximity to raw material vs market. GIS-based site selection using TANSIDCO vacancy data.', time: 'Month 2-4' },
+      { title: 'Regulatory Compliance Costing', desc: 'Total compliance cost budget: \u20b950K-\u20b95L depending on sector/scale. Time cost: 30-90 days. Opportunity cost of compliance delay: \u20b9X/day foregone revenue. Strategy: parallelize independent licenses (trade + fire + TNPCB applications simultaneously). Use Guidance TN single window for projects >\u20b910Cr.', time: 'Month 2-3' },
+      { title: 'Production Economics & Quality Premium', desc: 'Unit cost analysis: fixed cost allocation, variable cost per unit, contribution margin. Breakeven volume calculation. Quality certification ROI: ISO certification cost \u20b91-3L, enables 10-20% price premium + export market access. Scale economics: identify minimum efficient scale for your sector.', time: 'Month 3-5' },
+      { title: 'Channel Economics & Market Entry', desc: 'Channel margin analysis: direct (100% margin, high CAC) vs marketplace (70-85% margin, low CAC) vs wholesale (60-70% margin, lowest CAC, highest volume). Optimal channel mix depends on: product type, customer acquisition cost, working capital cycle. LTV/CAC ratio target: >3x. Export price realization typically 15-40% premium for TN manufactured goods.', time: 'Month 4-6' },
+      { title: 'Growth Finance & Exit Planning', desc: 'Growth capital ladder: MUDRA Tarun (\u20b910L) \u2192 TIIC (\u20b91Cr) \u2192 SIDBI (\u20b95Cr) \u2192 commercial bank (\u20b910Cr+). For tech startups: TANSEED \u2192 Angel/VC \u2192 Series A. Unit economics must demonstrate: positive contribution margin, improving working capital cycle, and clear path to 20%+ EBITDA before seeking growth capital. Exit optionality: trade sale, PE buyout, SME IPO (BSE SME at \u20b910Cr+ revenue).', time: 'Month 6+' }
+    ];
+    /* V (default) */
+    return [
+      { title: 'Idea Validation & Market Research', desc: 'Identify your product/service. Study the market in your district/city. Analyze competition, pricing, and demand. Use this guide\'s sector profiles to identify the best fit for your skills, capital, and location.', time: '1-2 weeks' },
+      { title: 'Business Registration', desc: 'Udyam Registration (free, instant at udyamregistration.gov.in). DPIIT Startup Recognition (if innovative, for tax benefits + TANSEED eligibility). GST Registration (free if turnover >\u20b920L services/\u20b940L goods \u2014 or voluntary for ITC benefits).', time: '1 week' },
+      { title: 'Funding & Subsidy Application', desc: 'Choose scheme based on your profile: PMEGP (25-35% subsidy for first-timers), NEEDS (25% subsidy for TN residents 21-45), MUDRA (no subsidy but zero collateral), Stand-Up India (SC/ST/Women), CGTMSE (collateral-free guarantee). Apply simultaneously \u2014 banks process in 2-6 weeks.', time: '2-6 weeks' },
+      { title: 'Infrastructure Setup', desc: 'Lease/buy workspace: TANSIDCO industrial shed (\u20b95-15/sq ft/month), SIPCOT plot (larger), or commercial rental. Purchase equipment per your project report. Ensure compliance setup (fire safety, pollution consent if needed).', time: '1-3 months' },
+      { title: 'License & Compliance', desc: 'Trade License (local body), Fire NOC (TN Fire & Rescue), TNPCB Consent (if manufacturing), FSSAI (if food), Drug License (if pharma). Apply in parallel \u2014 most are independent of each other.', time: '2-4 weeks' },
+      { title: 'Product Development & Testing', desc: 'Develop your product/service. Get quality certifications if needed (BIS, NABL testing). FSSAI lab testing for food products. Build initial inventory or service capacity.', time: '1-2 months' },
+      { title: 'Go-to-Market Strategy', desc: 'Multi-channel approach: physical (retail/wholesale/B2B) + digital (Amazon/Flipkart/Meesho + own website + social media). List on GeM for government procurement. Apply for relevant exhibitions (TNSDC, IITF).', time: '1 month' },
+      { title: 'Scale & Sustain', desc: 'Track unit economics. Reinvest profits. Apply for MUDRA Tarun/TarunPlus or TIIC for growth capital. Hire and train staff. Expand to new products, locations, or markets. Get IEC for export.', time: 'Month 6 onwards' }
+    ];
+  }
+
+  function buildRoadmapHtml(tier) {
+    var steps = getRoadmapSteps(tier);
+    var html = '<div class="roadmap">';
+    steps.forEach(function (s, i) {
+      html += '<div class="roadmap-step" data-step="' + (i + 1) + '">' +
+        '<h4>' + s.title + '</h4>' +
+        '<p>' + s.desc + '</p>' +
+        '<div class="time">\u23f1\ufe0f ' + s.time + '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // ── Render Roadmap (initial only — pills handle tier switching) ──
+  function renderRoadmap() {
+    var container = document.getElementById('roadmapContainer');
+    container.innerHTML = '';
+    if (window.TierPills) {
+      TierPills.attach(container, buildRoadmapHtml);
+    } else {
+      container.innerHTML = buildRoadmapHtml(currentTier);
+    }
+  }
+
+  // ── Loan Type Filter ──
+  function initLoanFilter() {
+    document.querySelectorAll('[data-ltype]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        currentLoanType = this.getAttribute('data-ltype');
+        document.querySelectorAll('[data-ltype]').forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        renderLoans();
+      });
+    });
+    // Set initial active
+    document.querySelector('[data-ltype="all"]').classList.add('active');
+  }
+
+  // ── Search handlers ──
+  function initSearch() {
+    var bizInput = document.getElementById('bizSearch');
+    var loanInput = document.getElementById('loanSearch');
+    var licInput = document.getElementById('licSearch');
+
+    var debounce = function (fn, ms) {
+      var t;
+      return function () {
+        clearTimeout(t);
+        t = setTimeout(fn, ms);
+      };
+    };
+
+    bizInput.addEventListener('input', debounce(renderBusinesses, 250));
+    loanInput.addEventListener('input', debounce(renderLoans, 250));
+    licInput.addEventListener('input', debounce(renderLicenses, 250));
+  }
+
+  // ── Scroll to top ──
+  function initScroll() {
+    var btn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', function () {
+      btn.classList.toggle('show', window.scrollY > 400);
+    });
+  }
+
+  // ── Render All ──
+  // ── Render Ecosystem ──
+  var ECOSYSTEM = [
+    {name:'StartupTN',type:'Govt Platform',url:'https://startuptn.in',desc:'Official TN startup recognition platform. DPIIT registration, grants, mentorship, and incubator network access.',icon:'🏛️'},
+    {name:'TANSIM',type:'Govt Mission',url:'https://tansim.tn.gov.in',desc:'TN Startup & Innovation Mission — state nodal agency. 50+ incubators, seed funds, policy framework, and ecosystem development.',icon:'🎯'},
+    {name:'GUIDANCE Bureau',type:'Single Window',url:'https://investingintamilnadu.com',desc:'Single-window clearance for all industrial approvals. FDI facilitation. Target: 21-day approval for new businesses.',icon:'📥'},
+    {name:'SIPCOT',type:'Industrial Parks',url:'https://sipcot.tn.gov.in',desc:'110+ industrial parks & estates across TN. Land allotment, ready infrastructure, SEZ benefits, and plug-and-play facilities.',icon:'🏭'},
+    {name:'TIDCO',type:'State Corporation',url:'https://tidco.com',desc:'TN Industrial Development Corporation — joint ventures, mega projects, strategic industries, and state-level industrial planning.',icon:'🏗️'},
+    {name:'IIT Madras Research Park',type:'Incubator',url:'https://respark.iitm.ac.in',desc:'India\'s largest university research park. 200+ companies. Deep tech, AI/ML, hardware, biotech — world-class mentorship.',icon:'🔬'},
+    {name:'PSG-STEP',type:'Incubator',url:'https://psgstep.com',desc:'PSG College tech incubator in Coimbatore. Hardware, IoT, manufacturing tech focus. Strong industry connections.',icon:'⚙️'},
+    {name:'Villgro',type:'Social Incubator',url:'https://villgro.org',desc:'India\'s oldest social enterprise incubator. Healthcare, AgriTech, CleanTech — impact-focused startups with funding + mentorship.',icon:'🌱'},
+    {name:'EDII-TN',type:'Training',url:'https://editn.in',desc:'Entrepreneurship Development Institute — training programmes, faculty development, capacity building for aspiring entrepreneurs.',icon:'🎓'},
+    {name:'Naan Mudhalvan',type:'Govt Skills',url:'https://naanmudhalvan.tn.gov.in',desc:'5L+ trainees/year. Industry-linked upskilling, digital certificates, placement support. Free for TN youth.',icon:'💻'},
+    {name:'District Industries Centres',type:'Govt Office',url:'',desc:'38 district offices. MSME registration support, subsidy applications, grievance redressal, and local business guidance.',icon:'🏢'},
+    {name:'CII Tamil Nadu',type:'Industry Body',url:'https://cii.in',desc:'Confederation of Indian Industry — TN chapter. Industry networking, policy advocacy, events, and partnerships.',icon:'🤝'},
+    {name:'NASSCOM CoE',type:'Innovation Lab',url:'https://nasscom.in',desc:'AI/ML Centre of Excellence in Chennai. IT industry innovation support, sandbox environments, and corporate partnerships.',icon:'🤖'},
+    {name:'TNeGA',type:'Digital Govt',url:'https://tnega.tn.gov.in',desc:'TN e-Governance Agency — digital government services backbone. Technology platform for citizen services and data.',icon:'📱'},
+    {name:'MSME-DFO Chennai',type:'Central Govt',url:'https://msme.gov.in',desc:'Central MSME Development & Facilitation Office. Cluster development, ZED certification, export guidance, and policy support.',icon:'🇲'},
+    {name:'TNSDC',type:'Skill Corp',url:'https://tnsdc.in',desc:'TN Skill Development Corporation — vocational training, ITI network, industry partnerships, and employment-linked skilling.',icon:'🛠️'},
+    {name:'FICCI Tamil Nadu',type:'Industry Body',url:'https://ficci.in',desc:'Federation of Indian Chambers — TN business council, trade facilitation, industry events, and advocacy.',icon:'💼'},
+    {name:'ELCOT',type:'Electronics Corp',url:'https://elcot.in',desc:'Electronics Corporation of TN. IT parks, hardware manufacturing support, electronics procurement, and digital infra.',icon:'🖥️'},
+    {name:'Tidel Park',type:'IT Infra',url:'https://tidelpark.com',desc:'Premium IT office space — Chennai + Coimbatore campuses. Technology hub with world-class facilities.',icon:'🏙️'},
+    {name:'TIIC',type:'State Finance',url:'https://tiic.org',desc:'TN Industrial Investment Corporation — term loans ₹5L–₹10Cr for MSMEs, project finance, and technology upgradation.',icon:'🏦'}
+  ];
+
+  function renderEcosystem() {
+    var c = document.getElementById('ecosystemContainer');
+    if(!c) return;
+    var tierData = {
+      K: 'These are like the teachers and helpers who will guide you when you start your lemonade stand. Some give money, some teach you, some give you a place to work!',
+      T: 'Think of these as your startup cheat codes. Government agencies that fund you, incubators that mentor you, and industry bodies that connect you. All free or subsidized.',
+      V: 'Essential ecosystem partners for any TN entrepreneur. These organizations provide funding, incubation, policy support, infrastructure, and industry networking.',
+      W: 'Institutional ecosystem spanning 3 tiers: (a) State agencies (StartupTN, TANSIM, GUIDANCE, SIPCOT) for policy/infra, (b) Incubators (IITM, PSG-STEP, Villgro) for tech/mentorship, (c) Industry bodies (CII, FICCI, NASSCOM) for market access.',
+      E: 'Public goods infrastructure with estimated ecosystem multiplier of 3.2x. SIPCOT\'s 110 parks serve 8,500+ manufacturing units generating ~\u20b945K Cr annual output. TANSEED/TANSIM pipeline: 400+ funded startups, 35% survival rate at Series A.'
+    };
+
+    /* Build cards (static, not tier-aware) */
+    var cardsHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px">';
+    for(var i = 0; i < ECOSYSTEM.length; i++){
+      var e = ECOSYSTEM[i];
+      cardsHtml += '<div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:12px;padding:1.2rem;transition:all .3s">';
+      cardsHtml += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
+      cardsHtml += '<span style="font-size:1.5rem">' + e.icon + '</span>';
+      cardsHtml += '<div><div style="font-weight:700;color:var(--t1);font-size:14px">' + e.name + '</div>';
+      cardsHtml += '<span style="font-size:11px;color:var(--gold);background:rgba(200,146,42,.12);padding:1px 6px;border-radius:4px">' + e.type + '</span></div></div>';
+      cardsHtml += '<p style="font-size:13px;color:var(--t2);line-height:1.6;margin:0">' + e.desc + '</p>';
+      if(e.url) cardsHtml += '<a href="' + e.url + '" target="_blank" rel="noopener" style="font-size:12px;color:var(--gold);display:inline-block;margin-top:8px">\u2192 Visit Website</a>';
+      cardsHtml += '</div>';
+    }
+    cardsHtml += '</div>';
+
+    /* Intro with TierPills + static cards below */
+    var introWrap = document.createElement('div');
+    introWrap.className = 'tp-eco-intro';
+    c.innerHTML = '';
+    c.appendChild(introWrap);
+
+    if (window.TierPills) {
+      TierPills.attach(introWrap, function(t) {
+        return '<div style="background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;color:var(--t2);font-size:14px;line-height:1.7">' + (tierData[t] || tierData.V) + '</div>';
+      });
+    } else {
+      introWrap.innerHTML = '<div style="background:var(--bg2);border:1px solid var(--bg3);border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;color:var(--t2);font-size:14px;line-height:1.7">' + (tierData[currentTier] || tierData.V) + '</div>';
+    }
+
+    /* Append static cards after intro */
+    var cardsDiv = document.createElement('div');
+    cardsDiv.innerHTML = cardsHtml;
+    c.appendChild(cardsDiv.firstElementChild);
+  }
+
+  /* \u2550\u2550 Export Roadmap \u2550\u2550 */
+  var EXPORT_STEPS = [
+    { step:1, title:'Get IEC (Importer-Exporter Code)', time:'1-3 days', cost:'Free',
+      desc:'Apply online at dgft.gov.in. Requires PAN, Aadhaar, bank account, and business registration (Udyam/GST). Auto-issued \u2014 no physical verification.',
+      docs:'PAN card, Aadhaar, cancelled cheque/bank certificate, GST registration, address proof' },
+    { step:2, title:'Register with Export Promotion Council', time:'1-2 weeks', cost:'\u20b95,000\u201325,000/year',
+      desc:'Get RCMC (Registration-cum-Membership Certificate) from relevant EPC. Mandatory for claiming export incentives like RoDTEP, MEIS, duty drawback. Choose: AEPC (apparel), EPCH (handicraft), CLE (leather), EEPC (engineering), MPEDA (marine), APEDA (agri products).',
+      docs:'IEC, business registration, product details, bank certificate' },
+    { step:3, title:'Open AD (Authorized Dealer) Bank Account', time:'1 week', cost:'Nil',
+      desc:'Open a current account with an AD Category-I bank for forex transactions. All export payments must be routed through this. Major banks: SBI, BOB, Indian Bank, ICICI, HDFC.',
+      docs:'IEC, business PAN, GST, address proof, board resolution (if company)' },
+    { step:4, title:'Find Buyers & Get Orders', time:'Ongoing', cost:'Variable',
+      desc:'Channels: (a) B2B marketplaces \u2014 IndiaMART, TradeIndia, Alibaba, Global Sources. (b) Buyer-seller meets \u2014 FIEO, India International Trade Fair, sector-specific expos. (c) Indian embassies \u2014 commercial sections provide buyer databases. (d) Export Credit Insurance (ECGC) \u2014 verify buyer creditworthiness before accepting orders.',
+      docs:'Product catalog, samples, company profile, quality certifications' },
+    { step:5, title:'Confirm Order & Letter of Credit', time:'1-2 weeks', cost:'0.5-1% of LC value',
+      desc:'Negotiate payment terms: (a) Irrevocable LC (safest for new exporters), (b) Documents Against Payment (D/P), (c) Advance payment, (d) Open account (risky). Get pre-shipment credit from bank (7-12% interest, 270-day tenure).',
+      docs:'Proforma invoice, purchase order, LC draft' },
+    { step:6, title:'Production & Quality Certification', time:'2-8 weeks', cost:'Variable',
+      desc:'Manufacture goods per buyer specs. Get quality testing: BIS, NABL-accredited lab, phytosanitary (for agri), FSSAI (food), HALAL/KOSHER if needed. Arrange pre-shipment inspection if buyer requires (SGS, Bureau Veritas).',
+      docs:'Test reports, quality certificates, inspection reports' },
+    { step:7, title:'Customs Documentation & Shipping Bill', time:'1-3 days', cost:'\u20b92,000\u20135,000',
+      desc:'File Shipping Bill on ICEGATE. Documents: commercial invoice, packing list, certificate of origin (CoO from Chamber of Commerce), ARE-1 (if excise), SDF declaration. Hire a Custom House Agent (CHA) for first few shipments.',
+      docs:'Commercial invoice, packing list, CoO, shipping bill, ARE-1, SDF' },
+    { step:8, title:'Ship & Get Bill of Lading', time:'1-5 weeks (sea) / 2-5 days (air)', cost:'\u20b930K\u20131L+ per container',
+      desc:'Book with shipping line (Maersk, MSC, CMA CGM) or freight forwarder. Chennai Port, Kamarajar Port, Tuticorin Port, or air via Chennai/Coimbatore airports. Get Bill of Lading (sea) or Airway Bill (air).',
+      docs:'Bill of Lading/AWB, mate\u2019s receipt, dock receipt' },
+    { step:9, title:'Receive Payment & Complete FEMA Compliance', time:'9 months max', cost:'Bank charges ~0.1-0.5%',
+      desc:'Submit documents to bank for LC negotiation or collection. Bank credits foreign exchange. File eBRC (electronic Bank Realization Certificate) on dgft.gov.in within 9 months of shipment. Claim RoDTEP/duty drawback benefits.',
+      docs:'eBRC, bank advice, shipping documents, RoDTEP claim form' },
+    { step:10, title:'Claim Export Incentives', time:'2-4 months', cost:'Nil (it\u2019s money back!)',
+      desc:'(a) RoDTEP: 0.5-4.3% of FOB value (embedded tax refund). (b) Duty Drawback: refund of customs duty on imported inputs. (c) Advance Authorization: import inputs duty-free against export commitment. (d) EPCG: import capital goods at 0% duty. File claims via DGFT portal.',
+      docs:'eBRC, shipping bill, customs endorsement, bank certificate' }
+  ];
+
+  function buildExportRoadmapHtml(tier){
+    var html = '<div class="roadmap">';
+    for(var i = 0; i < EXPORT_STEPS.length; i++){
+      var s = EXPORT_STEPS[i];
+      var body = '';
+      if(tier === 'K'){
+        /* Simplified for kids */
+        var kidDesc = {
+          1:'Get a special code (like a passport for your business) so you can sell things to other countries!',
+          2:'Join a team of exporters who help you sell your products abroad and get government rewards.',
+          3:'Open a special bank account that can handle foreign money (dollars, euros, etc).',
+          4:'Find people in other countries who want to buy your products \u2014 use websites, trade fairs, and Indian embassies!',
+          5:'Get the buyer to promise to pay (using a bank guarantee called Letter of Credit). Your bank gives you money to make the products.',
+          6:'Make the products really well. Get certificates that prove they\u2019re safe and good quality.',
+          7:'Fill out customs forms and tell the government what you\u2019re sending. A helper (customs agent) can do this for you.',
+          8:'Put your goods on a big ship or airplane! Chennai Port and Tuticorin are the main exits from TN.',
+          9:'After the buyer receives your goods, the money comes to your bank account in Indian rupees!',
+          10:'The government gives you money back as a reward for exporting! \u20b93-5 for every \u20b9100 you exported.'
+        };
+        body = '<p>' + (kidDesc[s.step] || s.desc) + '</p>';
+      } else if(tier === 'T'){
+        body = '<p>' + s.desc.split('.').slice(0,2).join('.') + '.</p>';
+        body += '<div class="time" style="margin-top:4px">\u23f1\ufe0f ' + s.time + ' \u00b7 Cost: ' + s.cost + '</div>';
+      } else {
+        body = '<p>' + s.desc + '</p>';
+        body += '<div style="margin-top:6px;font-size:11px;color:var(--t3)"><strong>Documents:</strong> ' + s.docs + '</div>';
+        body += '<div class="time" style="margin-top:4px">\u23f1\ufe0f ' + s.time + ' \u00b7 Cost: ' + s.cost + '</div>';
+      }
+      html += '<div class="roadmap-step" data-step="' + s.step + '"><h4>Step ' + s.step + ': ' + s.title + '</h4>' + body + '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  function renderExportRoadmap(){
+    var container = document.getElementById('exportRoadmap');
+    if(!container) return;
+    container.innerHTML = '';
+    if(window.TierPills){
+      TierPills.attach(container, buildExportRoadmapHtml);
+    } else {
+      container.innerHTML = buildExportRoadmapHtml(currentTier);
+    }
+  }
+
+  /* \u2550\u2550 TierPills attachment helpers \u2550\u2550 */
+  function attachBizPills() {
+    if (!window.TierPills) return;
+    var wraps = document.querySelectorAll('.tp-biz-wrap');
+    for (var i = 0; i < wraps.length; i++) {
+      (function(wrap) {
+        var bizId = wrap.getAttribute('data-biz-id');
+        TierPills.attach(wrap, function(t) { return BG.renderBusinessForTier(bizId, t); });
+      })(wraps[i]);
+    }
+  }
+
+  function attachLoanPills() {
+    if (!window.TierPills) return;
+    var wraps = document.querySelectorAll('.tp-loan-wrap');
+    for (var i = 0; i < wraps.length; i++) {
+      (function(wrap) {
+        var loanId = wrap.getAttribute('data-loan-id');
+        TierPills.attach(wrap, function(t) { return BG.renderLoanForTier(loanId, t); });
+      })(wraps[i]);
+    }
+  }
+
+  function attachLicPills() {
+    if (!window.TierPills) return;
+    var wraps = document.querySelectorAll('.tp-lic-wrap');
+    for (var i = 0; i < wraps.length; i++) {
+      (function(wrap) {
+        var licId = wrap.getAttribute('data-lic-id');
+        TierPills.attach(wrap, function(t) { return BG.renderLicenseForTier(licId, t); });
+      })(wraps[i]);
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TAB: RESOURCE VALUE CHAINS
+     ═══════════════════════════════════════════════════════════ */
+  function renderResourceChains(){
+    var SC = window.StateComparisonData;
+    if(!SC || !SC.RESOURCE_CHAINS) return;
+    var chains = SC.RESOURCE_CHAINS;
+    var t = currentTier;
+
+    var intro = document.getElementById('resourcesIntro');
+    if(intro){
+      var intros = {
+        K:'Tamil Nadu has special rocks, sand, cotton, coconuts and shrimp! Each can be turned into many valuable things.',
+        T:'Raw materials \u2192 finished products. See how value multiplies 5-50x through processing steps.',
+        V:'Complete value chains from raw resource to export-ready product. Investment, jobs, and licenses at each step.',
+        W:'Resource monetization pathways with CAPEX benchmarks, employment multipliers, and regulatory requirements.',
+        E:'Input-output value chain analysis. Multipliers based on prevailing market prices. CAPEX at greenfield rates.'
+      };
+      intro.textContent = intros[t] || intros.V;
+    }
+
+    var el = document.getElementById('resourceChains');
+    if(!el) return;
+    var h = '';
+    for(var i = 0; i < chains.length; i++){
+      var rc = chains[i];
+      h += '<div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:14px;padding:1.5rem;margin-bottom:20px">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">'
+        + '<h3 style="color:var(--t1);margin:0;font-size:16px">\u26cf\ufe0f ' + esc(rc.resource) + '</h3>'
+        + '<span style="font-size:12px;padding:4px 12px;background:rgba(200,146,42,.12);color:var(--gold);border-radius:8px;font-family:var(--mono);font-weight:600">Value Multiplier: ' + rc.multiplier + '</span></div>'
+        + '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;font-size:12px">'
+        + '<div style="background:var(--bg2);padding:6px 12px;border-radius:8px"><span style="color:var(--t3)">Raw: </span><span style="color:#EF5350;font-family:var(--mono)">' + rc.rawValue + '</span></div>'
+        + '<div style="background:var(--bg2);padding:6px 12px;border-radius:8px"><span style="color:var(--t3)">Processed: </span><span style="color:#66BB6A;font-family:var(--mono)">' + rc.processedValue + '</span></div>'
+        + '<div style="background:var(--bg2);padding:6px 12px;border-radius:8px"><span style="color:var(--t3)">Districts: </span><span style="color:var(--t1)">' + rc.districts.join(', ') + '</span></div></div>';
+
+      /* Value chain steps - visual pipeline */
+      h += '<div style="display:flex;flex-wrap:wrap;gap:0;margin:16px 0">';
+      for(var si = 0; si < rc.chain.length; si++){
+        var step = rc.chain[si];
+        var isLast = si === rc.chain.length - 1;
+        h += '<div style="flex:1;min-width:140px;position:relative">'
+          + '<div style="background:var(--bg2);border:1px solid var(--bg3);border-radius:10px;padding:10px;min-height:100px">'
+          + '<div style="font-size:9px;color:var(--gold);font-weight:700;margin-bottom:3px">STEP ' + (si+1) + '</div>'
+          + '<div style="font-size:12px;color:var(--t1);font-weight:600;margin-bottom:4px">' + esc(step.step) + '</div>'
+          + '<div style="font-size:10px;color:var(--t3);line-height:1.4">' + esc(step.output) + '</div>'
+          + '<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">'
+          + '<span style="font-size:9px;padding:2px 6px;background:rgba(66,165,245,.1);color:#42A5F5;border-radius:4px">' + step.investment + '</span>'
+          + '<span style="font-size:9px;padding:2px 6px;background:rgba(102,187,106,.1);color:#66BB6A;border-radius:4px">' + step.jobs + ' jobs</span>'
+          + '</div></div>';
+        if(!isLast){
+          h += '<div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:14px;z-index:1">\u2192</div>';
+        }
+        h += '</div>';
+      }
+      h += '</div>';
+
+      if(t !== 'K'){
+        h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:12px">';
+        h += '<div style="background:rgba(200,146,42,.06);border:1px solid rgba(200,146,42,.1);border-radius:10px;padding:10px">'
+          + '<div style="font-size:10px;color:var(--gold);font-weight:600;margin-bottom:3px">Export Potential</div>'
+          + '<p style="font-size:11px;color:var(--t2);margin:0;line-height:1.5">' + esc(rc.exportPotential) + '</p></div>';
+        if(t === 'V' || t === 'W' || t === 'E'){
+          h += '<div style="background:rgba(66,165,245,.06);border:1px solid rgba(66,165,245,.1);border-radius:10px;padding:10px">'
+            + '<div style="font-size:10px;color:#42A5F5;font-weight:600;margin-bottom:3px">Licenses Required</div>'
+            + '<p style="font-size:11px;color:var(--t2);margin:0;line-height:1.5">' + esc(rc.license) + '</p></div>';
+          h += '<div style="background:rgba(102,187,106,.06);border:1px solid rgba(102,187,106,.1);border-radius:10px;padding:10px">'
+            + '<div style="font-size:10px;color:#66BB6A;font-weight:600;margin-bottom:3px">Target Buyers</div>'
+            + '<p style="font-size:11px;color:var(--t2);margin:0;line-height:1.5">' + esc(rc.targetAudience) + '</p></div>';
+        }
+        h += '</div>';
+      }
+      h += '</div>';
+    }
+    el.innerHTML = h;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     TAB: BUSINESS GAP OPPORTUNITIES
+     ═══════════════════════════════════════════════════════════ */
+  function renderGapCards(){
+    var SC = window.StateComparisonData;
+    if(!SC || !SC.BUSINESS_GAPS) return;
+    var gaps = SC.BUSINESS_GAPS;
+    var t = currentTier;
+
+    var intro = document.getElementById('gapsIntro');
+    if(intro){
+      var intros = {
+        K:'These are businesses Tamil Nadu needs more of! Maybe you could start one when you grow up.',
+        T:'6 sectors where TN has big gaps between supply and demand \u2014 each is a business opportunity.',
+        V:'Under-penetrated sectors with high demand. Each includes investment guide and step-by-step action plan.',
+        W:'Supply-demand gap analysis with ROI projections, subsidy eligibility, and regulatory pathway.',
+        E:'Market gap quantification. Coverage % = current supply/estimated demand. National demand = addressable market at TN\'s population share.'
+      };
+      intro.textContent = intros[t] || intros.V;
+    }
+
+    var el = document.getElementById('gapCards');
+    if(!el) return;
+    var h = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px">';
+    for(var i = 0; i < gaps.length; i++){
+      var g = gaps[i];
+      var coverNum = parseInt(g.currentCoverage);
+      var gapPct = 100 - coverNum;
+
+      h += '<div style="background:var(--bg1);border:1px solid var(--bg3);border-radius:14px;padding:1.5rem;transition:transform .3s,box-shadow .3s">'
+        + '<h3 style="color:var(--t1);margin:0 0 8px;font-size:15px">' + esc(g.sector) + '</h3>';
+
+      /* Visual coverage bar */
+      h += '<div style="margin:10px 0">'
+        + '<div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px">'
+        + '<span style="color:#66BB6A">Covered: ' + g.currentCoverage + '</span>'
+        + '<span style="color:#EF5350">Gap: ' + gapPct + '%</span></div>'
+        + '<div style="height:8px;background:var(--bg2);border-radius:4px;overflow:hidden">'
+        + '<div style="width:'+coverNum+'%;height:100%;background:linear-gradient(90deg,#66BB6A,#FFA726);border-radius:4px"></div></div></div>';
+
+      h += '<div style="display:flex;gap:8px;margin:10px 0;font-size:11px">'
+        + '<div style="flex:1;background:var(--bg2);padding:6px 8px;border-radius:8px;text-align:center"><div style="font-size:9px;color:var(--t3)">National Demand</div><div style="color:var(--gold);font-family:var(--mono)">' + g.nationalDemand + '</div></div>'
+        + '</div>';
+
+      if(t !== 'K'){
+        h += '<p style="font-size:12px;color:var(--t2);line-height:1.5;margin:8px 0"><strong style="color:var(--t1)">Gap:</strong> ' + esc(g.gap) + '</p>';
+        h += '<p style="font-size:12px;color:#66BB6A;line-height:1.5;margin:4px 0"><strong>Opportunity:</strong> ' + esc(g.opportunity) + '</p>';
+      }
+
+      /* Step-by-step action plan */
+      if(t === 'V' || t === 'W' || t === 'E'){
+        h += '<div style="margin-top:10px;padding:10px;background:rgba(200,146,42,.04);border:1px solid rgba(200,146,42,.1);border-radius:10px">'
+          + '<div style="font-size:10px;color:var(--gold);font-weight:600;margin-bottom:6px">Step-by-Step Action Plan</div>'
+          + '<ol style="margin:0;padding-left:16px;font-size:11px;color:var(--t2);line-height:1.8">';
+        for(var si = 0; si < g.steps.length; si++){
+          h += '<li>' + esc(g.steps[si]) + '</li>';
+        }
+        h += '</ol></div>';
+      }
+      h += '</div>';
+    }
+    h += '</div>';
+    el.innerHTML = h;
+  }
+
+  function renderAll() {
+    renderHeroStats();
+    renderBusinesses();
+    renderLoans();
+    renderLicenses();
+    renderRoadmap();
+    renderEcosystem();
+    renderExportRoadmap();
+    renderResourceChains();
+    renderGapCards();
+  }
+
+  // ── Tools Rendering ──
+  function initTools(){
+    var TD = window.ToolsData;
+    if(!TD) return;
+    /* Tools intro */
+    var intro = document.getElementById('toolsIntro');
+    if(intro && TD.TOOLS_INTRO) intro.textContent = TD.TOOLS_INTRO[currentTier] || TD.TOOLS_INTRO.V;
+    /* Populate calendar month select */
+    var sel = document.getElementById('calMonth');
+    if(sel){
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var cur = new Date().getMonth();
+      sel.innerHTML = '';
+      for(var i=0;i<12;i++){
+        var opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = months[i];
+        if(i === cur) opt.selected = true;
+        sel.appendChild(opt);
+      }
+      renderCalendar();
+    }
+    /* Populate eligibility questions */
+    var eqDiv = document.getElementById('eligQuestions');
+    if(eqDiv && TD.ELIGIBILITY_QUESTIONS){
+      var html = '';
+      for(var q=0; q<TD.ELIGIBILITY_QUESTIONS.length; q++){
+        var ques = TD.ELIGIBILITY_QUESTIONS[q];
+        html += '<div style="margin-bottom:16px"><label style="color:var(--t2);font-size:13px;font-weight:500;display:block;margin-bottom:6px">'+(q+1)+'. '+ques.question+'</label>';
+        html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+        for(var o=0; o<ques.options.length; o++){
+          html += '<button class="elig-opt" data-qid="'+ques.id+'" data-val="'+ques.options[o].value+'" onclick="selectEligOpt(this)" style="padding:6px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:var(--bg1);color:var(--t2);cursor:pointer;font-size:12px;transition:all .2s">'+ques.options[o].label+'</button>';
+        }
+        html += '</div></div>';
+      }
+      eqDiv.innerHTML = html;
+    }
+  }
+
+  // ── Init ──
+  function init() {
+    initTierBar();
+    initTabs();
+    initSectorChips();
+    initLoanFilter();
+    initSearch();
+    initScroll();
+    renderAll();
+    initTools();
+  }
+
+  /* Listen for tier changes from floating switcher — pills handle per-card, only update non-pill elements */
+  document.addEventListener('tn26:tier-change', function(e){
+    if(e.detail && e.detail.tier){
+      currentTier = e.detail.tier;
+      /* Update hero stats (not pill-managed) */
+      renderHeroStats();
+      /* Update tools intro */
+      var TD = window.ToolsData;
+      if(TD && TD.TOOLS_INTRO){
+        var intro = document.getElementById('toolsIntro');
+        if(intro) intro.textContent = TD.TOOLS_INTRO[currentTier] || TD.TOOLS_INTRO.V;
+      }
+      /* Update loan comparison table */
+      renderLoanCompare();
+      /* Update new data-driven tabs */
+      renderResourceChains();
+      renderGapCards();
+    }
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+<script>
+/* ── Tools tab global functions (called from inline onclick) ── */
+function switchTool(tool){
+  var panels = document.querySelectorAll('.tool-panel');
+  var tabs = document.querySelectorAll('.tool-tab');
+  for(var i=0;i<panels.length;i++) panels[i].classList.remove('active');
+  for(var j=0;j<tabs.length;j++) tabs[j].classList.remove('active');
+  var p = document.getElementById('tool-'+tool);
+  if(p) p.classList.add('active');
+  var t = document.querySelector('.tool-tab[data-tool="'+tool+'"]');
+  if(t) t.classList.add('active');
+}
+
+function runCalculator(){
+  var TD = window.ToolsData;
+  if(!TD) return;
+  var val = parseInt(document.getElementById('capitalInput').value, 10);
+  if(!val || val < 0){ document.getElementById('calcResults').innerHTML = '<p style="color:var(--t3)">Please enter a valid amount</p>'; return; }
+  var bracket = TD.getIdeasForCapital(val);
+  if(!bracket){ document.getElementById('calcResults').innerHTML = '<p style="color:var(--t3)">No matches found</p>'; return; }
+  var html = '<div style="margin-bottom:12px"><span style="font-size:13px;color:var(--gold);font-weight:600">'+bracket.label+'</span><span style="color:var(--t3);font-size:12px;margin-left:8px">'+bracket.ideas.length+' business ideas found</span></div>';
+  for(var i=0;i<bracket.ideas.length;i++){
+    var idea = bracket.ideas[i];
+    html += '<div style="background:var(--bg1);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px;margin-bottom:8px">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">';
+    html += '<span style="font-size:15px;color:var(--t1);font-weight:500">'+idea.icon+' '+idea.name+'</span>';
+    html += '<span style="font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(200,146,42,.1);color:var(--gold)">'+idea.risk+' Risk</span>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap">';
+    html += '<span style="font-size:12px;color:var(--t2)">💰 Capital: <b>'+idea.capital+'</b></span>';
+    html += '<span style="font-size:12px;color:var(--t2)">📈 Monthly: <b>'+idea.monthly+'</b></span>';
+    html += '</div>';
+    html += '<p style="font-size:12px;color:var(--t3);margin:0;line-height:1.5">'+idea.details+'</p>';
+    html += '</div>';
+  }
+  if(bracket.schemes && bracket.schemes.length){
+    html += '<div style="margin-top:12px;padding:12px;background:rgba(200,146,42,.05);border:1px solid rgba(200,146,42,.15);border-radius:10px">';
+    html += '<span style="font-size:12px;color:var(--gold);font-weight:600">🏦 Matching Schemes: </span>';
+    html += '<span style="font-size:12px;color:var(--t2)">'+bracket.schemes.join(' • ')+'</span></div>';
+  }
+  document.getElementById('calcResults').innerHTML = html;
+}
+
+var eligAnswers = {};
+function selectEligOpt(el){
+  var qid = el.getAttribute('data-qid');
+  var val = el.getAttribute('data-val');
+  eligAnswers[qid] = val;
+  var siblings = el.parentElement.querySelectorAll('.elig-opt[data-qid="'+qid+'"]');
+  for(var i=0;i<siblings.length;i++){
+    siblings[i].style.background = 'var(--bg1)';
+    siblings[i].style.borderColor = 'rgba(255,255,255,.08)';
+    siblings[i].style.color = 'var(--t2)';
+  }
+  el.style.background = 'rgba(200,146,42,.15)';
+  el.style.borderColor = 'rgba(200,146,42,.3)';
+  el.style.color = 'var(--gold)';
+  /* Show submit when all answered */
+  var TD = window.ToolsData;
+  if(TD && Object.keys(eligAnswers).length >= TD.ELIGIBILITY_QUESTIONS.length){
+    document.getElementById('eligSubmit').style.display = 'inline-block';
+  }
+}
+
+function runEligibility(){
+  var TD = window.ToolsData;
+  if(!TD) return;
+  var results = TD.checkEligibility(eligAnswers);
+  var html = '';
+  if(results.length === 0){
+    html = '<p style="color:var(--t3)">No matching schemes found. Try adjusting your answers.</p>';
+  } else {
+    html = '<div style="margin-bottom:8px"><span style="color:var(--gold);font-weight:600">🎯 '+results.length+' schemes matched!</span></div>';
+    for(var i=0;i<results.length;i++){
+      html += '<div style="background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">';
+      html += '<span style="font-size:13px;color:var(--t1);font-weight:500">'+results[i].scheme+'</span>';
+      html += '<span style="font-size:11px;color:var(--t2)">'+results[i].benefit+'</span>';
+      html += '</div>';
+    }
+  }
+  document.getElementById('eligResults').innerHTML = html;
+}
+
+function renderCalendar(){
+  var TD = window.ToolsData;
+  if(!TD) return;
+  var month = parseInt(document.getElementById('calMonth').value, 10);
+  var data = TD.getDeadlines(month);
+  if(!data) return;
+  var html = '';
+  for(var i=0;i<data.deadlines.length;i++){
+    var d = data.deadlines[i];
+    html += '<div class="cal-item" data-ctype="'+d.type+'" style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)">';
+    html += '<span style="min-width:60px;font-size:12px;color:var(--gold);font-weight:600;font-family:JetBrains Mono,monospace">'+d.date+'</span>';
+    html += '<span style="font-size:13px;color:var(--t1)">'+d.icon+' '+d.task+'</span>';
+    html += '</div>';
+  }
+  document.getElementById('calDeadlines').innerHTML = html;
+}
+
+var calFilterType = 'all';
+function filterCal(type, btn){
+  calFilterType = type;
+  var items = document.querySelectorAll('.cal-item');
+  for(var i=0;i<items.length;i++){
+    items[i].style.display = (type === 'all' || items[i].getAttribute('data-ctype') === type) ? 'flex' : 'none';
+  }
+  var btns = document.querySelectorAll('.cal-filter');
+  for(var j=0;j<btns.length;j++){
+    btns[j].classList.toggle('active', btns[j].getAttribute('data-ctype') === type);
+  }
+}
+</script>
+<script defer src="src/tier-pills.js"></script>
+<script defer src="src/tier-switcher.js"></script>
+<script defer src="src/google-translate.js"></script>
+<script defer src="src/floating-dictionary.js"></script>
+</body>
+</html>

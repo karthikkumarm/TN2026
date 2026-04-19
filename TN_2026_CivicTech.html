@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TN Launchpad — Civic Tech: Solve Tamil Nadu's Problems with Technology</title>
+<meta name="description" content="15 civic issues in Tamil Nadu that can be solved with technology. Build guides, tech stacks, funding sources, government portals, and step-by-step implementation.">
+<meta name="theme-color" content="#0D0F12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root {
+  --bg0:#0D0F12; --bg1:#161A1F; --bg2:#1E2329; --bg3:#262C34;
+  --t1:#F0ECE4; --t2:#B8B0A2; --t3:#7A7265;
+  --gold:#C8922A; --gold-dim:rgba(200,146,42,.15); --gold-light:#F5C842;
+  --r:10px; --max-w:1100px; --nav-h:56px;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --s1:0 1px 3px rgba(0,0,0,.4);
+  --s2:0 2px 8px rgba(0,0,0,.3);
+  --green:#2ECC71; --orange:#E67E22; --red:#E74C3C; --blue:#3498DB; --purple:#9B59B6;
+}
+body{margin:0;background:var(--bg0);color:var(--t1);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.35) transparent}
+html::-webkit-scrollbar{width:8px;height:8px}
+html::-webkit-scrollbar-track{background:transparent}
+html::-webkit-scrollbar-thumb{background:rgba(200,146,42,.3);border-radius:8px}
+html::-webkit-scrollbar-thumb:hover{background:rgba(200,146,42,.5)}
+a{color:var(--gold);text-decoration:none} a:hover{text-decoration:underline}
+::selection{background:var(--gold);color:var(--bg0)}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;min-height:var(--nav-h);background:rgba(13,15,18,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bg3);display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:100}
+nav .back{font-size:13px;color:var(--t2);font-weight:500}
+nav .back:hover{color:var(--gold)}
+nav .title{font-family:var(--serif);font-size:16px;color:var(--gold);font-weight:600}
+nav .nav-links{display:flex;gap:6px;align-items:center;flex-wrap:wrap;flex:1;margin-left:12px}
+nav .nav-links a{font-size:12px;color:var(--t3);padding:4px 10px;border:1px solid var(--bg3);border-radius:6px;white-space:nowrap}
+nav .nav-links a:hover{color:var(--gold);border-color:rgba(200,146,42,.3);text-decoration:none}
+nav .nav-links a.active{color:var(--gold);border-color:rgba(200,146,42,.3);background:rgba(200,146,42,.1)}
+
+/* Tier Selector */
+.tier-bar{background:var(--bg1);border:1px solid var(--bg3);border-radius:var(--r);padding:8px 12px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+.tier-bar .tier-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-right:8px}
+.tier-btn{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s;font-family:var(--sans)}
+.tier-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tier-btn.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+.tier-hint{font-size:10px;color:var(--t3);margin-left:auto;font-style:italic}
+
+/* Layout */
+main{max-width:var(--max-w);margin:0 auto;padding:calc(var(--nav-h) + 24px) 20px 60px}
+section{margin-bottom:48px}
+h1{font-family:var(--serif);font-size:clamp(28px,4vw,42px);color:var(--gold);margin-bottom:8px}
+h2{font-family:var(--serif);font-size:clamp(22px,3vw,30px);color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--bg3)}
+h3{font-family:var(--serif);font-size:20px;color:var(--t1);margin-bottom:12px}
+p{color:var(--t2);margin-bottom:12px}
+
+/* Tab System */
+.tab-bar{display:flex;border-bottom:2px solid var(--bg3);margin-bottom:24px;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab{padding:12px 20px;font-size:13px;font-weight:600;color:var(--t3);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;font-family:var(--sans);transition:all .2s;white-space:nowrap}
+.tab:hover{color:var(--t2)}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Category Filter Chips */
+.cat-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.cat-chip{background:var(--bg2);border:1px solid var(--bg3);color:var(--t2);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;font-family:var(--sans)}
+.cat-chip:hover{border-color:rgba(200,146,42,.3);color:var(--gold)}
+.cat-chip.active{background:var(--gold);color:var(--bg0);border-color:var(--gold)}
+
+/* Issue Cards */
+.issue-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:var(--r);margin-bottom:20px;overflow:hidden;transition:border-color .2s}
+.issue-card:hover{border-color:rgba(200,146,42,.3)}
+.issue-header{padding:20px;cursor:pointer;display:flex;align-items:center;gap:14px}
+.issue-header .issue-icon{font-size:28px;min-width:40px;text-align:center}
+.issue-header .issue-info{flex:1}
+.issue-header .issue-title{font-family:var(--serif);font-size:18px;color:var(--t1);font-weight:600}
+.issue-header .issue-cat{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:1px}
+.issue-header .issue-sev{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
+.sev-critical{background:rgba(231,76,60,.12);color:var(--red)}
+.sev-high{background:rgba(230,126,34,.12);color:var(--orange)}
+.sev-medium{background:rgba(241,196,15,.12);color:#F1C40F}
+.issue-header .arrow{font-size:16px;color:var(--t3);transition:transform .2s}
+.issue-card.open .arrow{transform:rotate(180deg)}
+.issue-body{display:none;padding:0 20px 20px;border-top:1px solid var(--bg3)}
+.issue-card.open .issue-body{display:block}
+
+/* Issue Body Sections */
+.issue-section{margin-bottom:20px}
+.issue-section-title{font-size:13px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.issue-text{font-size:13px;color:var(--t2);line-height:1.7}
+.issue-tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--gold-dim);color:var(--gold);font-weight:600;margin-right:6px;margin-bottom:6px}
+.issue-tag.green{background:rgba(46,204,113,.12);color:var(--green)}
+.issue-tag.blue{background:rgba(52,152,219,.12);color:var(--blue)}
+.issue-tag.purple{background:rgba(155,89,182,.12);color:var(--purple)}
+
+/* Tech Stack Grid */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.tech-item{background:var(--bg1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:10px 14px}
+.tech-item-label{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px}
+.tech-item-val{font-size:12px;color:var(--t1);font-weight:500}
+
+/* Build Steps */
+.build-steps{counter-reset:step}
+.build-step{background:var(--bg1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:12px 16px 12px 48px;margin-bottom:8px;position:relative;font-size:13px;color:var(--t2);line-height:1.6}
+.build-step::before{counter-increment:step;content:counter(step);position:absolute;left:14px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--gold-dim);color:var(--gold);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* Cost Badge */
+.cost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cost-box{background:var(--bg1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:14px;text-align:center}
+.cost-label{font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.cost-val{font-size:16px;color:var(--gold);font-family:var(--mono);font-weight:700}
+
+/* Example Cards */
+.example-card{background:var(--bg1);border:1px solid rgba(255,255,255,.04);border-radius:8px;padding:12px;margin-bottom:8px}
+.example-name{font-size:13px;color:var(--t1);font-weight:600;margin-bottom:4px}
+.example-desc{font-size:12px;color:var(--t2)}
+
+/* Portal Grid */
+.portal-category{margin-bottom:28px}
+.portal-category h3{font-size:16px;margin-bottom:12px}
+.portal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.portal-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:8px;padding:14px}
+.portal-name{font-size:14px;color:var(--t1);font-weight:600;margin-bottom:4px}
+.portal-desc{font-size:12px;color:var(--t2);margin-bottom:8px}
+.portal-meta{display:flex;gap:8px;flex-wrap:wrap}
+.portal-badge{font-size:10px;padding:2px 8px;border-radius:12px;font-weight:600}
+.portal-badge.api-yes{background:rgba(46,204,113,.12);color:var(--green)}
+.portal-badge.api-no{background:rgba(231,76,60,.08);color:var(--t3)}
+
+/* Funding Section */
+.funding-cat{margin-bottom:28px}
+.funding-cat h3{font-size:16px;margin-bottom:12px}
+.funding-card{background:var(--bg2);border:1px solid var(--bg3);border-radius:8px;padding:16px;margin-bottom:10px}
+.funding-name{font-size:15px;color:var(--t1);font-weight:600;margin-bottom:4px}
+.funding-amount{font-family:var(--mono);font-size:13px;color:var(--gold);margin-bottom:6px}
+.funding-desc{font-size:12px;color:var(--t2);margin-bottom:6px}
+.funding-elig{font-size:11px;color:var(--t3);font-style:italic}
+
+/* Revenue List */
+.revenue-list{list-style:none;padding:0}
+.revenue-list li{font-size:12px;color:var(--t2);padding:6px 0 6px 20px;position:relative;border-bottom:1px solid rgba(255,255,255,.03)}
+.revenue-list li::before{content:'₹';position:absolute;left:0;color:var(--gold);font-weight:700}
+
+/* Scroll to top */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--bg0);border:none;cursor:pointer;font-size:20px;display:none;align-items:center;justify-content:center;z-index:90;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.scroll-top.show{display:flex}
+
+/* Footer */
+footer{max-width:var(--max-w);margin:0 auto;padding:24px 20px 48px;border-top:1px solid var(--bg3);color:var(--t3);font-size:12px}
+footer p{color:var(--t3)}
+
+/* Responsive */
+.nav-ham{display:none;background:none;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px}
+@media(max-width:768px){
+  nav .title{display:none}
+  .nav-ham{display:block}
+  nav .nav-links{display:none;position:absolute;top:var(--nav-h);left:0;right:0;background:rgba(13,15,18,.96);backdrop-filter:blur(12px);flex-direction:column;padding:12px 20px;gap:4px;border-bottom:1px solid var(--bg3)}
+  nav .nav-links.open{display:flex}
+  nav .nav-links a{padding:10px;border-radius:8px;font-size:14px}
+  .tab{padding:10px 14px;font-size:12px}
+  .tier-hint{display:none}
+  .cost-grid{grid-template-columns:1fr}
+  .tech-grid{grid-template-columns:1fr}
+  .portal-grid{grid-template-columns:1fr}
+  .issue-header .issue-icon{font-size:22px;min-width:30px}
+}
+@media(max-width:480px){
+  .cat-chips{gap:6px}
+  .cat-chip{padding:5px 10px;font-size:11px}
+}
+</style>
+<script>
+(function(){
+document.addEventListener('contextmenu',function(e){e.preventDefault()});
+document.addEventListener('keydown',function(e){
+if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='u')||(e.ctrlKey&&e.key==='s'))
+{e.preventDefault();return false}});
+document.addEventListener('dragstart',function(e){e.preventDefault()});
+document.addEventListener('selectstart',function(e){if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA')e.preventDefault()});
+})();
+</script>
+<script src="src/audience-tiers.js"></script>
+<script src="src/civic-tech-data.js"></script>
+</head>
+<body>
+<nav>
+<div style="display:flex;align-items:center;gap:12px;flex:1">
+<a class="back" href="index.html">&#127968; Home</a>
+<button class="nav-ham" id="navHam" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+<div class="nav-links">
+<a href="TN_2026_BusinessGuide.html">&#127970; Business</a>
+<a href="TN_Heritage.html">&#127963; Heritage</a>
+<a href="TN_2026_VoterIntelligence.html">&#128483;&#65039; Elections</a>
+<a href="TN_2026_Pathfinder.html">&#128161; Pathfinder</a>
+<a href="TN_2026_CivicTech.html" class="active">&#128187; Civic Tech</a>
+<a href="TN_2026_DeepDive_v2.html">&#128214; Deep Dive</a>
+</div>
+</div>
+<div class="title">TN Launchpad — Civic Tech</div>
+</nav>
+
+<main>
+
+<section id="hero">
+<h1>&#128187; Civic Tech — Solve TN's Problems with Technology</h1>
+<p>There are many issues in Tamil Nadu that cannot be solved by government alone. Here are 15 critical problems — each with a concrete technology solution, real-world examples, step-by-step build guides, funding sources, and government integration paths. This is your blueprint to build something that matters.</p>
+
+<div class="tier-bar" id="tierBar">
+<span class="tier-label">Explain as:</span>
+<button class="tier-btn" data-tier="K" title="Age 10 — simple stories">&#129490; Kid</button>
+<button class="tier-btn" data-tier="T" title="Age 15 — clear basics">&#129489;&#8205;&#127891; Teen</button>
+<button class="tier-btn active" data-tier="V" title="Age 18+ — practical details">&#128483;&#65039; Voter</button>
+<button class="tier-btn" data-tier="W" title="Policy analysis">&#128203; Wonk</button>
+<button class="tier-btn" data-tier="E" title="Economic analysis">&#128202; Economist</button>
+<span class="tier-hint">Changes content level to match your understanding</span>
+</div>
+</section>
+
+<!-- Tab Bar -->
+<div class="tab-bar">
+<button class="tab active" data-tab="issues">&#128295; Civic Issues &amp; Solutions</button>
+<button class="tab" data-tab="portals">&#127963; Govt Data Portals</button>
+<button class="tab" data-tab="funding">&#128176; Funding &amp; Incubators</button>
+</div>
+
+<!-- Tab: Civic Issues -->
+<div class="tab-panel active" id="tab-issues">
+<h2>&#128295; 15 Civic Issues — Each with a Tech Solution</h2>
+<p>Click any issue to expand the full solution: problem analysis, tech approach, stack, build guide, cost, revenue model, and real examples.</p>
+<div class="cat-chips" id="catChips"></div>
+<div id="issuesList"></div>
+</div>
+
+<!-- Tab: Govt Data Portals -->
+<div class="tab-panel" id="tab-portals">
+<h2>&#127963; Government Data Portals &amp; APIs</h2>
+<p>Open data sources, government portals, and APIs you can use to build civic tech solutions. Each listing notes whether a public API is available.</p>
+<div id="portalsList"></div>
+</div>
+
+<!-- Tab: Funding -->
+<div class="tab-panel" id="tab-funding">
+<h2>&#128176; Funding Sources for Civic Tech</h2>
+<p>Government grants, CSR funds, incubators, competitions, and international sources to fund your civic tech startup or project.</p>
+<div id="fundingList"></div>
+</div>
+
+</main>
+
+<footer>
+<p>&copy; 2025 TN Launchpad. For informational and educational use only. All data sourced from official government portals and verified publications. Links may change — verify directly.</p>
+<p style="margin-top:12px;color:#6A667E;font-size:12px;text-align:center">Made with <span style="color:#E74C3C">❤</span> by Karthi — Robosynaptix</p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<script>
+(function(){
+'use strict';
+
+var CD = window.CivicTechData;
+var AT = window.AudienceTiers;
+var currentTier = 'V';
+var activeCategory = 'all';
+
+function esc(s) {
+  if (!s) return '';
+  var d = document.createElement('div');
+  d.appendChild(document.createTextNode(s));
+  return d.innerHTML;
+}
+
+/* ── Tab System ── */
+function initTabs() {
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener('click', function() {
+      var target = this.getAttribute('data-tab');
+      var allTabs = document.querySelectorAll('.tab');
+      var allPanels = document.querySelectorAll('.tab-panel');
+      for (var j = 0; j < allTabs.length; j++) allTabs[j].classList.remove('active');
+      for (var k = 0; k < allPanels.length; k++) allPanels[k].classList.remove('active');
+      this.classList.add('active');
+      var panel = document.getElementById('tab-' + target);
+      if (panel) panel.classList.add('active');
+    });
+  }
+}
+
+/* ── Tier Bar ── */
+function initTierBar() {
+  var btns = document.querySelectorAll('.tier-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function() {
+      currentTier = this.getAttribute('data-tier');
+      var all = document.querySelectorAll('.tier-btn');
+      for (var j = 0; j < all.length; j++) all[j].classList.remove('active');
+      this.classList.add('active');
+      if (AT && AT.setCurrent) AT.setCurrent(currentTier);
+      renderAll();
+    });
+  }
+}
+
+/* ── Scroll to Top ── */
+function initScroll() {
+  var btn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', function() {
+    btn.classList.toggle('show', window.scrollY > 400);
+  });
+}
+
+/* ── Category Filter ── */
+function renderCatChips() {
+  if (!CD) return;
+  var cats = {};
+  for (var i = 0; i < CD.CIVIC_ISSUES.length; i++) {
+    var c = CD.CIVIC_ISSUES[i].category;
+    if (!cats[c]) cats[c] = 0;
+    cats[c]++;
+  }
+  var html = '<button class="cat-chip active" data-cat="all">All (' + CD.CIVIC_ISSUES.length + ')</button>';
+  var catKeys = Object.keys(cats);
+  for (var j = 0; j < catKeys.length; j++) {
+    html += '<button class="cat-chip" data-cat="' + esc(catKeys[j]) + '">' + esc(catKeys[j]) + ' (' + cats[catKeys[j]] + ')</button>';
+  }
+  document.getElementById('catChips').innerHTML = html;
+
+  var chips = document.querySelectorAll('#catChips .cat-chip');
+  for (var k = 0; k < chips.length; k++) {
+    chips[k].addEventListener('click', function() {
+      activeCategory = this.getAttribute('data-cat');
+      var all = document.querySelectorAll('#catChips .cat-chip');
+      for (var m = 0; m < all.length; m++) all[m].classList.remove('active');
+      this.classList.add('active');
+      renderIssues();
+    });
+  }
+}
+
+/* ── Issue Cards ── */
+function renderIssues() {
+  if (!CD) return;
+  var html = '';
+  for (var i = 0; i < CD.CIVIC_ISSUES.length; i++) {
+    var issue = CD.CIVIC_ISSUES[i];
+    if (activeCategory !== 'all' && issue.category !== activeCategory) continue;
+
+    var sevClass = issue.severity === 'Critical' ? 'sev-critical' : issue.severity === 'High' ? 'sev-high' : 'sev-medium';
+
+    html += '<div class="issue-card" data-issue="' + i + '">';
+
+    /* Header */
+    html += '<div class="issue-header" onclick="toggleIssue(this)">';
+    html += '<span class="issue-icon">' + issue.icon + '</span>';
+    html += '<div class="issue-info">';
+    html += '<div class="issue-cat">' + esc(issue.category) + '</div>';
+    html += '<div class="issue-title">' + esc(issue.title) + '</div>';
+    html += '</div>';
+    html += '<span class="issue-sev ' + sevClass + '">' + esc(issue.severity) + '</span>';
+    html += '<span class="arrow">&#9660;</span>';
+    html += '</div>';
+
+    /* Body */
+    html += '<div class="issue-body">';
+
+    /* Problem */
+    html += '<div class="issue-section">';
+    html += '<div class="issue-section-title">&#128680; The Problem</div>';
+    html += '<div class="issue-text">' + esc(issue.problem) + '</div>';
+    html += '</div>';
+
+    /* Current Status */
+    html += '<div class="issue-section">';
+    html += '<div class="issue-section-title">&#128203; Current Government Status</div>';
+    html += '<div class="issue-text">' + esc(issue.currentStatus) + '</div>';
+    html += '</div>';
+
+    /* Tech Solution */
+    if (issue.techSolution) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#128161; Tech Solution</div>';
+      html += '<div class="issue-text"><strong>' + esc(issue.techSolution.what) + '</strong></div>';
+      if (issue.techSolution.approach) {
+        html += '<div class="issue-text" style="margin-top:8px">' + esc(issue.techSolution.approach) + '</div>';
+      }
+      if (issue.techSolution.features && issue.techSolution.features.length) {
+        html += '<div style="margin-top:10px">';
+        for (var f = 0; f < issue.techSolution.features.length; f++) {
+          html += '<span class="issue-tag blue">' + esc(issue.techSolution.features[f]) + '</span>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
+    /* Tech Stack */
+    if (issue.techStack) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#128736; Tech Stack</div>';
+      html += '<div class="tech-grid">';
+      var tsKeys = Object.keys(issue.techStack);
+      for (var t = 0; t < tsKeys.length; t++) {
+        html += '<div class="tech-item">';
+        html += '<div class="tech-item-label">' + esc(tsKeys[t]) + '</div>';
+        html += '<div class="tech-item-val">' + esc(issue.techStack[tsKeys[t]]) + '</div>';
+        html += '</div>';
+      }
+      html += '</div></div>';
+    }
+
+    /* Build Guide */
+    if (issue.buildGuide && issue.buildGuide.length) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#128221; Step-by-Step Build Guide</div>';
+      html += '<div class="build-steps">';
+      for (var b = 0; b < issue.buildGuide.length; b++) {
+        html += '<div class="build-step">' + esc(issue.buildGuide[b]) + '</div>';
+      }
+      html += '</div></div>';
+    }
+
+    /* Cost */
+    if (issue.cost) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#128176; Cost Estimates</div>';
+      html += '<div class="cost-grid">';
+      html += '<div class="cost-box"><div class="cost-label">MVP</div><div class="cost-val">' + esc(issue.cost.mvp) + '</div></div>';
+      html += '<div class="cost-box"><div class="cost-label">Full Build</div><div class="cost-val">' + esc(issue.cost.full) + '</div></div>';
+      html += '<div class="cost-box"><div class="cost-label">Timeline</div><div class="cost-val">' + esc(issue.cost.timeline) + '</div></div>';
+      html += '</div></div>';
+    }
+
+    /* Revenue Model */
+    if (issue.revenueModel && issue.revenueModel.length) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#128200; Revenue Model</div>';
+      html += '<ul class="revenue-list">';
+      for (var r = 0; r < issue.revenueModel.length; r++) {
+        html += '<li>' + esc(issue.revenueModel[r]) + '</li>';
+      }
+      html += '</ul></div>';
+    }
+
+    /* Govt Approach */
+    if (issue.govtApproach) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#127963; Government Integration Path</div>';
+      html += '<div class="issue-text">';
+      if (issue.govtApproach.who) html += '<div style="margin-bottom:6px"><strong style="color:var(--t1)">Who to approach:</strong> ' + esc(issue.govtApproach.who) + '</div>';
+      if (issue.govtApproach.how) html += '<div style="margin-bottom:6px"><strong style="color:var(--t1)">How:</strong> ' + esc(issue.govtApproach.how) + '</div>';
+      if (issue.govtApproach.procurement) html += '<div><strong style="color:var(--t1)">Procurement:</strong> ' + esc(issue.govtApproach.procurement) + '</div>';
+      html += '</div></div>';
+    }
+
+    /* Real Examples */
+    if (issue.realExamples && issue.realExamples.length) {
+      html += '<div class="issue-section">';
+      html += '<div class="issue-section-title">&#127758; Real-World Examples</div>';
+      for (var e = 0; e < issue.realExamples.length; e++) {
+        var ex = issue.realExamples[e];
+        html += '<div class="example-card">';
+        html += '<div class="example-name">' + esc(ex.name) + '</div>';
+        html += '<div class="example-desc">' + esc(ex.desc) + '</div>';
+        if (ex.url) html += '<div style="margin-top:6px"><a href="' + esc(ex.url) + '" target="_blank" rel="noopener" style="font-size:11px">&#128279; ' + esc(ex.url) + '</a></div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
+    html += '</div>'; /* issue-body */
+    html += '</div>'; /* issue-card */
+  }
+
+  document.getElementById('issuesList').innerHTML = html;
+}
+
+/* ── Toggle Issue Expand ── */
+function toggleIssue(header) {
+  var card = header.parentElement;
+  card.classList.toggle('open');
+}
+window.toggleIssue = toggleIssue;
+
+/* ── Portals ── */
+function renderPortals() {
+  if (!CD) return;
+  var cats = CD.GOVT_PORTALS;
+  var html = '';
+  for (var i = 0; i < cats.length; i++) {
+    var cat = cats[i];
+    html += '<div class="portal-category">';
+    html += '<h3>' + esc(cat.category) + ' <span style="font-size:12px;color:var(--t3);font-weight:400">(' + cat.portals.length + ' portals)</span></h3>';
+    html += '<div class="portal-grid">';
+    for (var j = 0; j < cat.portals.length; j++) {
+      var p = cat.portals[j];
+      html += '<div class="portal-card">';
+      html += '<div class="portal-name">' + esc(p.name) + '</div>';
+      html += '<div class="portal-desc">' + esc(p.desc) + '</div>';
+      html += '<div class="portal-meta">';
+      if (p.dataType) html += '<span class="issue-tag">' + esc(p.dataType) + '</span>';
+      html += '<span class="portal-badge ' + (p.apiAvailable ? 'api-yes' : 'api-no') + '">' + (p.apiAvailable ? '&#9989; API Available' : 'No API') + '</span>';
+      html += '</div>';
+      if (p.url) html += '<div style="margin-top:8px"><a href="' + esc(p.url) + '" target="_blank" rel="noopener" style="font-size:11px">&#128279; Visit Portal</a></div>';
+      html += '</div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('portalsList').innerHTML = html;
+}
+
+/* ── Funding ── */
+function renderFunding() {
+  if (!CD) return;
+  var cats = CD.CIVIC_FUNDING;
+  var html = '';
+  for (var i = 0; i < cats.length; i++) {
+    var cat = cats[i];
+    html += '<div class="funding-cat">';
+    html += '<h3>' + esc(cat.category) + ' <span style="font-size:12px;color:var(--t3);font-weight:400">(' + cat.sources.length + ' sources)</span></h3>';
+    for (var j = 0; j < cat.sources.length; j++) {
+      var s = cat.sources[j];
+      html += '<div class="funding-card">';
+      html += '<div class="funding-name">' + esc(s.name) + '</div>';
+      if (s.amount) html += '<div class="funding-amount">&#128176; ' + esc(s.amount) + '</div>';
+      html += '<div class="funding-desc">' + esc(s.desc) + '</div>';
+      if (s.eligibility) html += '<div class="funding-elig">Eligibility: ' + esc(s.eligibility) + '</div>';
+      if (s.how) html += '<div style="font-size:12px;color:var(--t2);margin-top:6px"><strong style="color:var(--t1)">How to apply:</strong> ' + esc(s.how) + '</div>';
+      if (s.url) html += '<div style="margin-top:8px"><a href="' + esc(s.url) + '" target="_blank" rel="noopener" style="font-size:11px">&#128279; Apply / Learn More</a></div>';
+      html += '</div>';
+    }
+    html += '</div>';
+  }
+  document.getElementById('fundingList').innerHTML = html;
+}
+
+/* ── Render All ── */
+function renderAll() {
+  renderIssues();
+  renderPortals();
+  renderFunding();
+}
+
+/* ── Init ── */
+function init() {
+  initTabs();
+  initTierBar();
+  initScroll();
+  renderCatChips();
+  renderAll();
+}
+
+/* Listen for tier changes */
+document.addEventListener('tierChange', function(e) {
+  if (e.detail && e.detail.tier) {
+    currentTier = e.detail.tier;
+    renderAll();
+  }
+});
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+
+})();
+</script>
+<script defer src="src/tier-pills.js"></script>
+<script defer src="src/tier-switcher.js"></script>
+<script defer src="src/google-translate.js"></script>
+<script defer src="src/floating-dictionary.js"></script>
+</body>
+</html>

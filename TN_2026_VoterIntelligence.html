@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content">
 <title>TN 2026 — Voter Intelligence Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
 <script>
 (function(){
@@ -52,7 +53,11 @@ body.light{
   --s2:0 2px 8px rgba(0,0,0,.1),0 12px 40px rgba(0,0,0,.06);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:80px}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:80px;scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.35) transparent}
+html::-webkit-scrollbar{width:8px;height:8px}
+html::-webkit-scrollbar-track{background:transparent}
+html::-webkit-scrollbar-thumb{background:rgba(200,146,42,.3);border-radius:8px}
+html::-webkit-scrollbar-thumb:hover{background:rgba(200,146,42,.5)}
 body{font-family:var(--sans);background:var(--bg0);color:var(--t1);line-height:1.6;overflow-x:hidden;transition:background var(--base),color var(--base)}
 a{color:var(--gold);text-decoration:none}
 a:hover{text-decoration:underline}
@@ -69,8 +74,8 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
 .lamp-icon{width:28px;height:36px;filter:drop-shadow(0 0 8px rgba(200,146,42,.4))}
 .wm-title{font-family:var(--serif);font-weight:700;font-size:1.2rem;color:var(--gold)}
 .wm-sub{display:block;font-size:.6rem;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-top:-2px}
-.nav-center{display:flex;align-items:center}
-.tab-switcher{display:flex;background:var(--bg3);border-radius:12px;padding:3px;gap:2px;position:relative}
+.nav-center{display:flex;align-items:center;flex-direction:column}
+.tab-switcher{display:flex;background:var(--bg3);border-radius:12px;padding:3px;gap:2px;position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tab-btn{padding:.5rem 1.2rem;border:none;background:none;font-family:var(--sans);
   font-size:.85rem;font-weight:500;color:var(--t2);cursor:pointer;border-radius:10px;
   transition:all var(--fast);white-space:nowrap;position:relative;z-index:1}
@@ -154,7 +159,9 @@ body.light .global-nav{background:rgba(245,245,250,.92)}
   text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--bdr2);background:var(--bg2)}
 .data-table td{padding:.6rem .75rem;border-bottom:1px solid var(--bdr);vertical-align:top}
 .data-table tr:hover td{background:var(--bg3)}
-.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);background:var(--bg2)}
+.table-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr);background:var(--bg2);scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.2) transparent}
+.table-wrap::-webkit-scrollbar{height:5px}
+.table-wrap::-webkit-scrollbar-thumb{background:rgba(200,146,42,.25);border-radius:5px}
 
 /* ═══ PARTY TAGS ═══ */
 .ptag{display:inline-block;padding:.1rem .45rem;border-radius:5px;font-size:.72rem;font-weight:600}
@@ -284,7 +291,9 @@ body.light .hero-search{background:#fff;border-color:rgba(0,0,0,.15)}
 .filter-results-count{font-size:.85rem;color:var(--t2);margin:1rem 0}
 
 /* ═══ FULL TABLE ═══ */
-.full-table-wrap{overflow-x:auto}
+.full-table-wrap{overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(200,146,42,.2) transparent}
+.full-table-wrap::-webkit-scrollbar{height:5px}
+.full-table-wrap::-webkit-scrollbar-thumb{background:rgba(200,146,42,.25);border-radius:5px}
 .full-table{width:100%;border-collapse:collapse;font-size:.8rem}
 .full-table th{padding:.55rem .6rem;text-align:left;font-size:.7rem;font-weight:600;
   text-transform:uppercase;letter-spacing:.05em;color:var(--t3);border-bottom:2px solid var(--bdr2);
@@ -403,12 +412,18 @@ body.light .site-footer{background:#e8e8f0}
   .filter-row{flex-direction:column}
   .filter-row label{min-width:auto}
   .charts-2col{grid-template-columns:1fr}
+  #m1-forecast .reveal{opacity:1;transform:none}
+  #m1-forecast .forecast-grid{opacity:1;transform:none}
 }
 /* ═══ TOOLTIPS ═══ */
 .tip{position:relative;border-bottom:1px dashed var(--gold);cursor:help;color:var(--gold)}
 .tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--bg3);color:var(--t1);font-size:12px;line-height:1.5;padding:8px 12px;border-radius:6px;border:1px solid var(--bdr2);white-space:normal;width:max-content;max-width:300px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:200;font-family:var(--sans);font-weight:400;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 .tip:hover::after{opacity:1}
 @media(max-width:768px){.tip::after{left:0;transform:none;max-width:240px}}
+
+/* ═══ SCROLL TO TOP ═══ */
+.scroll-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--bg0);border:none;cursor:pointer;font-size:20px;display:none;align-items:center;justify-content:center;z-index:90;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.scroll-top.show{display:flex}
 </style>
 </head>
 <body>
@@ -423,15 +438,24 @@ body.light .site-footer{background:#e8e8f0}
       <ellipse cx="14" cy="31" rx="7" ry="2.5" fill="#C8922A" opacity=".5"/>
     </svg>
     <div>
-      <span class="wm-title">TN 2026</span>
-      <span class="wm-sub">Voter Intelligence Platform</span>
+      <a href="index.html" class="wm-title" style="text-decoration:none">TN Launchpad</a>
+      <span class="wm-sub">Business & Election Intelligence</span>
     </div>
   </div>
   <div class="nav-center">
     <div class="tab-switcher">
-      <button class="tab-btn active" data-module="manifesto">📊 Manifesto Analysis</button>
-      <button class="tab-btn" data-module="candidates">🗳️ Know Your Candidate</button>
-      <button class="tab-btn" data-module="deepdive">📖 Deep Dive</button>
+      <button class="tab-btn" data-module="home">&#127968; Home</button>
+      <button class="tab-btn" data-module="bizguide">&#127970; Business</button>
+      <button class="tab-btn" data-module="heritage">&#127963; Heritage</button>
+      <button class="tab-btn active" data-module="elections" style="background:var(--gold);color:#000">&#128483;&#65039; Elections</button>
+      <button class="tab-btn" data-module="pathfinder">&#128161; Pathfinder</button>
+      <button class="tab-btn" data-module="civictech">&#128187; Civic Tech</button>
+      <button class="tab-btn" data-module="deepdive-page">&#128214; Deep Dive</button>
+    </div>
+    <div class="tab-switcher" style="margin-top:4px;gap:2px">
+      <button class="tab-btn sub-tab active" data-module="manifesto" style="font-size:12px;padding:4px 12px">📊 Manifesto</button>
+      <button class="tab-btn sub-tab" data-module="candidates" style="font-size:12px;padding:4px 12px">🗳️ Candidates</button>
+      <button class="tab-btn sub-tab" data-module="deepdive" style="font-size:12px;padding:4px 12px">📖 Deep Dive</button>
     </div>
   </div>
   <div class="nav-right">
@@ -599,7 +623,7 @@ body.light .site-footer{background:#e8e8f0}
     </div>
 
     <!-- Three scenario cards -->
-    <div class="forecast-grid reveal">
+    <div class="forecast-grid">
 
       <div class="fc-card fav">
         <div class="fc-head">
@@ -797,7 +821,7 @@ body.light .site-footer{background:#e8e8f0}
     <!-- Probability-weighted headline -->
     <div class="winner-card reveal" style="margin-top:1.5rem">
       <h3>🏆 Probability-weighted outcome</h3>
-      <p class="text-muted" style="font-size:.88rem;line-height:1.7">Combining the three scenarios above, weighted by their likelihood, the most probable outcome is a <strong style="color:var(--t1)">DMK-led alliance win with a thin majority — ~118 seats, ~39.5% vote share, ≈ 1.86 Cr votes</strong>. The range is wide enough that an ADMK+BJP upset, a hung house, or a TVK-driven surprise are all live tail-risks — see the six-scenario breakdown above.</p>
+      <p class="text-muted" style="font-size:.88rem;line-height:1.7">Combining the seven scenarios above, weighted by their likelihood, the most probable outcome is a <strong style="color:var(--t1)">DMK-led alliance win with a thin majority — ~118 seats, ~39.5% vote share, ≈ 1.86 Cr votes</strong>. The range is wide enough that an ADMK+BJP upset, a hung house, or a TVK-driven surprise are all live tail-risks — see the seven-scenario breakdown above.</p>
       <div class="win-bar-wrap">
         <div class="win-bar">
           <span style="background:#E53935;width:55%" title="DMK alliance wins majority">DMK+ wins · 55%</span>
@@ -945,7 +969,7 @@ body.light .site-footer{background:#e8e8f0}
 
     <!-- Final disclaimer -->
     <div class="disclaimer reveal" style="margin-top:1.5rem">
-      <strong>Read me last.</strong> This forecast is a <em>six-scenario model</em>, not a survey or an exit poll. Inputs: (1) 2021 ECI official results — alliance, vote share and seat counts by constituency; (2) ECI 2024-25 voter-roll updates; (3) TN turnout history 1991–2021; (4) TVK's verified position — 1.5 Cr membership (Dina Thanthi, Sep 2025), 234-seat solo contest confirmed 19 Mar 2026 (The Hindu), manifesto released 29 Mar 2026, Vijay contesting Perambur personally; (5) AIADMK–BJP alliance status confirmed live in April 2026 reporting (The Hindu); (6) verified DMK stress markers — Senthil Balaji ED arrest July 2023, TANGEDCO ₹1.25 L Cr debt, Anna University sexual-assault case July 2024, Sasikala's financial-morass critique Apr 2026; (7) the historical fact that first-term TN incumbents have been re-elected only twice since 1967 (MGR 1980, JJ 2016); (8) base-rate for first-time actor-parties (DMDK 2006: 8.4% / 0 seats; MNM 2021: 2.6% / 0 seats; MGR-founded ADMK 1977: won). Unverified claims — including any allegations of personal misconduct by leaders not corroborated by named newsroom reports — are <strong>deliberately excluded</strong>. <strong>Not an endorsement.</strong> Use it to pressure-test your own reading of the ground.
+      <strong>Read me last.</strong> This forecast is a <em>seven-scenario model</em>, not a survey or an exit poll. Inputs: (1) 2021 ECI official results — alliance, vote share and seat counts by constituency; (2) ECI 2024-25 voter-roll updates; (3) TN turnout history 1991–2021; (4) TVK's verified position — 1.5 Cr membership (Dina Thanthi, Sep 2025), 234-seat solo contest confirmed 19 Mar 2026 (The Hindu), manifesto released 29 Mar 2026, Vijay contesting Perambur personally; (5) AIADMK–BJP alliance status confirmed live in April 2026 reporting (The Hindu); (6) verified DMK stress markers — Senthil Balaji ED arrest July 2023, TANGEDCO ₹1.25 L Cr debt, Anna University sexual-assault case July 2024, Sasikala's financial-morass critique Apr 2026; (7) the historical fact that first-term TN incumbents have been re-elected only twice since 1967 (MGR 1980, JJ 2016); (8) base-rate for first-time actor-parties (DMDK 2006: 8.4% / 0 seats; MNM 2021: 2.6% / 0 seats; MGR-founded ADMK 1977: won). Unverified claims — including any allegations of personal misconduct by leaders not corroborated by named newsroom reports — are <strong>deliberately excluded</strong>. <strong>Not an endorsement.</strong> Use it to pressure-test your own reading of the ground.
     </div>
 
   </div>
@@ -1118,7 +1142,7 @@ body.light .site-footer{background:#e8e8f0}
   <div class="footer-disclaimer">
     This platform is a non-partisan citizen research tool. All data is from public domain sources. For Module 2, all candidate information is sourced from self-declared affidavits filed with the ECI — we neither add nor subtract any information. For authoritative data, always refer to <a href="https://affidavit.eci.gov.in" target="_blank" rel="noopener">affidavit.eci.gov.in</a>. This page has no affiliation with any political party or the ECI.
     <br>Sharing encouraged · Open Source · MIT License
-    <p style="margin-top:12px;color:var(--t3);font-size:13px">Made with <span style="color:#E74C3C">❤</span> by Karthi — <a href="mailto:karthik.kumar.m@outlook.com" style="color:var(--gold);text-decoration:none">karthik.kumar.m@outlook.com</a> | Robosynaptix - 9884668780</p>
+    <p style="margin-top:12px;color:#6A667E;font-size:12px;text-align:center">Made with <span style="color:#E74C3C">❤</span> by Karthi — Robosynaptix</p>
   </div>
 </footer>
 
@@ -1347,8 +1371,15 @@ function toggleTheme() {
    MODULE SWITCHING
    ═══════════════════════════════════════════════════════════ */
 function switchModule(mod) {
-  if (mod === 'deepdive') { window.location.href = 'TN_2026_DeepDive.html'; return; }
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.module === mod));
+  if (mod === 'home') { window.location.href = 'index.html'; return; }
+  if (mod === 'bizguide') { window.location.href = 'TN_2026_BusinessGuide.html'; return; }
+  if (mod === 'heritage') { window.location.href = 'TN_Heritage.html'; return; }
+  if (mod === 'elections') { return; /* already here */ }
+  if (mod === 'deepdive') { window.location.href = 'TN_2026_DeepDive_v2.html'; return; }
+  if (mod === 'pathfinder') { window.location.href = 'TN_2026_Pathfinder.html'; return; }
+  if (mod === 'civictech') { window.location.href = 'TN_2026_CivicTech.html'; return; }
+  if (mod === 'deepdive-page') { window.location.href = 'TN_2026_DeepDive_v2.html'; return; }
+  document.querySelectorAll('.sub-tab').forEach(b => b.classList.toggle('active', b.dataset.module === mod));
   document.querySelectorAll('.module').forEach(m => m.classList.toggle('active', m.id === 'module-' + mod));
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
@@ -1361,7 +1392,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
    ═══════════════════════════════════════════════════════════ */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }});
-}, { threshold: 0.1 });
+}, { threshold: 0.05 });
 function initReveal() { document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el)); }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1927,6 +1958,11 @@ function init() {
   loadCandidateData();
   initReveal();
   initTooltips();
+  /* Attach element-level tier pills to manifesto sections */
+  attachManifestoPills();
+  /* Check if landing page requested a specific sub-tab */
+  var startTab = sessionStorage.getItem('startTab');
+  if(startTab){ sessionStorage.removeItem('startTab'); switchModule(startTab); }
 }
 
 const GLOSSARY_TIPS={
@@ -1974,6 +2010,178 @@ function initTooltips(){
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* ═══════════════════════════════════════════════════════════
+   TIER-AWARE CONTENT — element-level pill rendering
+   ═══════════════════════════════════════════════════════════ */
+var viTier = (window.AudienceTiers && AudienceTiers.current) ? AudienceTiers.current() : 'V';
+
+function buildScorecardHtml(tier) {
+  if (tier === 'K') {
+    return PARTY_ORDER.map(function(k) {
+      var p = PARTIES_DATA[k];
+      var grade = p.avgRating >= 3.5 ? 'A' : p.avgRating >= 3.0 ? 'B' : p.avgRating >= 2.5 ? 'C' : 'D';
+      var emoji = grade === 'A' ? '\ud83c\udf1f' : grade === 'B' ? '\ud83d\udc4d' : grade === 'C' ? '\ud83e\udd14' : '\ud83d\udc4e';
+      var money = p.fiscalRisk === 'sustainable' ? '\u2705 Can afford their promises' : '\u274c Promising more than TN can pay for';
+      return '<div class="party-card ' + k.toLowerCase() + ' reveal visible" style="padding:1.5rem">' +
+        '<h3 style="font-size:1.4rem">' + p.emoji + ' ' + p.name + '</h3>' +
+        '<div style="font-size:2.5rem;text-align:center;margin:12px 0">' + emoji + ' Grade: ' + grade + '</div>' +
+        '<p style="color:var(--t2);line-height:1.7;font-size:14px">' +
+        'This party made <strong>' + p.schemesRated + ' promises</strong>. ' +
+        'Our experts gave them <strong>' + p.avgRating + ' out of 5 stars</strong>. ' +
+        p.fiveStar + ' promises were excellent (\u2b50\u2b50\u2b50\u2b50\u2b50) and ' + p.oneStar + ' were really bad (\u2b50).</p>' +
+        '<p style="margin-top:8px;font-size:14px;color:var(--t2)">' + money + '</p>' +
+        '</div>';
+    }).join('');
+  }
+  if (tier === 'T') {
+    return PARTY_ORDER.map(function(k) {
+      var p = PARTIES_DATA[k];
+      var riskClass = p.fiscalRisk === 'sustainable' ? 'risk-sustainable' : p.fiscalRisk === 'severe' ? 'risk-severe' : 'risk-critical';
+      return '<div class="party-card ' + k.toLowerCase() + ' reveal visible">' +
+        '<h3>' + p.emoji + ' ' + p.name + '</h3>' +
+        '<div class="pc-row"><span class="pc-label">Rating</span><span class="pc-val">' + p.avgRating + ' \u2605 / 5</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Good Schemes</span><span class="pc-val">' + p.fiveStar + ' excellent, ' + p.oneStar + ' terrible</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Cost/Year</span><span class="pc-val">' + p.annualBurden + ' Cr</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Can TN Afford It?</span><span class="pc-val"><span class="risk-badge ' + riskClass + '">' + p.fiscalLabel + '</span></span></div>' +
+        '<div class="verdict-box"><strong>' + p.tagline + '</strong></div>' +
+        '</div>';
+    }).join('');
+  }
+  if (tier === 'W') {
+    return PARTY_ORDER.map(function(k) {
+      var p = PARTIES_DATA[k];
+      var riskClass = p.fiscalRisk === 'sustainable' ? 'risk-sustainable' : p.fiscalRisk === 'severe' ? 'risk-severe' : 'risk-critical';
+      return '<div class="party-card ' + k.toLowerCase() + ' reveal visible">' +
+        '<h3>' + p.emoji + ' ' + p.name + ' <span style="font-size:12px;color:var(--t3)">(' + p.fullName + ')</span></h3>' +
+        '<div class="pc-row"><span class="pc-label">Avg Rating (n=' + p.schemesRated + ')</span><span class="pc-val">' + p.avgRating + ' \u2605</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Scheme Quality / Fiscal Discipline</span><span class="pc-val">' + p.schemeQuality + ' / ' + p.fiscalDiscipline + '</span></div>' +
+        '<div class="pc-row"><span class="pc-label">INCLUDE / CONDITIONAL / EXCLUDE</span><span class="pc-val">' + p.include + ' / ' + (p.conditional||0) + ' / ' + p.exclude + '</span></div>' +
+        '<div class="pc-row"><span class="pc-label">\u2605\u2605\u2605\u2605\u2605 / \u2605\u2606\u2606\u2606\u2606</span><span class="pc-val">' + p.fiveStar + ' / ' + p.oneStar + '</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Annual Burden</span><span class="pc-val">' + p.annualBurden + ' Cr (' + p.pctRevenue + ' of own tax revenue)</span></div>' +
+        '<div class="pc-row"><span class="pc-label">One-time Outlay</span><span class="pc-val">' + p.oneTime + ' (' + p.pctBudget + ' of annual budget)</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Debt Trajectory</span><span class="pc-val">\u20b9' + p.debtStart + 'L \u2192 \u20b9' + p.debtEnd + 'L Cr (' + p.debtPct + ')</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Capex Impact</span><span class="pc-val" style="color:' + p.capexColor + '">\u20b9' + p.capex + ' Cr</span></div>' +
+        '<div class="pc-row"><span class="pc-label">FRBM Breach</span><span class="pc-val" style="color:' + p.frbmColor + '">' + p.frbm + '</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Fiscal Risk</span><span class="pc-val"><span class="risk-badge ' + riskClass + '">' + p.fiscalLabel + '</span></span></div>' +
+        '<div class="pc-row"><span class="pc-label">Stress Rating</span><span class="pc-val">' + p.stressRating + ' \u2014 ' + p.stressNote + '</span></div>' +
+        '<div class="verdict-box"><strong>' + p.tagline + '</strong><br>' + p.verdict + '</div>' +
+        '</div>';
+    }).join('');
+  }
+  if (tier === 'E') {
+    return PARTY_ORDER.map(function(k) {
+      var p = PARTIES_DATA[k];
+      var riskClass = p.fiscalRisk === 'sustainable' ? 'risk-sustainable' : p.fiscalRisk === 'severe' ? 'risk-severe' : 'risk-critical';
+      var revShare = p.pctRevenue.replace('~','');
+      return '<div class="party-card ' + k.toLowerCase() + ' reveal visible">' +
+        '<h3>' + p.emoji + ' ' + p.name + '</h3>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:13px;margin:8px 0">' +
+        '<div class="pc-row"><span class="pc-label">Recurring Burden</span><span class="pc-val" style="font-family:var(--mono)">' + p.annualBurden + ' Cr/yr</span></div>' +
+        '<div class="pc-row"><span class="pc-label">% Own Tax Revenue</span><span class="pc-val" style="font-family:var(--mono)">' + revShare + '</span></div>' +
+        '<div class="pc-row"><span class="pc-label">One-time Capital</span><span class="pc-val" style="font-family:var(--mono)">' + p.oneTime + '</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Debt \u0394</span><span class="pc-val" style="font-family:var(--mono)">\u20b9' + p.debtStart + 'L\u2192' + p.debtEnd + 'L (' + p.debtPct + ')</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Capex Crowding</span><span class="pc-val" style="font-family:var(--mono);color:' + p.capexColor + '">\u20b9' + p.capex + ' Cr</span></div>' +
+        '<div class="pc-row"><span class="pc-label">FRBM Breach Point</span><span class="pc-val" style="font-family:var(--mono);color:' + p.frbmColor + '">' + p.frbm + '</span></div>' +
+        '</div>' +
+        '<div class="pc-row"><span class="pc-label">Quality (n=' + p.schemesRated + ')</span><span class="pc-val">\u03bc=' + p.avgRating + '\u2605 | \u2605\u2605\u2605\u2605\u2605:' + p.fiveStar + ' | \u2605:' + p.oneStar + ' | Honesty:' + p.honestyScore + '/10</span></div>' +
+        '<div class="pc-row"><span class="pc-label">Fiscal Risk</span><span class="pc-val"><span class="risk-badge ' + riskClass + '">' + p.fiscalLabel + '</span> Stress: ' + p.stressRating + '</span></div>' +
+        '<div class="verdict-box" style="font-size:12px"><strong>' + p.tagline + '</strong><br>' + p.verdict + '</div>' +
+        '</div>';
+    }).join('');
+  }
+  /* V — default (current view) */
+  return PARTY_ORDER.map(function(k) {
+    var p = PARTIES_DATA[k];
+    var riskClass = p.fiscalRisk === 'sustainable' ? 'risk-sustainable' : p.fiscalRisk === 'severe' ? 'risk-severe' : 'risk-critical';
+    return '<div class="party-card ' + k.toLowerCase() + ' reveal visible">' +
+      '<h3>' + p.emoji + ' ' + p.name + '</h3>' +
+      '<div class="pc-row"><span class="pc-label">Avg Rating</span><span class="pc-val">' + p.avgRating + ' \u2605</span></div>' +
+      '<div class="pc-row"><span class="pc-label">Scheme Quality</span><span class="pc-val">' + p.schemeQuality + '</span></div>' +
+      '<div class="pc-row"><span class="pc-label">Fiscal Discipline</span><span class="pc-val">' + p.fiscalDiscipline + '</span></div>' +
+      '<div class="pc-row"><span class="pc-label">INCLUDE</span><span class="pc-val">' + p.include + ' (' + Math.round(p.include/p.schemesRated*100) + '%)</span></div>' +
+      '<div class="pc-row"><span class="pc-label">EXCLUDE</span><span class="pc-val">' + p.exclude + ' (' + Math.round(p.exclude/p.schemesRated*100) + '%)</span></div>' +
+      '<div class="pc-row"><span class="pc-label">\u2605\u2605\u2605\u2605\u2605 / \u2605\u2606\u2606\u2606\u2606</span><span class="pc-val">' + p.fiveStar + ' / ' + p.oneStar + '</span></div>' +
+      '<div class="pc-row"><span class="pc-label">Annual Burden</span><span class="pc-val">' + p.annualBurden + ' Cr</span></div>' +
+      '<div class="pc-row"><span class="pc-label">% Tax Revenue</span><span class="pc-val">' + p.pctRevenue + '</span></div>' +
+      '<div class="pc-row"><span class="pc-label">FRBM Breach</span><span class="pc-val" style="color:' + p.frbmColor + '">' + p.frbm + '</span></div>' +
+      '<div class="pc-row"><span class="pc-label">Fiscal Risk</span><span class="pc-val"><span class="risk-badge ' + riskClass + '">' + p.fiscalLabel + '</span></span></div>' +
+      '<div class="verdict-box"><strong>' + p.tagline + '</strong><br>' + p.verdict + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function buildRecommendationHtml(tier) {
+  if (tier === 'K') {
+    return '<div style="padding:1rem;line-height:1.8;font-size:15px;color:var(--t2)">' +
+      '<p>\ud83c\udfc6 <strong>Which party has the best plan?</strong></p>' +
+      '<p style="margin-top:8px">Imagine Tamil Nadu is a family with \u20b92 lakh to spend each month. Some parties are promising to spend \u20b980,000 on new things \u2014 that\u2019s almost half the salary! Only <strong>NTK</strong> made promises the family can actually afford.</p>' +
+      '<p style="margin-top:8px">\ud83d\udfe2 <strong>NTK</strong> = Best budget management (spends only 15-19% of income on new promises)</p>' +
+      '<p>\ud83d\udfe0 <strong>DMK</strong> = Best individual ideas (8 excellent ones!) but too expensive overall</p>' +
+      '<p>\ud83d\udfe3 <strong>TVK</strong> = Some creative ideas but impossible promises mixed in</p>' +
+      '<p>\ud83d\udd35 <strong>ADMK</strong> = Most promises, least math \u2014 wants to give free fridges costing \u20b935,000 Cr!</p>' +
+      '<p style="margin-top:12px">\ud83d\udca1 <strong>Lesson:</strong> The best promises mean nothing if you can\u2019t pay for them!</p></div>';
+  }
+  if (tier === 'T') {
+    return '<div style="padding:1rem;line-height:1.7;font-size:14px;color:var(--t2)">' +
+      '<p><strong>TL;DR of our analysis:</strong></p>' +
+      '<p style="margin-top:8px">TN earns about \u20b92.05 lakh Cr/year in own tax revenue. Here\u2019s what each party wants to spend:</p>' +
+      '<ul style="margin:8px 0 8px 20px">' +
+      '<li><strong>NTK</strong> (\u20b931-40K Cr/yr = 15-19%) \u2014 Only party within budget. Strong on environment + water. Weakness: zero governance experience.</li>' +
+      '<li><strong>DMK</strong> (\u20b984K Cr/yr = 41%) \u2014 Best quality schemes but 2x too expensive. Has 8 five-star schemes. Would bust state finances by Year 2-3.</li>' +
+      '<li><strong>TVK</strong> (\u20b91.11L Cr/yr = 54%) \u2014 Some innovative ideas (anti-corruption, 21-day approvals) buried under impossible \u20b91.5L Cr loan waiver. Bankrupt on Day 1.</li>' +
+      '<li><strong>ADMK</strong> (\u20b91.08L Cr/yr = 53-72%) \u2014 \u20b935K Cr free fridges + \u20b940K Cr prohibition revenue loss. Zero five-star schemes. Bankrupt on Day 1.</li>' +
+      '</ul>' +
+      '<p><strong>Bottom line:</strong> NTK is the only fiscally responsible manifesto. DMK has the best individual ideas but can\u2019t afford them all. ADMK and TVK are mathematically insolvent.</p></div>';
+  }
+  if (tier === 'W' || tier === 'E') {
+    return '<div style="padding:1rem;line-height:1.7;font-size:14px;color:var(--t2)">' +
+      '<p><strong>The central finding of this analysis is stark:</strong> only one of four parties \u2014 NTK \u2014 has produced a manifesto that fits within Tamil Nadu\u2019s fiscal reality. At 15\u201319% of own tax revenue with \u20b926,400 Cr capex remaining, NTK is the only party whose full manifesto implementation doesn\u2019t breach FRBM limits or crowd out infrastructure investment.</p>' +
+      '<p style="margin-top:1rem">DMK fields the highest-quality individual schemes (3.60\u2605 average, 8 five-star) and the deepest institutional understanding \u2014 but promising ~\u20b984,000 Cr/yr (41% of own tax revenue) is the fiscal equivalent of a household earning \u20b92L/month committing to \u20b982,000/month in new EMIs. ADMK and TVK are worse: \u20b91.08L and \u20b91.11L Cr/yr respectively \u2014 mathematically insolvent on Day 1.</p>' +
+      '<p style="margin-top:1rem"><strong>The ideal manifesto</strong> cherry-picks 17 schemes across all parties: 9 from DMK (quality), 6 from NTK (fiscal + ecology), 1 from TVK (governance), 1 from ADMK (housing) \u2014 total ~\u20b928,500\u201331,000 Cr/yr, comfortably within FRBM. This proves Tamil Nadu doesn\u2019t lack good policy ideas \u2014 it lacks a single party willing to exercise fiscal discipline while implementing them.</p>' +
+      '<p style="margin-top:1rem"><strong>Structural reforms that cost \u20b90:</strong> DMK\u2019s federal demands (50% divisible pool, education to State List) could unlock \u20b918\u201320,000 Cr/yr \u2014 more than most welfare schemes combined. Anti-delimitation stance is unanimous but only DMK+NTK have credible institutional mechanisms to pursue it.</p></div>';
+  }
+  /* V — default */
+  return '<div style="padding:1rem;line-height:1.7;font-size:14px;color:var(--t2)">' +
+    '<p><strong>The central finding of this analysis is stark:</strong> only one of four parties \u2014 NTK \u2014 has produced a manifesto that fits within Tamil Nadu\u2019s fiscal reality. At 15\u201319% of own tax revenue with \u20b926,400 Cr capex remaining, NTK is the only party whose full manifesto implementation doesn\u2019t breach FRBM limits or crowd out infrastructure investment.</p>' +
+    '<p style="margin-top:1rem">DMK fields the highest-quality individual schemes (3.60\u2605 average, 8 five-star) and the deepest institutional understanding \u2014 but promising ~\u20b984,000 Cr/yr (41% of own tax revenue) is the fiscal equivalent of a household earning \u20b92L/month committing to \u20b982,000/month in new EMIs. ADMK and TVK are worse: \u20b91.08L and \u20b91.11L Cr/yr respectively \u2014 mathematically insolvent on Day 1.</p></div>';
+}
+
+/* Attach TierPills to key manifesto sections after init */
+function attachManifestoPills() {
+  if (!window.TierPills) return;
+
+  /* Scorecards */
+  var scGrid = document.getElementById('scorecard-grid');
+  if (scGrid) {
+    scGrid.innerHTML = '';
+    TierPills.attach(scGrid, buildScorecardHtml);
+  }
+
+  /* Recommendation */
+  var recEl = document.getElementById('voter-recommendation');
+  if (recEl) {
+    recEl.innerHTML = '';
+    TierPills.attach(recEl, buildRecommendationHtml);
+  }
+}
+
+/* Tier change listener */
+document.addEventListener('tn26:tier-change', function(e) {
+  if (e.detail && e.detail.tier) { viTier = e.detail.tier; }
+});
+
 </script>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('scrollTop');
+  if(btn) window.addEventListener('scroll', function(){ btn.classList.toggle('show', window.scrollY > 400); }, {passive:true});
+})();
+</script>
+<script defer src="src/tier-pills.js"></script>
+<script defer src="src/tier-switcher.js"></script>
+<script defer src="src/google-translate.js"></script>
+<script defer src="src/floating-dictionary.js"></script>
 </body>
 </html>
