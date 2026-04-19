@@ -1,10 +1,10 @@
 {
-  "version": "mo679wxt",
-  "salt": "2b0329b2a3f976a83faf9e71792748c2",
+  "version": "mo67wyi7",
+  "salt": "26e10ce49384e0dfe002f7933c004c44",
   "chunks": {
     "candidates": {
-      "url": "chunks/candidates.36824954701e.enc",
-      "sha256": "36824954701e62d44fde52daebf88f61a6827c545690ee1274513dcd69a87f70",
+      "url": "chunks/candidates.60e80bcf93ef.enc",
+      "sha256": "60e80bcf93ef505b049315b348d1a94642244853b9de2b39d45528345b796a26",
       "size": 8787935,
       "enc": true
     }

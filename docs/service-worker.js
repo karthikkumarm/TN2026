@@ -7,7 +7,7 @@
  *   - Same-origin only
  * ============================================================ */
 
-const CACHE_NAME = 'tn26-mo679wxt';
+const CACHE_NAME = 'tn26-mo67wyi7';
 const CHUNK_PREFIX = '/chunks/';
 
 self.addEventListener('install', (e) => { self.skipWaiting(); });
